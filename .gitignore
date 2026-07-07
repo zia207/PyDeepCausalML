@@ -1,0 +1,36 @@
+# Build artifacts
+build/
+dist/
+*.egg-info/
+*.whl
+*.zip
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg
+
+# Environments
+.env
+.venv/
+venv/
+env/
+
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+*.swp
+.~lock.*
+*#
+
+# Reference / third-party model repos (large vendored trees)
+Python_models/
+
+# Jupyter
+.ipynb_checkpoints/

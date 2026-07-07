@@ -1,0 +1,75 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pydeepcausalml"
+version = "0.2.0"
+description = "Deep learning models for causal effect estimation, causal discovery, and temporal causal inference in PyTorch"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+    { name = "Zia U. Ahmed", email = "zia.ahmed@example.com" },
+]
+keywords = [
+    "causal-inference",
+    "causal-discovery",
+    "deep-learning",
+    "pytorch",
+    "granger-causality",
+    "treatment-effects",
+    "counterfactual",
+    "time-series",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy>=1.23",
+    "pandas>=1.5",
+    "scipy>=1.9",
+    "torch>=2.0",
+    "scikit-learn>=1.2",
+    "networkx>=3.0",
+]
+
+[project.optional-dependencies]
+plot = ["matplotlib>=3.6", "seaborn>=0.12"]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.4",
+    "mypy>=1.8",
+    "matplotlib>=3.6",
+    "seaborn>=0.12",
+]
+
+[project.urls]
+Homepage = "https://github.com/zia207/PyDeepCausalML"
+Repository = "https://github.com/zia207/PyDeepCausalML"
+Issues = "https://github.com/zia207/PyDeepCausalML/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::UserWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]
