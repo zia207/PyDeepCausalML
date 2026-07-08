@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>deepcausalml_notears – PyDeepCausalML</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Tutorial/02_08_05_05_03_02_DeepCausalML_DagGNN.html" rel="next">
+<link href="../Tutorial/02_08_05_05_03_00_DeepCausalML_structural_learning_introduction.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-bf6de5ccb156a65fc439966d4053cafd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-c3ddef8e9936373b1ee063945a43a984.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-bf6de5ccb156a65fc439966d4053cafd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">PyDeepCausalML</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Tutorial/02_08_05_05_00_DeepCausalML_introduction.html"> 
+<span class="menu-text">Tutorial</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Tutorial/00-scientific-terminology-glossary.html"> 
+<span class="menu-text">Glossary</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://sites.google.com/view/r-data-sci-env/home"> <i class="bi bi-house" role="img" aria-label="Upatta Analytics">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://pypi.org/project/pydeepcausalml/"> <i class="bi bi-box" role="img" aria-label="PyPI">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/zia207/PyDeepCausalML/"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/zia-ahmed207"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:zia207@gmail.com"> <i class="bi bi-envelope" role="img" aria-label="Email">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Tutorial/02_08_05_05_00_DeepCausalML_introduction.html"><strong>Deep Causal Learning</strong></a></li><li class="breadcrumb-item"><a href="../Tutorial/02_08_05_05_03_00_DeepCausalML_structural_learning_introduction.html"><strong>Causal Structural Learning</strong></a></li><li class="breadcrumb-item"><a href="../Tutorial/02_08_05_05_03_01_DeepCausalML_NOTEARS.html">NOTEARS: Continuous Optimization Models</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Tutorial/02_08_05_05_00_DeepCausalML_introduction.html"><strong>Deep Causal Learning</strong></a></li><li class="breadcrumb-item"><a href="../Tutorial/02_08_05_05_03_00_DeepCausalML_structural_learning_introduction.html"><strong>Causal Structural Learning</strong></a></li><li class="breadcrumb-item"><a href="../Tutorial/02_08_05_05_03_01_DeepCausalML_NOTEARS.html">NOTEARS: Continuous Optimization Models</a></li></ol></nav></header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../logo_DeepCausalML.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../logo_DeepCausalML.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Package Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Deep Causal Learning</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_00_DeepCausalML_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Deep Causal Learning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text"><strong>Treatment Effect Estimators</strong></span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_01_00_DeepCausalML_treatment_effect_estimators_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Treatment Effect Estimators</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_01_01_DeepCausalML_TARNET.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TARNet: Treatment-Agnostic Representation Network</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_01_02_DeepCausalML_CFRNet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CFRNet: Counterfactual Regression Network</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_01_03_DeepCausalML_DragonNet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DragonNet: Propensity-Adjusted Networks for Causal Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_01_04_DeepCausalML_GANITE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GANITE: Generative Adversarial Network for Inference of Treatment Effects</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_01_05_DeepCausalML_NeuralDML.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NeuralDML: Neural Double Machine Learning for the ATE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text"><strong>Generative Latent-Variable Causal Models (GLVCMs)</strong></span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_02_00_DeepCausalML_GLVCM_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to GLVCMs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_02_01_DeepCausalML_CausalVAE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CausalVAE: Causal Variational Autoencoder</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_02_02_DeepCausalML_iVAE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">iVAE: Identifiable Variational Autoencoders</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_02_03_DeepCausalML_CausalDiscrepancyVAE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CausalDiscrepancyVAE: Discrepancy-Regularized Causal Representation Learning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_02_04_DeepCausalML_CausalGAN.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CausalGAN: Causal Generative Network</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_02_05_DeepCausalML_DSCM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deep Structural Causal Models (DSCMs)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_02_06_DeepCausalML_CausalEGM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CausalEGM: Causal Encoding Generative Modeling</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Causal Structural Learning</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_03_00_DeepCausalML_structural_learning_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Causal Structural Learning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_03_01_DeepCausalML_NOTEARS.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">NOTEARS: Continuous Optimization Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_03_02_DeepCausalML_DagGNN.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DAG-GNN: DAG Structure Learning with Graph Neural Networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_03_03_DeepCausalML_GranDag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GraN-DAG: Gradient-Based Neural DAG Learning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_03_04_DeepCausalML_DAGMA_NoCurl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DAGMA and DAG-NoCurl for Causal Discovery</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_03_05_DeepCausalML_CASTLE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CASTLE: CAusal STructure LEarning Regularization</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text"><strong>Temporal Deep Causal ML</strong></span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_04_00_DeepCausalML_timeseries_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Temporal Deep Causal ML</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_04_01_DeepCausalML_timeseries_neural_granger_causality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Neural Granger Causality Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_04_02_DeepCausalML_timeseries_structural_causal_model_SMC.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Structural Causal Models (SCMs) with Deep Components</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_04_03_DeepCausalML_attention_transformer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Attention-Based / Transformer Causal Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_04_04_DeepCausalML_timeseries_RNN_LSTM_causalML.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RNN/LSTM-Based Causal Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_04_05_DeepCausalML_timeseries_graphNN.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Graph Neural Network (GNN) Causal Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_04_06_DeepCausalML_timeseries_counterfactual_potential.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Counterfactual / Potential Outcomes Models</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text"><strong>Terminology</strong></span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/00-scientific-terminology-glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A complete A–Z reference for causal inference and machine learning terminology</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On This Page</h2>
+   
+  <ul>
+  <li><a href="#continuous-optimization-models-notears" id="toc-continuous-optimization-models-notears" class="nav-link active" data-scroll-target="#continuous-optimization-models-notears">3.1 Continuous Optimization Models (NOTEARS)</a>
+  <ul>
+  <li><a href="#notears-with-pydeepcausalml" id="toc-notears-with-pydeepcausalml" class="nav-link" data-scroll-target="#notears-with-pydeepcausalml">NOTEARS with PyDeepCausalML</a>
+  <ul class="collapse">
+  <li><a href="#main-classes" id="toc-main-classes" class="nav-link" data-scroll-target="#main-classes">Main Classes</a></li>
+  <li><a href="#simulation-and-evaluation-utilities" id="toc-simulation-and-evaluation-utilities" class="nav-link" data-scroll-target="#simulation-and-evaluation-utilities">Simulation and Evaluation Utilities</a></li>
+  </ul></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a>
+  <ul class="collapse">
+  <li><a href="#check-and-install-required-python-packages" id="toc-check-and-install-required-python-packages" class="nav-link" data-scroll-target="#check-and-install-required-python-packages">Check and Install Required Python Packages</a></li>
+  <li><a href="#verify-imports" id="toc-verify-imports" class="nav-link" data-scroll-target="#verify-imports">Verify imports</a></li>
+  <li><a href="#simulation-utilities" id="toc-simulation-utilities" class="nav-link" data-scroll-target="#simulation-utilities">Simulation utilities</a></li>
+  </ul></li>
+  <li><a href="#part-i-linear-notears-on-synthetic-gaussian-data" id="toc-part-i-linear-notears-on-synthetic-gaussian-data" class="nav-link" data-scroll-target="#part-i-linear-notears-on-synthetic-gaussian-data">Part I: Linear NOTEARS on Synthetic Gaussian Data</a>
+  <ul class="collapse">
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#data-generation-and-preprocessing" id="toc-data-generation-and-preprocessing" class="nav-link" data-scroll-target="#data-generation-and-preprocessing">Data Generation and Preprocessing</a></li>
+  <li><a href="#fitting-linear-notears" id="toc-fitting-linear-notears" class="nav-link" data-scroll-target="#fitting-linear-notears">Fitting Linear NOTEARS</a></li>
+  <li><a href="#causal-effect-estimation-via-backdoor-adjustment" id="toc-causal-effect-estimation-via-backdoor-adjustment" class="nav-link" data-scroll-target="#causal-effect-estimation-via-backdoor-adjustment">Causal Effect Estimation via Backdoor Adjustment</a></li>
+  <li><a href="#graph-recovery-metrics" id="toc-graph-recovery-metrics" class="nav-link" data-scroll-target="#graph-recovery-metrics">Graph Recovery Metrics</a></li>
+  <li><a href="#visualization" id="toc-visualization" class="nav-link" data-scroll-target="#visualization">Visualization</a>
+  <ul class="collapse">
+  <li><a href="#weighted-adjacency-matrix" id="toc-weighted-adjacency-matrix" class="nav-link" data-scroll-target="#weighted-adjacency-matrix">Weighted Adjacency Matrix</a></li>
+  <li><a href="#learned-causal-dag" id="toc-learned-causal-dag" class="nav-link" data-scroll-target="#learned-causal-dag">Learned Causal DAG</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#part-ii-nonlinear-notears-mlp-and-sobolev-vs.-misspecified-baseline" id="toc-part-ii-nonlinear-notears-mlp-and-sobolev-vs.-misspecified-baseline" class="nav-link" data-scroll-target="#part-ii-nonlinear-notears-mlp-and-sobolev-vs.-misspecified-baseline">Part II: Nonlinear NOTEARS (MLP and Sobolev) vs.&nbsp;Misspecified Baseline</a>
+  <ul class="collapse">
+  <li><a href="#overview-1" id="toc-overview-1" class="nav-link" data-scroll-target="#overview-1">Overview</a></li>
+  <li><a href="#model-1-linear-notears-misspecified-baseline" id="toc-model-1-linear-notears-misspecified-baseline" class="nav-link" data-scroll-target="#model-1-linear-notears-misspecified-baseline">Model 1: Linear NOTEARS (Misspecified Baseline)</a></li>
+  <li><a href="#model-2-notearsnonlinearmlp" id="toc-model-2-notearsnonlinearmlp" class="nav-link" data-scroll-target="#model-2-notearsnonlinearmlp">Model 2: NOTEARSNonlinearMLP</a></li>
+  <li><a href="#model-3-notearsnonlinearsobolev" id="toc-model-3-notearsnonlinearsobolev" class="nav-link" data-scroll-target="#model-3-notearsnonlinearsobolev">Model 3: NOTEARSNonlinearSobolev</a></li>
+  <li><a href="#model-comparison" id="toc-model-comparison" class="nav-link" data-scroll-target="#model-comparison">Model Comparison</a></li>
+  <li><a href="#ate-estimation-on-the-nonlinear-sem" id="toc-ate-estimation-on-the-nonlinear-sem" class="nav-link" data-scroll-target="#ate-estimation-on-the-nonlinear-sem">ATE Estimation on the Nonlinear SEM</a></li>
+  <li><a href="#visualization-adjacency-matrix-heatmaps" id="toc-visualization-adjacency-matrix-heatmaps" class="nav-link" data-scroll-target="#visualization-adjacency-matrix-heatmaps">Visualization — Adjacency Matrix Heatmaps</a></li>
+  <li><a href="#visualization-learned-dags" id="toc-visualization-learned-dags" class="nav-link" data-scroll-target="#visualization-learned-dags">Visualization — Learned DAGs</a></li>
+  <li><a href="#interpretation" id="toc-interpretation" class="nav-link" data-scroll-target="#interpretation">Interpretation</a></li>
+  </ul></li>
+  <li><a href="#summary-and-conclusion" id="toc-summary-and-conclusion" class="nav-link" data-scroll-target="#summary-and-conclusion">Summary and Conclusion</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../Image/03_DeepCuaslaML.png" class="img-fluid figure-img"></p>
+<figcaption>Banner</figcaption>
+</figure>
+</div>
+<section id="continuous-optimization-models-notears" class="level1">
+<h1>3.1 Continuous Optimization Models (NOTEARS)</h1>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> NOTEARS requires <strong>PyTorch</strong>. The <code>NOTEARSLinear</code>, <code>NOTEARSNonlinearMLP</code>, and <code>NOTEARSNonlinearSobolev</code> estimators in <code>pydeepcausalml.discovery</code> learn DAG structure via a smooth acyclicity constraint.</p>
+</blockquote>
+<p><strong>NOTEARS</strong> (“DAGs with NO TEARS”, Zheng et al., NeurIPS 2018) introduced a landmark reformulation of causal structure learning: instead of exhaustively searching the combinatorial space of <span class="math inline">\(2^{O(d^2)}\)</span> possible directed acyclic graphs (an approach that becomes intractable for more than roughly ten variables), it recasts the problem as a <strong>smooth, gradient-based optimization</strong> over a real-valued weighted adjacency matrix <span class="math inline">\(\mathbf{W} \in \mathbb{R}^{d \times d}\)</span>.</p>
+<p>Under the <strong>linear Structural Equation Model (SEM)</strong> assumption</p>
+<p><span class="math display">\[\mathbf{X} = \mathbf{X}\mathbf{W} + \mathbf{Z},\]</span></p>
+<p>where <span class="math inline">\(\mathbf{Z}\)</span> contains independent noise terms (commonly Gaussian), the algorithm simultaneously (i) fits <span class="math inline">\(\mathbf{W}\)</span> to the data via a reconstruction loss, (ii) enforces acyclicity through a closed-form differentiable constraint, and (iii) promotes sparsity with an <span class="math inline">\(\ell_1\)</span> penalty.</p>
+<p><strong>Key innovation — the acyclicity constraint.</strong> The function</p>
+<p><span class="math display">\[h(\mathbf{W}) = \mathrm{tr}\!\left(\exp(\mathbf{W} \odot \mathbf{W})\right) - d\]</span></p>
+<p>equals zero <em>if and only if</em> the graph encoded by <span class="math inline">\(\mathbf{W}\)</span> is acyclic. Because <span class="math inline">\(h\)</span> is smooth and differentiable, the NP-hard combinatorial constraint is replaced by an equality constraint amenable to augmented Lagrangian (AL) optimization — no combinatorial search required.</p>
+<p>NOTEARS is concise (the core algorithm fits in fewer than 60 lines of code), fast for moderate graph sizes (<span class="math inline">\(d \leq 100\)</span>–<span class="math inline">\(200\)</span>), and has become the canonical baseline against which all later continuous causal discovery methods are benchmarked — including GOLEM, DAG-GNN, and GraN-DAG.</p>
+<p><img src="../Image/NOTEARS.png" class="img-fluid"></p>
+<section id="notears-with-pydeepcausalml" class="level2">
+<h2 class="anchored" data-anchor-id="notears-with-pydeepcausalml">NOTEARS with PyDeepCausalML</h2>
+<p>This notebook implements both the <strong>linear</strong> and <strong>nonlinear</strong> NOTEARS variants in Python using the <strong>PyDeepCausalML</strong> package. We apply them to synthetic data (linear and nonlinear SEMs) and evaluate performance against known ground-truth DAGs.</p>
+<p>The <strong>PyDeepCausalML</strong> package encodes the full NOTEARS family. The acyclicity constraint <span class="math inline">\(h(W) = \mathrm{tr}(e^{W \odot W}) - d = 0\)</span> is enforced via the trace of the matrix exponential, and optimization is handled by the augmented Lagrangian method with Adam inner steps.</p>
+<p><strong>Linear NOTEARS</strong> (<code>NOTEARSLinear</code>) learns a weighted adjacency matrix <span class="math inline">\(W\)</span> by minimizing a least-squares loss plus an <span class="math inline">\(\ell_1\)</span> penalty subject to <span class="math inline">\(h(W) = 0\)</span>.</p>
+<p><strong>Nonlinear NOTEARS</strong> (<code>NOTEARSNonlinearMLP</code>, <code>NOTEARSNonlinearSobolev</code>) replace the linear predictor with either an MLP or a Sobolev-basis model, allowing the algorithm to capture arbitrary smooth nonlinear relationships while keeping the same acyclicity constraint.</p>
+<section id="main-classes" class="level3">
+<h3 class="anchored" data-anchor-id="main-classes">Main Classes</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Class</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>NOTEARSLinear</code></td>
+<td>Linear NOTEARS: L2 loss + L1, augmented Lagrangian</td>
+</tr>
+<tr class="even">
+<td><code>NOTEARSNonlinearMLP</code></td>
+<td>Nonlinear NOTEARS with MLP per node</td>
+</tr>
+<tr class="odd">
+<td><code>NOTEARSNonlinearSobolev</code></td>
+<td>Nonlinear NOTEARS with Sobolev / polynomial basis</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="simulation-and-evaluation-utilities" class="level3">
+<h3 class="anchored" data-anchor-id="simulation-and-evaluation-utilities">Simulation and Evaluation Utilities</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>is_dag</code></td>
+<td>Check whether a weighted adjacency matrix encodes a DAG</td>
+</tr>
+<tr class="even">
+<td><code>simulate_dag</code></td>
+<td>Simulate a random DAG (Erdős–Rényi or scale-free)</td>
+</tr>
+<tr class="odd">
+<td><code>simulate_parameter</code></td>
+<td>Draw edge weights for a DAG</td>
+</tr>
+<tr class="even">
+<td><code>simulate_linear_sem</code></td>
+<td>Generate data from a linear SEM</td>
+</tr>
+<tr class="odd">
+<td><code>simulate_nonlinear_sem_custom</code></td>
+<td>Generate data from a nonlinear SEM</td>
+</tr>
+<tr class="even">
+<td><code>count_accuracy</code> / <code>graph_recovery_metrics</code></td>
+<td>Compare estimated graph to ground truth</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Reference:</strong> Zheng, X., Aragam, B., Ravikumar, P., &amp; Xing, E. P. (2018). DAGs with NO TEARS: Continuous optimization for structure learning. <em>NeurIPS</em>. <a href="https://arxiv.org/abs/1803.01422" class="uri">https://arxiv.org/abs/1803.01422</a>.</p>
+</section>
+</section>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<section id="check-and-install-required-python-packages" class="level3">
+<h3 class="anchored" data-anchor-id="check-and-install-required-python-packages">Check and Install Required Python Packages</h3>
+<div id="6a32aeb2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:33.059662Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:33.059075Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:35.502196Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:35.501105Z&quot;}}" data-execution_count="1">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> subprocess</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>PACKAGES <span class="op">=</span> [</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"numpy"</span>, <span class="st">"pandas"</span>, <span class="st">"scipy"</span>, <span class="st">"torch"</span>, <span class="st">"scikit-learn"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"matplotlib"</span>, <span class="st">"seaborn"</span>, <span class="st">"networkx"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> pkg <span class="kw">in</span> PACKAGES:</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    mod <span class="op">=</span> <span class="st">"sklearn"</span> <span class="cf">if</span> pkg <span class="op">==</span> <span class="st">"scikit-learn"</span> <span class="cf">else</span> pkg</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        importlib.import_module(mod)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">ImportError</span>:</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        subprocess.check_call([sys.executable, <span class="st">"-m"</span>, <span class="st">"pip"</span>, <span class="st">"install"</span>, <span class="st">"-q"</span>, pkg])</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> pydeepcausalml  <span class="co"># noqa: F401</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ImportError</span>:</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    subprocess.check_call(</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        [sys.executable, <span class="st">"-m"</span>, <span class="st">"pip"</span>, <span class="st">"install"</span>, <span class="st">"-q"</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>         <span class="st">"git+https://github.com/zia207/PyDeepCausalML.git"</span>]</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pydeepcausalml</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"pydeepcausalml"</span>, pydeepcausalml.__version__, <span class="st">"ready."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>pydeepcausalml 0.2.0 ready.</code></pre>
+</div>
+</div>
+</section>
+<section id="verify-imports" class="level3">
+<h3 class="anchored" data-anchor-id="verify-imports">Verify imports</h3>
+<div id="7e71d825" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:35.504110Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:35.503750Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:35.543882Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:35.542930Z&quot;}}" data-execution_count="2">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydeepcausalml <span class="im">import</span> set_seed</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydeepcausalml.metrics <span class="im">import</span> graph_recovery_metrics, shd, pehe</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"torch:"</span>, torch.__version__)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"cuda:"</span>, torch.cuda.is_available())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>torch: 2.12.1+cu130
+cuda: False</code></pre>
+</div>
+</div>
+<div id="9f3d251b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:35.545744Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:35.545163Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:35.549770Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:35.548835Z&quot;}}" data-execution_count="3">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>set_seed(<span class="dv">42</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>run_fast <span class="op">=</span> <span class="va">True</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="simulation-utilities" class="level3">
+<h3 class="anchored" data-anchor-id="simulation-utilities">Simulation utilities</h3>
+<div id="3abb7b81" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:35.551310Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:35.551161Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:35.561410Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:35.560596Z&quot;}}" data-execution_count="4">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">"""Simulation and evaluation helpers (NOTEARS tutorial utilities)."""</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_dag(W: np.ndarray, tol: <span class="bu">float</span> <span class="op">=</span> <span class="fl">1e-8</span>) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Return True if weighted matrix W encodes a DAG."""</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> W.shape[<span class="dv">0</span>]</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> (np.<span class="bu">abs</span>(W) <span class="op">&gt;</span> tol).astype(<span class="bu">float</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    acc <span class="op">=</span> m.copy()</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(d):</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> np.trace(acc) <span class="op">&gt;</span> tol:</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        acc <span class="op">=</span> acc <span class="op">@</span> m</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_dag(d: <span class="bu">int</span>, s0: <span class="bu">int</span>, graph_type: <span class="bu">str</span> <span class="op">=</span> <span class="st">"ER"</span>, seed: <span class="bu">int</span> <span class="op">|</span> <span class="va">None</span> <span class="op">=</span> <span class="va">None</span>) <span class="op">-&gt;</span> np.ndarray:</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Simulate a random binary DAG adjacency (A[i,j]=1 =&gt; X_j -&gt; X_i)."""</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(seed)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> graph_type.upper() <span class="op">==</span> <span class="st">"ER"</span>:</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        prob <span class="op">=</span> <span class="bu">min</span>(<span class="fl">1.0</span>, s0 <span class="op">/</span> <span class="bu">max</span>(d <span class="op">*</span> (d <span class="op">-</span> <span class="dv">1</span>) <span class="op">/</span> <span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        B <span class="op">=</span> np.triu(rng.random((d, d)) <span class="op">&lt;</span> prob, k<span class="op">=</span><span class="dv">1</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:  <span class="co"># scale-free-ish upper triangular</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        B <span class="op">=</span> np.zeros((d, d), dtype<span class="op">=</span><span class="bu">int</span>)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        edges <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> edges <span class="op">&lt;</span> s0:</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>            i, j <span class="op">=</span> rng.integers(<span class="dv">0</span>, d, size<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> i <span class="op">&lt;</span> j <span class="kw">and</span> B[i, j] <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>                B[i, j] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>                edges <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> B</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_parameter(B: np.ndarray, low: <span class="bu">float</span> <span class="op">=</span> <span class="fl">0.5</span>, high: <span class="bu">float</span> <span class="op">=</span> <span class="fl">2.0</span>, seed: <span class="bu">int</span> <span class="op">|</span> <span class="va">None</span> <span class="op">=</span> <span class="va">None</span>) <span class="op">-&gt;</span> np.ndarray:</span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Draw edge weights for a binary DAG."""</span></span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(seed)</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>    W <span class="op">=</span> np.zeros_like(B, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>    mask <span class="op">=</span> B.astype(<span class="bu">bool</span>)</span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    signs <span class="op">=</span> rng.choice([<span class="op">-</span><span class="fl">1.0</span>, <span class="fl">1.0</span>], size<span class="op">=</span>mask.<span class="bu">sum</span>())</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>    W[mask] <span class="op">=</span> signs <span class="op">*</span> rng.uniform(low, high, size<span class="op">=</span>mask.<span class="bu">sum</span>())</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> W</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_linear_sem(W: np.ndarray, n: <span class="bu">int</span>, sem_type: <span class="bu">str</span> <span class="op">=</span> <span class="st">"gauss"</span>, seed: <span class="bu">int</span> <span class="op">|</span> <span class="va">None</span> <span class="op">=</span> <span class="va">None</span>) <span class="op">-&gt;</span> np.ndarray:</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Generate data from a linear SEM in topological order.</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a><span class="co">    With an upper-triangular weight matrix ``W`` (``W[i, j] != 0`` means</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a><span class="co">    ``X_i -&gt; X_j``), each node is drawn as ``X_j = sum_i W[i, j] X_i + Z_j``.</span></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="co">    Sampling node-by-node in index order is exact here because parents always</span></span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a><span class="co">    have a smaller index than their children.</span></span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(seed)</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> W.shape[<span class="dv">0</span>]</span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> np.zeros((n, d))</span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(d):</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>        parents <span class="op">=</span> np.where(W[:, j] <span class="op">!=</span> <span class="dv">0</span>)[<span class="dv">0</span>]</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>        noise <span class="op">=</span> rng.standard_normal(n) <span class="cf">if</span> sem_type <span class="op">==</span> <span class="st">"gauss"</span> <span class="cf">else</span> rng.exponential(size<span class="op">=</span>n)</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(parents):</span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>            X[:, j] <span class="op">=</span> X[:, parents] <span class="op">@</span> W[parents, j] <span class="op">+</span> noise</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>            X[:, j] <span class="op">=</span> noise</span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> count_accuracy(B_true: np.ndarray, B_est: np.ndarray) <span class="op">-&gt;</span> <span class="bu">dict</span>:</span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Compare estimated graph to ground truth (FDR, TPR, FPR, SHD, nnz)."""</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> graph_recovery_metrics(B_true, B_est)</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>    tp, fp, fn <span class="op">=</span> m[<span class="st">"tp"</span>], m[<span class="st">"fp"</span>], m[<span class="st">"fn"</span>]</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>    tn <span class="op">=</span> <span class="bu">int</span>((<span class="op">~</span>np.eye(B_true.shape[<span class="dv">0</span>], dtype<span class="op">=</span><span class="bu">bool</span>)).<span class="bu">sum</span>()) <span class="op">-</span> tp <span class="op">-</span> fp <span class="op">-</span> fn</span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>    fdr <span class="op">=</span> fp <span class="op">/</span> (tp <span class="op">+</span> fp) <span class="cf">if</span> tp <span class="op">+</span> fp <span class="cf">else</span> <span class="fl">0.0</span></span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>    tpr <span class="op">=</span> m[<span class="st">"recall"</span>]</span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a>    fpr <span class="op">=</span> fp <span class="op">/</span> (fp <span class="op">+</span> tn) <span class="cf">if</span> fp <span class="op">+</span> tn <span class="cf">else</span> <span class="fl">0.0</span></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="st">"fdr"</span>: fdr, <span class="st">"tpr"</span>: tpr, <span class="st">"fpr"</span>: fpr, <span class="st">"shd"</span>: m[<span class="st">"shd"</span>], <span class="st">"nnz"</span>: <span class="bu">int</span>(B_est.<span class="bu">sum</span>())}</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_nonlinear_sem_custom(W: np.ndarray, n: <span class="bu">int</span>, sem_type: <span class="bu">str</span> <span class="op">=</span> <span class="st">"mlp"</span>, noise_sd: <span class="bu">float</span> <span class="op">=</span> <span class="fl">0.5</span>, seed: <span class="bu">int</span> <span class="op">|</span> <span class="va">None</span> <span class="op">=</span> <span class="va">None</span>) <span class="op">-&gt;</span> np.ndarray:</span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Nonlinear SEM with additive noise (A[i,j]: j-&gt;i)."""</span></span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(seed)</span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>    d <span class="op">=</span> W.shape[<span class="dv">0</span>]</span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.DiGraph((j, i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(d) <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(d) <span class="cf">if</span> W[i, j] <span class="op">!=</span> <span class="dv">0</span>)</span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>    order <span class="op">=</span> <span class="bu">list</span>(nx.topological_sort(G)) <span class="cf">if</span> G.number_of_edges() <span class="cf">else</span> <span class="bu">list</span>(<span class="bu">range</span>(d))</span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> np.zeros((n, d))</span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> order:</span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>        pa <span class="op">=</span> np.where(W[i, :] <span class="op">!=</span> <span class="dv">0</span>)[<span class="dv">0</span>]</span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="bu">len</span>(pa) <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>            X[:, i] <span class="op">=</span> rng.standard_normal(n)</span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>            z <span class="op">=</span> X[:, pa] <span class="op">@</span> W[i, pa]</span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> sem_type <span class="op">==</span> <span class="st">"mlp"</span>:</span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>                X[:, i] <span class="op">=</span> np.tanh(z) <span class="op">+</span> rng.normal(<span class="dv">0</span>, noise_sd, n)</span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> sem_type <span class="op">==</span> <span class="st">"mim"</span>:</span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>                X[:, i] <span class="op">=</span> z <span class="op">*</span> np.sin(z) <span class="op">+</span> rng.normal(<span class="dv">0</span>, noise_sd, n)</span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>            <span class="cf">elif</span> sem_type <span class="op">==</span> <span class="st">"gp"</span>:</span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>                X[:, i] <span class="op">=</span> np.sin(z) <span class="op">+</span> rng.normal(<span class="dv">0</span>, noise_sd, n)</span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>                X[:, i] <span class="op">=</span> z <span class="op">+</span> rng.standard_normal(n)</span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<hr>
+</section>
+</section>
+<section id="part-i-linear-notears-on-synthetic-gaussian-data" class="level2">
+<h2 class="anchored" data-anchor-id="part-i-linear-notears-on-synthetic-gaussian-data">Part I: Linear NOTEARS on Synthetic Gaussian Data</h2>
+<section id="overview" class="level3">
+<h3 class="anchored" data-anchor-id="overview">Overview</h3>
+<p>We begin with a <strong>linear Gaussian SEM</strong>: variables are generated by the model <span class="math inline">\(\mathbf{X} = \mathbf{X}\mathbf{W} + \mathbf{Z}\)</span>, where <span class="math inline">\(\mathbf{Z} \sim \mathcal{N}(0, I)\)</span>. The ground-truth DAG is known, so we can measure recovery accuracy precisely.</p>
+</section>
+<section id="data-generation-and-preprocessing" class="level3">
+<h3 class="anchored" data-anchor-id="data-generation-and-preprocessing">Data Generation and Preprocessing</h3>
+<div id="b046779b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:35.563449Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:35.562896Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:35.571174Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:35.570338Z&quot;}}" data-execution_count="5">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dataset 1: Linear Gaussian SEM (d = 20)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>set_seed(<span class="dv">42</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>n_lin, d_lin, s0_lin <span class="op">=</span> <span class="dv">2000</span>, <span class="dv">20</span>, <span class="dv">20</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>graph_type, sem_type_lin <span class="op">=</span> <span class="st">"ER"</span>, <span class="st">"gauss"</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>B_true_lin <span class="op">=</span> simulate_dag(d_lin, s0_lin, graph_type, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>W_true_lin <span class="op">=</span> simulate_parameter(B_true_lin, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>X_lin <span class="op">=</span> simulate_linear_sem(W_true_lin, n_lin, sem_type_lin, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Center columns — NOTEARS is sensitive to variable scale</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>X_lin <span class="op">=</span> X_lin <span class="op">-</span> X_lin.mean(axis<span class="op">=</span><span class="dv">0</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">42</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> rng.permutation(n_lin)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>tr1 <span class="op">=</span> idx[: <span class="bu">int</span>(<span class="fl">0.70</span> <span class="op">*</span> n_lin)]</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>tmp1 <span class="op">=</span> idx[<span class="bu">int</span>(<span class="fl">0.70</span> <span class="op">*</span> n_lin) :]</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>va1 <span class="op">=</span> tmp1[: <span class="bu">len</span>(tmp1) <span class="op">//</span> <span class="dv">2</span>]</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>te1 <span class="op">=</span> tmp1[<span class="bu">len</span>(tmp1) <span class="op">//</span> <span class="dv">2</span> :]</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>X_lin_train, X_lin_val, X_lin_test <span class="op">=</span> X_lin[tr1], X_lin[va1], X_lin[te1]</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Linear SEM — Train:"</span>, X_lin_train.shape, <span class="st">"| Val:"</span>, X_lin_val.shape, <span class="st">"| Test:"</span>, X_lin_test.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear SEM — Train: (1400, 20) | Val: (300, 20) | Test: (300, 20)</code></pre>
+</div>
+</div>
+</section>
+<section id="fitting-linear-notears" class="level3">
+<h3 class="anchored" data-anchor-id="fitting-linear-notears">Fitting Linear NOTEARS</h3>
+<p>The algorithm minimizes the augmented Lagrangian</p>
+<p><span class="math display">\[\mathcal{L}_\rho(W, \alpha) = \frac{1}{2n}\|X - XW\|_F^2 + \lambda_1\|W\|_1 + \alpha\, h(W) + \frac{\rho}{2}h(W)^2,\]</span></p>
+<p>iterating (i) gradient steps on <span class="math inline">\(W\)</span> and (ii) dual-ascent updates until <span class="math inline">\(h(W) &lt; \epsilon\)</span>.</p>
+<div id="7ed2a14d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:35.572518Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:35.572380Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:42.698959Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:42.697766Z&quot;}}" data-execution_count="6">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydeepcausalml.discovery <span class="im">import</span> NOTEARSLinear</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>model_lin <span class="op">=</span> NOTEARSLinear(</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    lambda_l1<span class="op">=</span><span class="fl">0.05</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span><span class="dv">100</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    n_outer<span class="op">=</span><span class="dv">100</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    lr<span class="op">=</span><span class="fl">1e-2</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>model_lin.fit(X_lin_train)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>W_est_lin <span class="op">=</span> model_lin.weights_</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>w_threshold <span class="op">=</span> <span class="fl">0.3</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>B_est_lin <span class="op">=</span> model_lin.get_adjacency(threshold<span class="op">=</span>w_threshold)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Acyclic (thresholded, linear SEM):"</span>, is_dag(B_est_lin))</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>n_val_lin <span class="op">=</span> X_lin_val.shape[<span class="dv">0</span>]</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>val_loss_lin <span class="op">=</span> <span class="fl">0.5</span> <span class="op">/</span> n_val_lin <span class="op">*</span> np.<span class="bu">sum</span>((X_lin_val <span class="op">-</span> X_lin_val <span class="op">@</span> W_est_lin.T) <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Validation L2 loss (linear model | linear SEM): </span><span class="sc">{</span>val_loss_lin<span class="sc">:.6f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Acyclic (thresholded, linear SEM): True
+Validation L2 loss (linear model | linear SEM): 25.046984</code></pre>
+</div>
+</div>
+<p><strong>Hyperparameter guidance.</strong> The two most impactful choices are: (i) the sparsity penalty <span class="math inline">\(\lambda_1 \in [0.01, 0.5]\)</span> — higher values prune more edges; and (ii) the edge-threshold <span class="math inline">\(w_{\mathrm{threshold}} \in [0.1, 0.5]\)</span> applied after optimization.</p>
+</section>
+<section id="causal-effect-estimation-via-backdoor-adjustment" class="level3">
+<h3 class="anchored" data-anchor-id="causal-effect-estimation-via-backdoor-adjustment">Causal Effect Estimation via Backdoor Adjustment</h3>
+<p>NOTEARS recovers <strong>graph structure</strong>, not causal effects directly. Once the DAG is in hand, downstream causal inference proceeds in two steps: (i) read off a valid adjustment set from the graph using the backdoor criterion, and (ii) estimate the Average Treatment Effect (ATE) by regression on that set.</p>
+<p>The example below treats variable 0 as the treatment <span class="math inline">\(T\)</span> and variable 19 as the outcome <span class="math inline">\(Y\)</span> (0-indexed).</p>
+<div id="43c49886" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:42.701452Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:42.700511Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:42.708950Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:42.708020Z&quot;}}" data-execution_count="7">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># True ATE via structural path sum: (I - W)^{-1}[Y, T]</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>I_lin <span class="op">=</span> np.eye(d_lin)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>true_total_lin <span class="op">=</span> np.linalg.solve(I_lin <span class="op">-</span> W_true_lin, np.eye(d_lin))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>true_ATE_lin <span class="op">=</span> true_total_lin[<span class="dv">19</span>, <span class="dv">0</span>]</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"True ATE (T -&gt; Y, linear SEM):  </span><span class="sc">{</span>true_ATE_lin<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>confounders_idx_lin <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(d_lin) <span class="cf">if</span> i <span class="kw">not</span> <span class="kw">in</span> (<span class="dv">0</span>, <span class="dv">19</span>)]</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>T_tr_lin <span class="op">=</span> X_lin_train[:, <span class="dv">0</span>:<span class="dv">1</span>]</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>Y_tr_lin <span class="op">=</span> X_lin_train[:, <span class="dv">19</span>]</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>C_tr_lin <span class="op">=</span> X_lin_train[:, confounders_idx_lin]</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>model_ate_lin <span class="op">=</span> LinearRegression().fit(np.hstack([T_tr_lin, C_tr_lin]), Y_tr_lin)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>est_ATE_lin <span class="op">=</span> model_ate_lin.coef_[<span class="dv">0</span>]</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estimated ATE:  </span><span class="sc">{</span>est_ATE_lin<span class="sc">:.4f}</span><span class="ss">  (error: </span><span class="sc">{</span><span class="bu">abs</span>(est_ATE_lin <span class="op">-</span> true_ATE_lin)<span class="sc">:.4f}</span><span class="ss">)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>True ATE (T -&gt; Y, linear SEM):  0.0000
+Estimated ATE:  -0.0539  (error: 0.0539)</code></pre>
+</div>
+</div>
+</section>
+<section id="graph-recovery-metrics" class="level3">
+<h3 class="anchored" data-anchor-id="graph-recovery-metrics">Graph Recovery Metrics</h3>
+<p>When the ground-truth DAG is known, five complementary metrics quantify structural recovery accuracy.</p>
+<ul>
+<li><strong>FDR</strong> — fraction of predicted edges that are spurious.</li>
+<li><strong>TPR (Recall)</strong> — fraction of true edges recovered.</li>
+<li><strong>FPR</strong> — fraction of true non-edges incorrectly predicted.</li>
+<li><strong>SHD</strong> — edge insertions + deletions to match the true graph.</li>
+<li><strong>nnz</strong> — number of edges in the estimated graph.</li>
+</ul>
+<div id="92917992" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:42.711006Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:42.710375Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:42.715045Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:42.714138Z&quot;}}" data-execution_count="8">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>acc_lin_result <span class="op">=</span> count_accuracy(B_true_lin, B_est_lin)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(acc_lin_result)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'fdr': 0.6153846153846154, 'tpr': 0.2941, 'fpr': 0.02203856749311295, 'shd': 20, 'nnz': 13}</code></pre>
+</div>
+</div>
+</section>
+<section id="visualization" class="level3">
+<h3 class="anchored" data-anchor-id="visualization">Visualization</h3>
+<section id="weighted-adjacency-matrix" class="level4">
+<h4 class="anchored" data-anchor-id="weighted-adjacency-matrix">Weighted Adjacency Matrix</h4>
+<div id="df03276a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:42.716430Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:42.716279Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:42.896933Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:42.895642Z&quot;}}" data-execution_count="9">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> ax.imshow(W_est_lin, cmap<span class="op">=</span><span class="st">"RdBu_r"</span>, vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>, aspect<span class="op">=</span><span class="st">"auto"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Learned Weighted Adjacency Matrix — Linear SEM (NOTEARS Linear)"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Cause (source)"</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"Effect (destination)"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>plt.colorbar(im, ax<span class="op">=</span>ax)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="learned-causal-dag" class="level4">
+<h4 class="anchored" data-anchor-id="learned-causal-dag">Learned Causal DAG</h4>
+<div id="ef0a9925" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:42.898660Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:42.898440Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:43.009112Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:43.008059Z&quot;}}" data-execution_count="10">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>G_lin <span class="op">=</span> nx.from_numpy_array((np.<span class="bu">abs</span>(W_est_lin) <span class="op">&gt;</span> w_threshold).astype(<span class="bu">int</span>), create_using<span class="op">=</span>nx.DiGraph)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>pos_lin <span class="op">=</span> nx.spring_layout(G_lin, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>nx.draw(G_lin, pos_lin, with_labels<span class="op">=</span><span class="va">True</span>, node_color<span class="op">=</span><span class="st">"lightblue"</span>, arrows<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        node_size<span class="op">=</span><span class="dv">600</span>, font_size<span class="op">=</span><span class="dv">8</span>, edge_color<span class="op">=</span><span class="st">"gray"</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Learned Causal DAG — Linear Gaussian SEM (NOTEARS Linear)"</span>)</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+</section>
+</section>
+<section id="part-ii-nonlinear-notears-mlp-and-sobolev-vs.-misspecified-baseline" class="level2">
+<h2 class="anchored" data-anchor-id="part-ii-nonlinear-notears-mlp-and-sobolev-vs.-misspecified-baseline">Part II: Nonlinear NOTEARS (MLP and Sobolev) vs.&nbsp;Misspecified Baseline</h2>
+<section id="overview-1" class="level3">
+<h3 class="anchored" data-anchor-id="overview-1">Overview</h3>
+<p>We now stress-test the linear model on data generated from a <strong>nonlinear SEM</strong> and compare it against two nonlinear NOTEARS variants.</p>
+<div id="97167515" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:43.010865Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:43.010688Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:43.020416Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:43.019497Z&quot;}}" data-execution_count="11">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dataset 2: Nonlinear SEM (d = 10)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>set_seed(<span class="dv">42</span>)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>n_nlin, d_nlin, s0_nlin <span class="op">=</span> <span class="dv">2000</span>, <span class="dv">10</span>, <span class="dv">10</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>B_true_nlin <span class="op">=</span> simulate_dag(d_nlin, s0_nlin, graph_type, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>W_true_nlin <span class="op">=</span> simulate_parameter(B_true_nlin, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>X_nlin <span class="op">=</span> simulate_nonlinear_sem_custom(W_true_nlin, n_nlin, sem_type<span class="op">=</span><span class="st">"mlp"</span>, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>X_nlin <span class="op">=</span> X_nlin <span class="op">-</span> X_nlin.mean(axis<span class="op">=</span><span class="dv">0</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">42</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> rng.permutation(n_nlin)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>tr2 <span class="op">=</span> idx[: <span class="bu">int</span>(<span class="fl">0.70</span> <span class="op">*</span> n_nlin)]</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>tmp2 <span class="op">=</span> idx[<span class="bu">int</span>(<span class="fl">0.70</span> <span class="op">*</span> n_nlin) :]</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>va2 <span class="op">=</span> tmp2[: <span class="bu">len</span>(tmp2) <span class="op">//</span> <span class="dv">2</span>]</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>te2 <span class="op">=</span> tmp2[<span class="bu">len</span>(tmp2) <span class="op">//</span> <span class="dv">2</span> :]</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>X_nlin_train, X_nlin_val, X_nlin_test <span class="op">=</span> X_nlin[tr2], X_nlin[va2], X_nlin[te2]</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Nonlinear SEM — Train:"</span>, X_nlin_train.shape, <span class="st">"| Val:"</span>, X_nlin_val.shape, <span class="st">"| Test:"</span>, X_nlin_test.shape)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Nonlinear SEM — Train: (1400, 10) | Val: (300, 10) | Test: (300, 10)</code></pre>
+</div>
+</div>
+</section>
+<section id="model-1-linear-notears-misspecified-baseline" class="level3">
+<h3 class="anchored" data-anchor-id="model-1-linear-notears-misspecified-baseline">Model 1: Linear NOTEARS (Misspecified Baseline)</h3>
+<div id="948554a1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:43.022464Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:43.021822Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:44.649777Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:44.648671Z&quot;}}" data-execution_count="12">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>model_lin_nl <span class="op">=</span> NOTEARSLinear(lambda_l1<span class="op">=</span><span class="fl">0.1</span>, epochs<span class="op">=</span><span class="dv">100</span>, n_outer<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>model_lin_nl.fit(X_nlin_train)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>W_lin_nlin <span class="op">=</span> model_lin_nl.weights_</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>B_lin_nlin <span class="op">=</span> model_lin_nl.get_adjacency(threshold<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Linear NOTEARS on nonlinear SEM — acyclic:"</span>, is_dag(B_lin_nlin))</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>n_val_nlin <span class="op">=</span> X_nlin_val.shape[<span class="dv">0</span>]</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>val_loss_lin_nl <span class="op">=</span> <span class="fl">0.5</span> <span class="op">/</span> n_val_nlin <span class="op">*</span> np.<span class="bu">sum</span>((X_nlin_val <span class="op">-</span> X_nlin_val <span class="op">@</span> W_lin_nlin.T) <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Validation L2 loss (linear model | nonlinear SEM): </span><span class="sc">{</span>val_loss_lin_nl<span class="sc">:.6f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear NOTEARS on nonlinear SEM — acyclic: True
+Validation L2 loss (linear model | nonlinear SEM): 2.599821</code></pre>
+</div>
+</div>
+</section>
+<section id="model-2-notearsnonlinearmlp" class="level3">
+<h3 class="anchored" data-anchor-id="model-2-notearsnonlinearmlp">Model 2: NOTEARSNonlinearMLP</h3>
+<div id="b807b196" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:44.651334Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:44.651177Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:45.704194Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:45.703173Z&quot;}}" data-execution_count="13">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydeepcausalml.discovery <span class="im">import</span> NOTEARSNonlinearMLP, NOTEARSNonlinearSobolev</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>set_seed(<span class="dv">42</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>model_mlp <span class="op">=</span> NOTEARSNonlinearMLP(hidden<span class="op">=</span><span class="dv">10</span>, lambda1<span class="op">=</span><span class="fl">0.01</span>, rho<span class="op">=</span><span class="fl">1.0</span>, epochs<span class="op">=</span><span class="dv">150</span>, lr<span class="op">=</span><span class="fl">1e-2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>model_mlp.fit(X_nlin_train)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>W_mlp_nlin <span class="op">=</span> model_mlp.adjacency_matrix()</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>B_mlp_nlin <span class="op">=</span> (W_mlp_nlin <span class="op">&gt;</span> <span class="fl">1e-5</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"NOTEARSNonlinearMLP on nonlinear SEM — acyclic:"</span>, is_dag(B_mlp_nlin))</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> model_mlp.history_.get(<span class="st">"loss"</span>):</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    plt.plot(model_mlp.history_[<span class="st">"loss"</span>], color<span class="op">=</span><span class="st">"steelblue"</span>)</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"NOTEARSNonlinearMLP — Training Loss (Nonlinear SEM)"</span>)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Iteration"</span>)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Loss"</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>NOTEARSNonlinearMLP on nonlinear SEM — acyclic: False</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-14-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="model-3-notearsnonlinearsobolev" class="level3">
+<h3 class="anchored" data-anchor-id="model-3-notearsnonlinearsobolev">Model 3: NOTEARSNonlinearSobolev</h3>
+<div id="06228f7b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:45.705852Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:45.705672Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:46.062817Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:46.061435Z&quot;}}" data-execution_count="14">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>set_seed(<span class="dv">42</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>model_sob <span class="op">=</span> NOTEARSNonlinearSobolev(degree<span class="op">=</span><span class="dv">4</span>, lambda1<span class="op">=</span><span class="fl">0.01</span>, rho<span class="op">=</span><span class="fl">1.0</span>, epochs<span class="op">=</span><span class="dv">150</span>, lr<span class="op">=</span><span class="fl">1e-2</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>model_sob.fit(X_nlin_train)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>W_sob_nlin <span class="op">=</span> model_sob.adjacency_matrix()</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>B_sob_nlin <span class="op">=</span> (W_sob_nlin <span class="op">&gt;</span> <span class="fl">1e-5</span>).astype(<span class="bu">int</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"NOTEARSNonlinearSobolev on nonlinear SEM — acyclic:"</span>, is_dag(B_sob_nlin))</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> model_sob.history_.get(<span class="st">"loss"</span>):</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    plt.plot(model_sob.history_[<span class="st">"loss"</span>], color<span class="op">=</span><span class="st">"darkorange"</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"NOTEARSNonlinearSobolev — Training Loss (Nonlinear SEM)"</span>)</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Iteration"</span>)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Loss"</span>)</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>NOTEARSNonlinearSobolev on nonlinear SEM — acyclic: False</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-15-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="model-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="model-comparison">Model Comparison</h3>
+<div id="95c63a6c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:46.064705Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:46.064471Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:46.072752Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:46.071772Z&quot;}}" data-execution_count="15">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> safe_acc(B_true, W_est, B_est, label):</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> is_dag(W_est):</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>label<span class="sc">:30s}</span><span class="ss">  NOT a DAG — skipping metrics"</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> count_accuracy(B_true, B_est)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>acc_lin_on_nlin <span class="op">=</span> safe_acc(B_true_nlin, W_lin_nlin, B_lin_nlin, <span class="st">"Linear NOTEARS (nonlin SEM)"</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>acc_mlp_on_nlin <span class="op">=</span> safe_acc(B_true_nlin, W_mlp_nlin, B_mlp_nlin, <span class="st">"NOTEARSNonlinearMLP"</span>)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>acc_sob_on_nlin <span class="op">=</span> safe_acc(B_true_nlin, W_sob_nlin, B_sob_nlin, <span class="st">"NOTEARSNonlinearSobolev"</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_row(label, acc):</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> acc <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>label<span class="sc">:34s}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'--'</span><span class="sc">:&gt;7s}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'--'</span><span class="sc">:&gt;7s}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'--'</span><span class="sc">:&gt;7s}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'--'</span><span class="sc">:&gt;5s}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'--'</span><span class="sc">:&gt;5s}</span><span class="ss">"</span>)</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span>label<span class="sc">:34s}</span><span class="ss"> </span><span class="sc">{</span>acc[<span class="st">'fdr'</span>]<span class="sc">:7.4f}</span><span class="ss"> </span><span class="sc">{</span>acc[<span class="st">'tpr'</span>]<span class="sc">:7.4f}</span><span class="ss"> </span><span class="sc">{</span>acc[<span class="st">'fpr'</span>]<span class="sc">:7.4f}</span><span class="ss"> </span><span class="sc">{</span>acc[<span class="st">'shd'</span>]<span class="sc">:5d}</span><span class="ss"> </span><span class="sc">{</span>acc[<span class="st">'nnz'</span>]<span class="sc">:5d}</span><span class="ss">"</span>)</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>div <span class="op">=</span> <span class="st">"-"</span> <span class="op">*</span> <span class="dv">72</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>, div)</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span><span class="st">'Model'</span><span class="sc">:34s}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'FDR'</span><span class="sc">:&gt;7s}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'TPR'</span><span class="sc">:&gt;7s}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'FPR'</span><span class="sc">:&gt;7s}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'SHD'</span><span class="sc">:&gt;5s}</span><span class="ss"> </span><span class="sc">{</span><span class="st">'nnz'</span><span class="sc">:&gt;5s}</span><span class="ss">"</span>)</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(div)</span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  </span><span class="sc">{</span><span class="st">'Linear NOTEARS — native SEM *'</span><span class="sc">:34s}</span><span class="ss"> </span><span class="sc">{</span>acc_lin_result[<span class="st">'fdr'</span>]<span class="sc">:7.4f}</span><span class="ss"> </span><span class="sc">{</span>acc_lin_result[<span class="st">'tpr'</span>]<span class="sc">:7.4f}</span><span class="ss"> </span><span class="sc">{</span>acc_lin_result[<span class="st">'fpr'</span>]<span class="sc">:7.4f}</span><span class="ss"> </span><span class="sc">{</span>acc_lin_result[<span class="st">'shd'</span>]<span class="sc">:5d}</span><span class="ss"> </span><span class="sc">{</span>acc_lin_result[<span class="st">'nnz'</span>]<span class="sc">:5d}</span><span class="ss">   (d=20, linear SEM)"</span>)</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(div)</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>print_row(<span class="st">"Linear NOTEARS  (misspecified baseline)"</span>, acc_lin_on_nlin)</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>print_row(<span class="st">"NOTEARSNonlinearMLP (hidden=10)"</span>, acc_mlp_on_nlin)</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>print_row(<span class="st">"NOTEARSNonlinearSobolev (degree=4)"</span>, acc_sob_on_nlin)</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(div)</span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  True edges in nonlinear SEM graph: </span><span class="sc">{</span><span class="bu">int</span>(B_true_nlin.<span class="bu">sum</span>())<span class="sc">}</span><span class="ss">  |  d = </span><span class="sc">{</span>d_nlin<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Linear NOTEARS (nonlin SEM)     NOT a DAG — skipping metrics
+  NOTEARSNonlinearMLP             NOT a DAG — skipping metrics
+  NOTEARSNonlinearSobolev         NOT a DAG — skipping metrics
+
+ ------------------------------------------------------------------------
+  Model                                  FDR     TPR     FPR   SHD   nnz
+------------------------------------------------------------------------
+  Linear NOTEARS — native SEM *       0.6154  0.2941  0.0220    20    13   (d=20, linear SEM)
+------------------------------------------------------------------------
+  Linear NOTEARS  (misspecified baseline)      --      --      --    --    --
+  NOTEARSNonlinearMLP (hidden=10)         --      --      --    --    --
+  NOTEARSNonlinearSobolev (degree=4)      --      --      --    --    --
+------------------------------------------------------------------------
+  True edges in nonlinear SEM graph: 12  |  d = 10</code></pre>
+</div>
+</div>
+</section>
+<section id="ate-estimation-on-the-nonlinear-sem" class="level3">
+<h3 class="anchored" data-anchor-id="ate-estimation-on-the-nonlinear-sem">ATE Estimation on the Nonlinear SEM</h3>
+<div id="ef425a04" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:46.074368Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:46.074168Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:46.409177Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:46.408086Z&quot;}}" data-execution_count="16">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>T_idx_nlin, Y_idx_nlin <span class="op">=</span> <span class="dv">0</span>, d_nlin <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> acc_mlp_on_nlin <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    W_best_nlin, label_best <span class="op">=</span> W_mlp_nlin, <span class="st">"NOTEARSNonlinearMLP"</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> acc_sob_on_nlin <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    W_best_nlin, label_best <span class="op">=</span> W_sob_nlin, <span class="st">"NOTEARSNonlinearSobolev"</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    W_best_nlin, label_best <span class="op">=</span> W_lin_nlin, <span class="st">"Linear NOTEARS (fallback)"</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Adjustment set derived from: </span><span class="sc">{</span>label_best<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>pa_Y_nlin <span class="op">=</span> np.where(np.<span class="bu">abs</span>(W_best_nlin[Y_idx_nlin, :]) <span class="op">&gt;</span> <span class="fl">1e-5</span>)[<span class="dv">0</span>]</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>conf_nlin <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> pa_Y_nlin <span class="cf">if</span> i <span class="op">!=</span> T_idx_nlin]</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> conf_nlin:</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    conf_nlin <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(d_nlin) <span class="cf">if</span> i <span class="kw">not</span> <span class="kw">in</span> (T_idx_nlin, Y_idx_nlin)]</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>T_n <span class="op">=</span> X_nlin_train[:, T_idx_nlin:T_idx_nlin <span class="op">+</span> <span class="dv">1</span>]</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>Y_n <span class="op">=</span> X_nlin_train[:, Y_idx_nlin]</span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>C_n <span class="op">=</span> X_nlin_train[:, conf_nlin]</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>X_design <span class="op">=</span> np.hstack([T_n, C_n])</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>model_ate_nlin <span class="op">=</span> LinearRegression().fit(X_design, Y_n)</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>ate_nlin <span class="op">=</span> model_ate_nlin.coef_[<span class="dv">0</span>]</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>ate_unadj_nlin <span class="op">=</span> LinearRegression().fit(T_n, Y_n).coef_[<span class="dv">0</span>]</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">42</span>)</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>ate_boot <span class="op">=</span> []</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">500</span>):</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> rng.integers(<span class="dv">0</span>, X_nlin_train.shape[<span class="dv">0</span>], X_nlin_train.shape[<span class="dv">0</span>])</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>    Tb <span class="op">=</span> X_nlin_train[idx, T_idx_nlin:T_idx_nlin <span class="op">+</span> <span class="dv">1</span>]</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>    Yb <span class="op">=</span> X_nlin_train[idx, Y_idx_nlin]</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>    Cb <span class="op">=</span> X_nlin_train[np.ix_(idx, conf_nlin)]</span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>    ate_boot.append(LinearRegression().fit(np.hstack([Tb, Cb]), Yb).coef_[<span class="dv">0</span>])</span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>ci_lo, ci_hi <span class="op">=</span> np.quantile(ate_boot, [<span class="fl">0.025</span>, <span class="fl">0.975</span>])</span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>    struct_ate <span class="op">=</span> np.linalg.solve(np.eye(d_nlin) <span class="op">-</span> W_best_nlin, np.eye(d_nlin))[Y_idx_nlin, T_idx_nlin]</span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> np.linalg.LinAlgError:</span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>    struct_ate <span class="op">=</span> np.nan</span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\n</span><span class="ss">ATE  (T=</span><span class="sc">{</span>T_idx_nlin<span class="sc">}</span><span class="ss"> -&gt; Y=</span><span class="sc">{</span>Y_idx_nlin<span class="sc">}</span><span class="ss">)  on Nonlinear SEM"</span>)</span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Adjusted estimate   : </span><span class="sc">{</span>ate_nlin<span class="sc">:+.4f}</span><span class="ss">"</span>)</span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Unadjusted estimate : </span><span class="sc">{</span>ate_unadj_nlin<span class="sc">:+.4f}</span><span class="ss">"</span>)</span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Bootstrap 95% CI    : [</span><span class="sc">{</span>ci_lo<span class="sc">:.4f}</span><span class="ss">, </span><span class="sc">{</span>ci_hi<span class="sc">:.4f}</span><span class="ss">]"</span>)</span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"  Structural ATE (W)  : </span><span class="sc">{</span>struct_ate<span class="sc">:+.4f}</span><span class="ss">  (linear approx.)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Adjustment set derived from: Linear NOTEARS (fallback)
+
+ATE  (T=0 -&gt; Y=9)  on Nonlinear SEM
+  Adjusted estimate   : -0.0194
+  Unadjusted estimate : +0.3643
+  Bootstrap 95% CI    : [-0.0701, 0.0309]
+  Structural ATE (W)  : +0.0015  (linear approx.)</code></pre>
+</div>
+</div>
+</section>
+<section id="visualization-adjacency-matrix-heatmaps" class="level3">
+<h3 class="anchored" data-anchor-id="visualization-adjacency-matrix-heatmaps">Visualization — Adjacency Matrix Heatmaps</h3>
+<div id="3280748b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:46.411419Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:46.410792Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:46.743001Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:46.741894Z&quot;}}" data-execution_count="17">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> make_heatmap(W, title_str, lim<span class="op">=</span><span class="fl">1.0</span>):</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="fl">4.5</span>, <span class="dv">4</span>))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    im <span class="op">=</span> ax.imshow(W, cmap<span class="op">=</span><span class="st">"RdBu_r"</span>, vmin<span class="op">=-</span>lim, vmax<span class="op">=</span>lim, aspect<span class="op">=</span><span class="st">"auto"</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title_str, fontsize<span class="op">=</span><span class="dv">9</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"Cause"</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"Effect"</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    plt.colorbar(im, ax<span class="op">=</span>ax, fraction<span class="op">=</span><span class="fl">0.046</span>)</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fig</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">4</span>))</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, W, title <span class="kw">in</span> <span class="bu">zip</span>(</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    axes,</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    [W_lin_nlin, W_mlp_nlin, W_sob_nlin],</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Linear NOTEARS</span><span class="ch">\n</span><span class="st">(nonlinear SEM baseline)"</span>, <span class="st">"NOTEARSNonlinearMLP"</span>, <span class="st">"NOTEARSNonlinearSobolev"</span>],</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    im <span class="op">=</span> ax.imshow(W, cmap<span class="op">=</span><span class="st">"RdBu_r"</span>, vmin<span class="op">=-</span><span class="dv">1</span>, vmax<span class="op">=</span><span class="dv">1</span>, aspect<span class="op">=</span><span class="st">"auto"</span>)</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title, fontsize<span class="op">=</span><span class="dv">9</span>, fontweight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"Cause"</span>)</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"Effect"</span>)</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>    plt.colorbar(im, ax<span class="op">=</span>ax, fraction<span class="op">=</span><span class="fl">0.046</span>)</span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="visualization-learned-dags" class="level3">
+<h3 class="anchored" data-anchor-id="visualization-learned-dags">Visualization — Learned DAGs</h3>
+<div id="78181bce" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:46.745120Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:46.744489Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:47.018947Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:47.017725Z&quot;}}" data-execution_count="18">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">5</span>))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_dag_ax(ax, B, title, node_color<span class="op">=</span><span class="st">"lightblue"</span>, edge_color<span class="op">=</span><span class="st">"dimgray"</span>):</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.from_numpy_array(B.astype(<span class="bu">int</span>), create_using<span class="op">=</span>nx.DiGraph)</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    pos <span class="op">=</span> nx.spring_layout(G, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    nx.draw(G, pos, ax<span class="op">=</span>ax, with_labels<span class="op">=</span><span class="va">True</span>, node_color<span class="op">=</span>node_color, edge_color<span class="op">=</span>edge_color,</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>            arrows<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">500</span>, font_size<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>plot_dag_ax(axes[<span class="dv">0</span>], B_true_nlin, <span class="st">"Ground Truth</span><span class="ch">\n</span><span class="st">(Nonlinear SEM)"</span>, <span class="st">"lightgreen"</span>, <span class="st">"forestgreen"</span>)</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>plot_dag_ax(axes[<span class="dv">1</span>], B_lin_nlin, <span class="st">"Linear NOTEARS</span><span class="ch">\n</span><span class="st">(misspecified baseline)"</span>)</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>B_plot_mlp <span class="op">=</span> B_mlp_nlin <span class="cf">if</span> acc_mlp_on_nlin <span class="cf">else</span> np.zeros((d_nlin, d_nlin))</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>B_plot_sob <span class="op">=</span> B_sob_nlin <span class="cf">if</span> acc_sob_on_nlin <span class="cf">else</span> np.zeros((d_nlin, d_nlin))</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>plot_dag_ax(axes[<span class="dv">2</span>], B_plot_mlp, <span class="st">"NOTEARSNonlinearMLP"</span>, <span class="st">"lightsalmon"</span>, <span class="st">"tomato"</span>)</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>plot_dag_ax(axes[<span class="dv">3</span>], B_plot_sob, <span class="st">"NOTEARSNonlinearSobolev"</span>, <span class="st">"plum"</span>, <span class="st">"purple"</span>)</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="interpretation">Interpretation</h3>
+<p>Linear NOTEARS on nonlinear data is a deliberate stress test. Nonlinear variants tend to outperform when sample size is sufficient (<span class="math inline">\(n \geq 500\)</span> per variable).</p>
+<p>DAG validity must be verified with <code>is_dag()</code> before interpreting any structural metric.</p>
+</section>
+</section>
+<section id="summary-and-conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="summary-and-conclusion">Summary and Conclusion</h2>
+<p>NOTEARS transformed causal structure learning by replacing an NP-hard combinatorial search with a smooth continuous optimization problem.</p>
+<p><strong>Strengths.</strong> The linear variant is simple, fast on moderate graphs (<span class="math inline">\(d \leq 200\)</span>), and produces interpretable weighted edges.</p>
+<p><strong>Limitations.</strong> The linear variant assumes additive Gaussian noise with no hidden confounders. Always center or standardize variables before fitting.</p>
+</section>
+<section id="resources" class="level2">
+<h2 class="anchored" data-anchor-id="resources">Resources</h2>
+<ul>
+<li><strong>Original Paper</strong>: <a href="https://arxiv.org/abs/1803.01422">DAGs with NO TEARS (Zheng et al., 2018)</a></li>
+<li><strong>Official Code</strong>: <a href="https://github.com/xunzheng/notears">github.com/xunzheng/notears</a></li>
+<li><strong>PyDeepCausalML</strong>: <code>pydeepcausalml.discovery.NOTEARSLinear</code>, <code>NOTEARSNonlinearMLP</code>, <code>NOTEARSNonlinearSobolev</code></li>
+</ul>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zia207\.github\.io\/PyDeepCausalML\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../Tutorial/02_08_05_05_03_00_DeepCausalML_structural_learning_introduction.html" class="pagination-link" aria-label="Introduction to Causal Structural Learning">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction to Causal Structural Learning</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../Tutorial/02_08_05_05_03_02_DeepCausalML_DagGNN.html" class="pagination-link" aria-label="DAG-GNN: DAG Structure Learning with Graph Neural Networks">
+        <span class="nav-page-text">DAG-GNN: DAG Structure Learning with Graph Neural Networks</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© CC-By Zia Ahmed, Upatta Analytics, 2026</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -153,8 +153,10 @@ class TCDF(BaseDeepEstimator):
         hidden_layers: int = 0,
         dilation_c: Optional[int] = None,
         significance: float = 0.8,
+        lag: Optional[int] = None,
         **kwargs,
     ):
+        kwargs.pop("lag", None)  # TCDF uses receptive_field, not lag
         kwargs.setdefault("epochs", 1000)
         kwargs.setdefault("lr", 1e-2)
         kwargs.setdefault("weight_decay", 0.0)

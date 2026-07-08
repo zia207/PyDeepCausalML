@@ -43,8 +43,7 @@ class DeepSynth(BaseDeepEstimator):
         x = check_array(X, "X")
         y = to_numpy(outcome).astype(np.float64).ravel()
         xin, _, self.mean_, self.std_ = make_lagged_sequences(x, self.lag)
-        if len(xin) != len(y) - self.lag:
-            y = y[self.lag:]
+        y = y[self.lag : self.lag + len(xin)]
         self.module_ = module_to_device(_DeepSynthModule(x.shape[1], self.hidden), device)
         optimizer = self._make_optimizer(self.module_)
         loader = DataLoader(TensorDataset(xin, to_tensor(y)), batch_size=self.batch_size, shuffle=True)

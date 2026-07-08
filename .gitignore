@@ -34,3 +34,6 @@ Python_models/
 
 # Jupyter
 .ipynb_checkpoints/
+
+/.quarto/
+**/*.quarto_ipynb

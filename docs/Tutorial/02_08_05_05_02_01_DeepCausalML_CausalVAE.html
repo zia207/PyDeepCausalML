@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>deepcausalml_causalvae – PyDeepCausalML</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../Tutorial/02_08_05_05_02_02_DeepCausalML_iVAE.html" rel="next">
+<link href="../Tutorial/02_08_05_05_02_00_DeepCausalML_GLVCM_introduction.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-bf6de5ccb156a65fc439966d4053cafd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-c3ddef8e9936373b1ee063945a43a984.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-bf6de5ccb156a65fc439966d4053cafd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">PyDeepCausalML</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Tutorial/02_08_05_05_00_DeepCausalML_introduction.html"> 
+<span class="menu-text">Tutorial</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../Tutorial/00-scientific-terminology-glossary.html"> 
+<span class="menu-text">Glossary</span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://sites.google.com/view/r-data-sci-env/home"> <i class="bi bi-house" role="img" aria-label="Upatta Analytics">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://pypi.org/project/pydeepcausalml/"> <i class="bi bi-box" role="img" aria-label="PyPI">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/zia207/PyDeepCausalML/"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/zia-ahmed207"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="mailto:zia207@gmail.com"> <i class="bi bi-envelope" role="img" aria-label="Email">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Tutorial/02_08_05_05_00_DeepCausalML_introduction.html"><strong>Deep Causal Learning</strong></a></li><li class="breadcrumb-item"><a href="../Tutorial/02_08_05_05_02_00_DeepCausalML_GLVCM_introduction.html"><strong>Generative Latent-Variable Causal Models (GLVCMs)</strong></a></li><li class="breadcrumb-item"><a href="../Tutorial/02_08_05_05_02_01_DeepCausalML_CausalVAE.html">CausalVAE: Causal Variational Autoencoder</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Tutorial/02_08_05_05_00_DeepCausalML_introduction.html"><strong>Deep Causal Learning</strong></a></li><li class="breadcrumb-item"><a href="../Tutorial/02_08_05_05_02_00_DeepCausalML_GLVCM_introduction.html"><strong>Generative Latent-Variable Causal Models (GLVCMs)</strong></a></li><li class="breadcrumb-item"><a href="../Tutorial/02_08_05_05_02_01_DeepCausalML_CausalVAE.html">CausalVAE: Causal Variational Autoencoder</a></li></ol></nav></header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../logo_DeepCausalML.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../logo_DeepCausalML.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Package Overview</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Deep Causal Learning</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_00_DeepCausalML_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Deep Causal Learning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text"><strong>Treatment Effect Estimators</strong></span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_01_00_DeepCausalML_treatment_effect_estimators_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Treatment Effect Estimators</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_01_01_DeepCausalML_TARNET.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">TARNet: Treatment-Agnostic Representation Network</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_01_02_DeepCausalML_CFRNet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CFRNet: Counterfactual Regression Network</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_01_03_DeepCausalML_DragonNet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DragonNet: Propensity-Adjusted Networks for Causal Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_01_04_DeepCausalML_GANITE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GANITE: Generative Adversarial Network for Inference of Treatment Effects</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_01_05_DeepCausalML_NeuralDML.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NeuralDML: Neural Double Machine Learning for the ATE</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text"><strong>Generative Latent-Variable Causal Models (GLVCMs)</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_02_00_DeepCausalML_GLVCM_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to GLVCMs</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_02_01_DeepCausalML_CausalVAE.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">CausalVAE: Causal Variational Autoencoder</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_02_02_DeepCausalML_iVAE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">iVAE: Identifiable Variational Autoencoders</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_02_03_DeepCausalML_CausalDiscrepancyVAE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CausalDiscrepancyVAE: Discrepancy-Regularized Causal Representation Learning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_02_04_DeepCausalML_CausalGAN.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CausalGAN: Causal Generative Network</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_02_05_DeepCausalML_DSCM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Deep Structural Causal Models (DSCMs)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_02_06_DeepCausalML_CausalEGM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CausalEGM: Causal Encoding Generative Modeling</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text"><strong>Causal Structural Learning</strong></span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_03_00_DeepCausalML_structural_learning_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Causal Structural Learning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_03_01_DeepCausalML_NOTEARS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">NOTEARS: Continuous Optimization Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_03_02_DeepCausalML_DagGNN.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DAG-GNN: DAG Structure Learning with Graph Neural Networks</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_03_03_DeepCausalML_GranDag.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">GraN-DAG: Gradient-Based Neural DAG Learning</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_03_04_DeepCausalML_DAGMA_NoCurl.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DAGMA and DAG-NoCurl for Causal Discovery</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_03_05_DeepCausalML_CASTLE.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">CASTLE: CAusal STructure LEarning Regularization</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text"><strong>Temporal Deep Causal ML</strong></span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_04_00_DeepCausalML_timeseries_introduction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Temporal Deep Causal ML</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_04_01_DeepCausalML_timeseries_neural_granger_causality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Neural Granger Causality Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_04_02_DeepCausalML_timeseries_structural_causal_model_SMC.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Structural Causal Models (SCMs) with Deep Components</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_04_03_DeepCausalML_attention_transformer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Attention-Based / Transformer Causal Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_04_04_DeepCausalML_timeseries_RNN_LSTM_causalML.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">RNN/LSTM-Based Causal Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_04_05_DeepCausalML_timeseries_graphNN.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Graph Neural Network (GNN) Causal Models</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/02_08_05_05_04_06_DeepCausalML_timeseries_counterfactual_potential.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Counterfactual / Potential Outcomes Models</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text"><strong>Terminology</strong></span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../Tutorial/00-scientific-terminology-glossary.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A complete A–Z reference for causal inference and machine learning terminology</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On This Page</h2>
+   
+  <ul>
+  <li><a href="#causal-variational-autoencoder-causalvae" id="toc-causal-variational-autoencoder-causalvae" class="nav-link active" data-scroll-target="#causal-variational-autoencoder-causalvae">2.1 Causal Variational Autoencoder (CausalVAE)</a>
+  <ul>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#model-architecture" id="toc-model-architecture" class="nav-link" data-scroll-target="#model-architecture">Model Architecture</a>
+  <ul class="collapse">
+  <li><a href="#the-two-stage-latent-space" id="toc-the-two-stage-latent-space" class="nav-link" data-scroll-target="#the-two-stage-latent-space">The Two-Stage Latent Space</a></li>
+  <li><a href="#the-causal-layer-scm" id="toc-the-causal-layer-scm" class="nav-link" data-scroll-target="#the-causal-layer-scm">The Causal Layer (SCM)</a></li>
+  <li><a href="#data-flow" id="toc-data-flow" class="nav-link" data-scroll-target="#data-flow">Data Flow</a></li>
+  <li><a href="#loss-function" id="toc-loss-function" class="nav-link" data-scroll-target="#loss-function">Loss Function</a></li>
+  <li><a href="#identifiability-and-weak-supervision" id="toc-identifiability-and-weak-supervision" class="nav-link" data-scroll-target="#identifiability-and-weak-supervision">Identifiability and Weak Supervision</a></li>
+  <li><a href="#performing-interventions" id="toc-performing-interventions" class="nav-link" data-scroll-target="#performing-interventions">Performing Interventions</a></li>
+  </ul></li>
+  <li><a href="#ate-estimation-via-causal-interventions" id="toc-ate-estimation-via-causal-interventions" class="nav-link" data-scroll-target="#ate-estimation-via-causal-interventions">ATE Estimation via Causal Interventions</a>
+  <ul class="collapse">
+  <li><a href="#why-causalvae-can-estimate-ate" id="toc-why-causalvae-can-estimate-ate" class="nav-link" data-scroll-target="#why-causalvae-can-estimate-ate">Why CausalVAE Can Estimate ATE</a></li>
+  <li><a href="#generating-data-with-treatment-and-outcome" id="toc-generating-data-with-treatment-and-outcome" class="nav-link" data-scroll-target="#generating-data-with-treatment-and-outcome">Generating Data with Treatment and Outcome</a></li>
+  <li><a href="#training-the-outcome-augmented-model" id="toc-training-the-outcome-augmented-model" class="nav-link" data-scroll-target="#training-the-outcome-augmented-model">Training the Outcome-Augmented Model</a></li>
+  </ul></li>
+  <li><a href="#implementation-in-python" id="toc-implementation-in-python" class="nav-link" data-scroll-target="#implementation-in-python">Implementation in Python</a>
+  <ul class="collapse">
+  <li><a href="#check-and-install-required-python-packages" id="toc-check-and-install-required-python-packages" class="nav-link" data-scroll-target="#check-and-install-required-python-packages">Check and Install Required Python Packages</a></li>
+  <li><a href="#verify-imports" id="toc-verify-imports" class="nav-link" data-scroll-target="#verify-imports">Verify imports</a></li>
+  </ul></li>
+  <li><a href="#load-data-and-prepare-synthetic-causal-chain" id="toc-load-data-and-prepare-synthetic-causal-chain" class="nav-link" data-scroll-target="#load-data-and-prepare-synthetic-causal-chain">Load data and prepare synthetic causal chain</a>
+  <ul class="collapse">
+  <li><a href="#data-generation" id="toc-data-generation" class="nav-link" data-scroll-target="#data-generation">Data Generation</a></li>
+  <li><a href="#data-generation-1" id="toc-data-generation-1" class="nav-link" data-scroll-target="#data-generation-1">Data generation</a></li>
+  </ul></li>
+  <li><a href="#fit-causalvae" id="toc-fit-causalvae" class="nav-link" data-scroll-target="#fit-causalvae">Fit CausalVAE</a>
+  <ul class="collapse">
+  <li><a href="#model-initialization" id="toc-model-initialization" class="nav-link" data-scroll-target="#model-initialization">Model Initialization</a></li>
+  <li><a href="#training" id="toc-training" class="nav-link" data-scroll-target="#training">Training</a></li>
+  <li><a href="#fit-causalvae-1" id="toc-fit-causalvae-1" class="nav-link" data-scroll-target="#fit-causalvae-1">Fit CausalVAE</a></li>
+  <li><a href="#training-and-validation-loss" id="toc-training-and-validation-loss" class="nav-link" data-scroll-target="#training-and-validation-loss">Training and validation loss</a></li>
+  <li><a href="#training-and-validation-loss-1" id="toc-training-and-validation-loss-1" class="nav-link" data-scroll-target="#training-and-validation-loss-1">Training and Validation Loss</a></li>
+  <li><a href="#training-loss" id="toc-training-loss" class="nav-link" data-scroll-target="#training-loss">Training loss</a></li>
+  </ul></li>
+  <li><a href="#ate-estimation-via-latent-interventions" id="toc-ate-estimation-via-latent-interventions" class="nav-link" data-scroll-target="#ate-estimation-via-latent-interventions">ATE estimation via latent interventions</a>
+  <ul class="collapse">
+  <li><a href="#training-the-outcome-augmented-model-1" id="toc-training-the-outcome-augmented-model-1" class="nav-link" data-scroll-target="#training-the-outcome-augmented-model-1">Training the Outcome-Augmented Model</a></li>
+  <li><a href="#ate-estimation-via-latent-interventions-1" id="toc-ate-estimation-via-latent-interventions-1" class="nav-link" data-scroll-target="#ate-estimation-via-latent-interventions-1">ATE estimation via latent interventions</a></li>
+  </ul></li>
+  <li><a href="#summary-and-conclusions" id="toc-summary-and-conclusions" class="nav-link" data-scroll-target="#summary-and-conclusions">Summary and Conclusions</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../Image/02_DeepCuaslaML.png" class="img-fluid figure-img"></p>
+<figcaption>Banner</figcaption>
+</figure>
+</div>
+<section id="causal-variational-autoencoder-causalvae" class="level1">
+<h1>2.1 Causal Variational Autoencoder (CausalVAE)</h1>
+<blockquote class="blockquote">
+<p><strong>Note:</strong> CausalVAE requires <strong>PyTorch</strong>. The <code>CausalVAE</code> estimator in <code>pydeepcausalml.generative</code> embeds a learnable DAG in the latent space for causal disentanglement.</p>
+</blockquote>
+<p>This notebook provides a detailed guide to implementing and applying the <strong>Causal Variational Autoencoder (CausalVAE)</strong> in Python, following the architecture introduced in “CausalVAE: Disentangled Representation Learning via Neural Structural Causal Models” (Yang et al., CVPR 2021). We cover the theoretical motivation, a full <code>torch</code>-based implementation via the <a href="https://github.com/zia207/pydeepcausalml"><code>pydeepcausalml</code></a> package, and an application to Average Treatment Effect (ATE) estimation on synthetic data with a known causal ground truth.</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>Standard VAEs — and even identifiable VAEs such as iVAEs — assume that the latent dimensions are <em>statistically independent</em>. This is a convenient mathematical assumption, but it conflicts with how the world actually generates data: causes produce effects, and latent factors are often related by causal mechanisms rather than being simply correlated or independent.</p>
+<p><strong>CausalVAE</strong> addresses this by embedding a <strong>Structural Causal Model (SCM)</strong> directly in the latent space. Where a standard VAE encodes <span class="math inline">\(x\)</span> to a vector of independent noise variables <span class="math inline">\(\varepsilon\)</span> and decodes back, CausalVAE adds a <em>causal layer</em> between the encoder and decoder that transforms the independent <span class="math inline">\(\varepsilon\)</span> into causally structured latent variables <span class="math inline">\(z\)</span> according to a learnable Directed Acyclic Graph (DAG). The result is a generative model whose latent space is not just disentangled — it is <em>causally disentangled</em>, meaning each latent dimension corresponds to a distinct node in a causal graph, and the learned edges describe how those nodes causally influence one another.</p>
+<p>This structure enables operations that are impossible in standard VAEs:</p>
+<ul>
+<li><strong>Interventions</strong>: set <span class="math inline">\(\mathrm{do}(z_i = v)\)</span> and propagate the effect through the graph to the other latents and to the reconstruction, without touching the unrelated dimensions.</li>
+<li><strong>Counterfactual reasoning</strong>: ask “what would <span class="math inline">\(z_2\)</span> have been if <span class="math inline">\(z_1\)</span> had taken a different value?”</li>
+<li><strong>Treatment effect estimation</strong>: because the causal graph is explicit, ATE can be estimated by intervening on the relevant latent node and reading off the downstream effect on the outcome.</li>
+</ul>
+</section>
+<section id="model-architecture" class="level2">
+<h2 class="anchored" data-anchor-id="model-architecture">Model Architecture</h2>
+<section id="the-two-stage-latent-space" class="level3">
+<h3 class="anchored" data-anchor-id="the-two-stage-latent-space">The Two-Stage Latent Space</h3>
+<p>CausalVAE separates the latent space into two layers with distinct roles:</p>
+<ul>
+<li><p><strong>Exogenous variables</strong> <span class="math inline">\(\varepsilon\)</span>: Independent noise sources with prior <span class="math inline">\(p(\varepsilon) = \mathcal{N}(0, I)\)</span>. These are what the encoder directly outputs — a representation that is, by construction, free of causal dependencies.</p></li>
+<li><p><strong>Endogenous variables</strong> <span class="math inline">\(z\)</span>: Causally generated from <span class="math inline">\(\varepsilon\)</span> via the learned SCM. Each <span class="math inline">\(z_i\)</span> is a function of its parents in the DAG plus its own exogenous noise <span class="math inline">\(\varepsilon_i\)</span>.</p></li>
+</ul>
+<p>The forward pass therefore has an additional step compared to a standard VAE: after sampling <span class="math inline">\(\varepsilon\)</span>, the causal layer applies the structural equations to produce <span class="math inline">\(z\)</span>, and the decoder then reconstructs <span class="math inline">\(x\)</span> from <span class="math inline">\(z\)</span>.</p>
+</section>
+<section id="the-causal-layer-scm" class="level3">
+<h3 class="anchored" data-anchor-id="the-causal-layer-scm">The Causal Layer (SCM)</h3>
+<p>The causal layer implements the structural equations of the SCM. In the linear case:</p>
+<p><span class="math display">\[z = (I - A \odot M)^{-1} \varepsilon\]</span></p>
+<p>where <span class="math inline">\(A\)</span> is a matrix of learnable real-valued edge weights and <span class="math inline">\(M\)</span> is a binary mask that determines which edges are structurally permitted. In practice, this inversion is replaced by an additive fixed-point iteration:</p>
+<p><span class="math display">\[z = \varepsilon + (A \odot M)\, z\]</span></p>
+<p>Because <span class="math inline">\(z\)</span> must follow a DAG (no cycles), the matrix <span class="math inline">\(A \odot M\)</span> must be nilpotent, which is enforced by a continuous differentiable DAG penalty on <span class="math inline">\(A\)</span>:</p>
+<p><span class="math display">\[h(A) = \mathrm{tr}\!\left(\exp(A \circ A)\right) - d\]</span></p>
+<p>where <span class="math inline">\(d\)</span> is the number of latent dimensions. This penalty equals zero if and only if <span class="math inline">\(A \circ A\)</span> has no positive-weight cycles, i.e., <span class="math inline">\(A\)</span> encodes a DAG. It is added to the loss with a Lagrange multiplier <span class="math inline">\(\gamma\)</span>, giving the optimizer a continuous incentive to push the learned graph toward acyclicity without requiring discrete search.</p>
+</section>
+<section id="data-flow" class="level3">
+<h3 class="anchored" data-anchor-id="data-flow">Data Flow</h3>
+<p>The complete forward pass is:</p>
+<p><span class="math display">\[x \;\xrightarrow{\text{encoder}}\; (\mu_\varepsilon, \log\sigma^2_\varepsilon) \;\xrightarrow{\text{reparam.}}\; \varepsilon \;\xrightarrow{\text{causal layer}}\; z \;\xrightarrow{\text{decoder}}\; (\mu_x, \log\sigma^2_x)\]</span></p>
+<p>The encoder outputs parameters of a Gaussian over <span class="math inline">\(\varepsilon\)</span> (not <span class="math inline">\(z\)</span> directly). The decoder receives the causally structured <span class="math inline">\(z\)</span> (not <span class="math inline">\(\varepsilon\)</span>). This separation means the KL divergence is computed in the <span class="math inline">\(\varepsilon\)</span> space against <span class="math inline">\(\mathcal{N}(0,I)\)</span>, keeping that term tractable, while the causal structure lives entirely in the transformation <span class="math inline">\(\varepsilon \to z\)</span>.</p>
+</section>
+<section id="loss-function" class="level3">
+<h3 class="anchored" data-anchor-id="loss-function">Loss Function</h3>
+<p>The training objective is a <span class="math inline">\(\beta\)</span>-VAE ELBO augmented with causal regularizers:</p>
+<p><span class="math display">\[\mathcal{L} = \underbrace{\mathbb{E}_{q(\varepsilon|x)}\!\left[\log p(x \mid z)\right]}_{\text{reconstruction}} - \underbrace{\beta\, D_{\mathrm{KL}}\!\left(q(\varepsilon \mid x) \,\|\, \mathcal{N}(0,I)\right)}_{\text{KL regularization}} - \underbrace{\gamma\!\left(h(A) + \lambda \|A\|_1\right)}_{\text{DAG + sparsity penalty}}\]</span></p>
+<p>The three terms serve distinct purposes:</p>
+<ul>
+<li>The <strong>reconstruction loss</strong> ensures the decoded output faithfully reproduces the input.</li>
+<li>The <strong>KL term</strong> (weighted by <span class="math inline">\(\beta &gt; 1\)</span> for stronger disentanglement) regularizes the exogenous variables toward independence.</li>
+<li>The <strong>DAG penalty</strong> <span class="math inline">\(h(A)\)</span> enforces acyclicity of the learned causal graph.</li>
+<li>The <span class="math inline">\(\ell_1\)</span> sparsity term <span class="math inline">\(\lambda \|A\|_1\)</span> encourages the learned graph to have few edges, promoting parsimonious causal explanations.</li>
+</ul>
+<p><img src="../Image/causalVAE_01.png" class="img-fluid"></p>
+<p>The causal layer deserves its own close-up showing how the DAG transforms ε into z.</p>
+<p><img src="../Image/causalVAE_02.png" class="img-fluid"></p>
+</section>
+<section id="identifiability-and-weak-supervision" class="level3">
+<h3 class="anchored" data-anchor-id="identifiability-and-weak-supervision">Identifiability and Weak Supervision</h3>
+<p>CausalVAE, like iVAE, faces identifiability challenges. Without additional constraints, the latent space can be arbitrarily rotated. In practice, the paper addresses this through <strong>weak supervision</strong>: the training procedure uses partial knowledge of the causal graph (e.g., which edges are forbidden, or which interventional experiments have been performed) to anchor the latent space. In the implementation below, the synthetic data is generated from a <em>known</em> causal chain, giving us ground-truth latents against which to evaluate the learned representation.</p>
+</section>
+<section id="performing-interventions" class="level3">
+<h3 class="anchored" data-anchor-id="performing-interventions">Performing Interventions</h3>
+<p>Once trained, an intervention <span class="math inline">\(\mathrm{do}(z_i = v)\)</span> is carried out by:</p>
+<ol type="1">
+<li>Encoding <span class="math inline">\(x\)</span> to obtain <span class="math inline">\(\varepsilon\)</span>.</li>
+<li>Setting the <span class="math inline">\(i\)</span>-th component of <span class="math inline">\(z\)</span> to <span class="math inline">\(v\)</span>, bypassing the structural equation for node <span class="math inline">\(i\)</span>.</li>
+<li>Propagating <span class="math inline">\(v\)</span> through the downstream edges in <span class="math inline">\(A\)</span> to update the children of <span class="math inline">\(z_i\)</span>.</li>
+<li>Decoding the modified <span class="math inline">\(z\)</span> to produce the interventional reconstruction <span class="math inline">\(\hat{x}_{\mathrm{do}(z_i=v)}\)</span>.</li>
+</ol>
+<p>This is the mechanism that enables ATE estimation: intervene on the treatment node, observe the change in the outcome node, and average over the data distribution.</p>
+</section>
+</section>
+<section id="ate-estimation-via-causal-interventions" class="level2">
+<h2 class="anchored" data-anchor-id="ate-estimation-via-causal-interventions">ATE Estimation via Causal Interventions</h2>
+<section id="why-causalvae-can-estimate-ate" class="level3">
+<h3 class="anchored" data-anchor-id="why-causalvae-can-estimate-ate">Why CausalVAE Can Estimate ATE</h3>
+<p>Because the learned latent space has explicit causal structure, ATE estimation reduces to a simple intervention: set the treatment node <span class="math inline">\(T\)</span> to 1 (treated) versus 0 (control), hold all exogenous noise <span class="math inline">\(\varepsilon\)</span> fixed, propagate through the DAG, and read off the expected change in the outcome. This is the do-calculus <span class="math inline">\(\mathrm{do}(T = t)\)</span> operationalized directly on the learned graph, without needing a separate propensity model or outcome regression.</p>
+<p>In the synthetic setting below, treatment <span class="math inline">\(T\)</span> acts on <span class="math inline">\(z_1\)</span> and the outcome <span class="math inline">\(Y\)</span> is generated as <span class="math inline">\(Y = z_3 + T \cdot 0.5 \cdot z_2 + \varepsilon_Y\)</span>, giving a true ATE of <span class="math inline">\(0.5 \cdot \mathbb{E}[z_2]\)</span>.</p>
+</section>
+<section id="generating-data-with-treatment-and-outcome" class="level3">
+<h3 class="anchored" data-anchor-id="generating-data-with-treatment-and-outcome">Generating Data with Treatment and Outcome</h3>
+</section>
+<section id="training-the-outcome-augmented-model" class="level3">
+<h3 class="anchored" data-anchor-id="training-the-outcome-augmented-model">Training the Outcome-Augmented Model</h3>
+<p><code>CausalVAE_ATE</code> extends the base model with a linear outcome head <span class="math inline">\(\mathbb{E}[Y \mid z, T]\)</span>. The outcome head is trained jointly with the VAE objective, so the latent representation learns to encode variation that is relevant for predicting <span class="math inline">\(Y\)</span> — not just for reconstructing <span class="math inline">\(x\)</span>.</p>
+</section>
+</section>
+<section id="implementation-in-python" class="level2">
+<h2 class="anchored" data-anchor-id="implementation-in-python">Implementation in Python</h2>
+<p>We fit <strong>CausalVAE</strong> with <code>pydeepcausalml.generative.CausalVAE</code> on synthetic data with a known causal chain.</p>
+<section id="check-and-install-required-python-packages" class="level3">
+<h3 class="anchored" data-anchor-id="check-and-install-required-python-packages">Check and Install Required Python Packages</h3>
+<p>The following packages are used in this notebook. Install any missing packages with the cell below:</p>
+<p><code>numpy</code>, <code>pandas</code>, <code>torch</code>, <code>matplotlib</code>, <code>seaborn</code>, <code>pydeepcausalml</code></p>
+<div id="26539ab4" class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> subprocess</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>PACKAGES <span class="op">=</span> [</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"numpy"</span>, <span class="st">"pandas"</span>, <span class="st">"scipy"</span>, <span class="st">"torch"</span>, <span class="st">"scikit-learn"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"matplotlib"</span>, <span class="st">"seaborn"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> pkg <span class="kw">in</span> PACKAGES:</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    mod <span class="op">=</span> <span class="st">"sklearn"</span> <span class="cf">if</span> pkg <span class="op">==</span> <span class="st">"scikit-learn"</span> <span class="cf">else</span> pkg</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        importlib.import_module(mod)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">ImportError</span>:</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        subprocess.check_call([sys.executable, <span class="st">"-m"</span>, <span class="st">"pip"</span>, <span class="st">"install"</span>, <span class="st">"-q"</span>, pkg])</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> pydeepcausalml  <span class="co"># noqa: F401</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">ImportError</span>:</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    repo_root <span class="op">=</span> Path(<span class="st">".."</span>).resolve()</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    subprocess.check_call([sys.executable, <span class="st">"-m"</span>, <span class="st">"pip"</span>, <span class="st">"install"</span>, <span class="st">"-q"</span>, <span class="st">"-e"</span>, <span class="bu">str</span>(repo_root)])</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Packages ready."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="verify-imports" class="level3">
+<h3 class="anchored" data-anchor-id="verify-imports">Verify imports</h3>
+<div id="ce125771" class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydeepcausalml <span class="im">import</span> set_seed</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"torch:"</span>, torch.__version__)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"cuda:"</span>, torch.cuda.is_available())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="7deab504" class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>set_seed(<span class="dv">42</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="load-data-and-prepare-synthetic-causal-chain" class="level2">
+<h2 class="anchored" data-anchor-id="load-data-and-prepare-synthetic-causal-chain">Load data and prepare synthetic causal chain</h2>
+<section id="data-generation" class="level3">
+<h3 class="anchored" data-anchor-id="data-generation">Data Generation</h3>
+<p>We generate synthetic data from a known three-node causal chain <span class="math inline">\(z_1 \to z_2 \to z_3\)</span> with nonlinear structural equations:</p>
+<p><span class="math display">\[z_1 = \varepsilon_1, \qquad z_2 = z_1 + \varepsilon_2, \qquad z_3 = z_2^2 + \varepsilon_3\]</span></p>
+<p>Observations <span class="math inline">\(x\)</span> are a nonlinear mix of the causal latents, ensuring that the true causal structure cannot be read off from <span class="math inline">\(x\)</span> directly and must be recovered from the learned representation. Having access to the ground-truth latents <span class="math inline">\(z\)</span> allows us to directly evaluate whether the causal layer has learned the correct graph.</p>
+</section>
+<section id="data-generation-1" class="level3">
+<h3 class="anchored" data-anchor-id="data-generation-1">Data generation</h3>
+<p>Synthetic causal chain <span class="math inline">\(z_1 \to z_2 \to z_3\)</span> with nonlinear observations.</p>
+<div id="58dd28ad" class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_data(n_samples<span class="op">=</span><span class="dv">5000</span>, latent_dim<span class="op">=</span><span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">42</span>):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(random_state)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    eps <span class="op">=</span> rng.normal(size<span class="op">=</span>(n_samples, latent_dim))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> np.zeros((n_samples, latent_dim))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.zeros((n_samples, latent_dim))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    z[:, <span class="dv">0</span>] <span class="op">=</span> eps[:, <span class="dv">0</span>]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    z[:, <span class="dv">1</span>] <span class="op">=</span> z[:, <span class="dv">0</span>] <span class="op">+</span> eps[:, <span class="dv">1</span>]</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    z[:, <span class="dv">2</span>] <span class="op">=</span> z[:, <span class="dv">1</span>] <span class="op">**</span> <span class="dv">2</span> <span class="op">+</span> eps[:, <span class="dv">2</span>]</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    x[:, <span class="dv">0</span>] <span class="op">=</span> z[:, <span class="dv">0</span>] <span class="op">*</span> z[:, <span class="dv">2</span>]</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    x[:, <span class="dv">1</span>] <span class="op">=</span> np.sin(z[:, <span class="dv">1</span>]) <span class="op">+</span> z[:, <span class="dv">0</span>]</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    x[:, <span class="dv">2</span>] <span class="op">=</span> z[:, <span class="dv">2</span>] <span class="op">**</span> <span class="dv">2</span> <span class="op">+</span> rng.normal(scale<span class="op">=</span><span class="fl">0.1</span>, size<span class="op">=</span>n_samples)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, z, eps</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>x, true_z, true_eps <span class="op">=</span> generate_data()</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>x_mean, x_std <span class="op">=</span> x.mean(axis<span class="op">=</span><span class="dv">0</span>), x.std(axis<span class="op">=</span><span class="dv">0</span>) <span class="op">+</span> <span class="fl">1e-8</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>x_norm <span class="op">=</span> (x <span class="op">-</span> x_mean) <span class="op">/</span> x_std</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(x_norm)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>train_n, val_n <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.8</span> <span class="op">*</span> n), <span class="bu">int</span>(<span class="fl">0.1</span> <span class="op">*</span> n)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>x_train <span class="op">=</span> x_norm[:train_n]</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>x_val <span class="op">=</span> x_norm[train_n : train_n <span class="op">+</span> val_n]</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>x_test <span class="op">=</span> x_norm[train_n <span class="op">+</span> val_n :]</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Train: </span><span class="sc">{</span><span class="bu">len</span>(x_train)<span class="sc">}</span><span class="ss"> | Val: </span><span class="sc">{</span><span class="bu">len</span>(x_val)<span class="sc">}</span><span class="ss"> | Test: </span><span class="sc">{</span><span class="bu">len</span>(x_test)<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="fit-causalvae" class="level2">
+<h2 class="anchored" data-anchor-id="fit-causalvae">Fit CausalVAE</h2>
+<section id="model-initialization" class="level3">
+<h3 class="anchored" data-anchor-id="model-initialization">Model Initialization</h3>
+<p>The <code>CausalVAE()</code> constructor (from <code>pydeepcausalml</code>) builds the encoder, causal layer, and decoder. The <code>loss_function()</code> computes the full augmented ELBO including the DAG penalty and sparsity regularizer.</p>
+<p>We use a learning rate scheduler that halves the learning rate when validation loss plateaus, and a LR warmup phase in the first 10 epochs to prevent the DAG penalty from dominating before the reconstruction loss has stabilized.</p>
+</section>
+<section id="training" class="level3">
+<h3 class="anchored" data-anchor-id="training">Training</h3>
+<p>The training loop implements several practical stability measures:</p>
+<ul>
+<li><strong>LR warmup</strong> (first 10 epochs): the optimizer starts at a fraction of the target learning rate and ramps up linearly, preventing large early updates from disrupting the nascent causal structure.</li>
+<li><strong>Capped gamma schedule</strong>: the DAG penalty weight <span class="math inline">\(\gamma\)</span> is introduced gradually over the first 50 epochs and capped at 0.35, preventing the acyclicity constraint from overwhelming reconstruction early in training.</li>
+<li><strong>Gradient clipping</strong> (max norm 0.5): prevents gradient explosions, which are especially common when the matrix exponential in <span class="math inline">\(h(A)\)</span> produces large gradients.</li>
+<li><strong>NaN/Inf detection</strong>: batches with numerically unstable losses are skipped rather than allowed to corrupt the model weights.</li>
+<li><strong>Early stopping</strong>: training halts 10 epochs after the validation loss stops improving, and the best checkpoint is restored at the end.</li>
+</ul>
+</section>
+<section id="fit-causalvae-1" class="level3">
+<h3 class="anchored" data-anchor-id="fit-causalvae-1">Fit CausalVAE</h3>
+<div id="0a29dc7a" class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydeepcausalml.generative <span class="im">import</span> CausalVAE</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> CausalVAE(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    latent_dim<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    hidden<span class="op">=</span><span class="dv">64</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    beta_kl<span class="op">=</span><span class="fl">1.0</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    lambda_dag<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span><span class="dv">80</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">128</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    lr<span class="op">=</span><span class="fl">1e-3</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    log_every<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>model.fit(x_train)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>z_latent <span class="op">=</span> model.transform(x_test)</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Learned latent shape:"</span>, z_latent.shape)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>adj <span class="op">=</span> model.adjacency_matrix()</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Adjacency (edge weights):</span><span class="ch">\n</span><span class="st">"</span>, np.<span class="bu">round</span>(adj, <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="training-and-validation-loss" class="level3">
+<h3 class="anchored" data-anchor-id="training-and-validation-loss">Training and validation loss</h3>
+</section>
+<section id="training-and-validation-loss-1" class="level3">
+<h3 class="anchored" data-anchor-id="training-and-validation-loss-1">Training and Validation Loss</h3>
+<p>The plot below shows the negative ELBO over training. A well-behaved run exhibits three phases: a rapid initial decline as the reconstruction loss improves; a mid-training inflection as the DAG penalty activates and temporarily increases the loss; and a final convergence as the graph structure stabilizes and the ELBO settles. Early stopping ensures that we restore the checkpoint from the first loss valley rather than continuing into a noisier regime.</p>
+</section>
+<section id="training-loss" class="level3">
+<h3 class="anchored" data-anchor-id="training-loss">Training loss</h3>
+<div id="e3f11bd1" class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>hist <span class="op">=</span> model.history_</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> hist.get(<span class="st">"loss"</span>):</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    plt.plot(<span class="bu">range</span>(<span class="dv">1</span>, <span class="bu">len</span>(hist[<span class="st">"loss"</span>]) <span class="op">+</span> <span class="dv">1</span>), hist[<span class="st">"loss"</span>], label<span class="op">=</span><span class="st">"Train loss"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Epoch"</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Loss"</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="st">"CausalVAE: training loss"</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="ate-estimation-via-latent-interventions" class="level2">
+<h2 class="anchored" data-anchor-id="ate-estimation-via-latent-interventions">ATE estimation via latent interventions</h2>
+<section id="training-the-outcome-augmented-model-1" class="level3">
+<h3 class="anchored" data-anchor-id="training-the-outcome-augmented-model-1">Training the Outcome-Augmented Model</h3>
+<p><code>CausalVAE_ATE</code> extends the base model with a linear outcome head <span class="math inline">\(\mathbb{E}[Y \mid z, T]\)</span>. The outcome head is trained jointly with the VAE objective, so the latent representation learns to encode variation that is relevant for predicting <span class="math inline">\(Y\)</span> — not just for reconstructing <span class="math inline">\(x\)</span>.</p>
+</section>
+<section id="ate-estimation-via-latent-interventions-1" class="level3">
+<h3 class="anchored" data-anchor-id="ate-estimation-via-latent-interventions-1">ATE estimation via latent interventions</h3>
+<p>We extend the setting with treatment <span class="math inline">\(T\)</span> and outcome <span class="math inline">\(Y\)</span> on the synthetic SCM.</p>
+<div id="e28b116a" class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_data_with_treatment(n_samples<span class="op">=</span><span class="dv">5000</span>, latent_dim<span class="op">=</span><span class="dv">3</span>, random_state<span class="op">=</span><span class="dv">42</span>):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(random_state)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    eps <span class="op">=</span> rng.normal(size<span class="op">=</span>(n_samples, latent_dim))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> np.zeros((n_samples, latent_dim))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    z[:, <span class="dv">0</span>] <span class="op">=</span> eps[:, <span class="dv">0</span>]</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    z[:, <span class="dv">1</span>] <span class="op">=</span> z[:, <span class="dv">0</span>] <span class="op">+</span> eps[:, <span class="dv">1</span>]</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    z[:, <span class="dv">2</span>] <span class="op">=</span> z[:, <span class="dv">1</span>] <span class="op">**</span> <span class="dv">2</span> <span class="op">+</span> eps[:, <span class="dv">2</span>]</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    T <span class="op">=</span> rng.binomial(<span class="dv">1</span>, <span class="fl">0.5</span>, size<span class="op">=</span>n_samples)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">=</span> z[:, <span class="dv">2</span>] <span class="op">+</span> T <span class="op">*</span> <span class="fl">0.5</span> <span class="op">*</span> z[:, <span class="dv">1</span>] <span class="op">+</span> rng.normal(scale<span class="op">=</span><span class="fl">0.1</span>, size<span class="op">=</span>n_samples)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.zeros((n_samples, latent_dim))</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    x[:, <span class="dv">0</span>] <span class="op">=</span> z[:, <span class="dv">0</span>] <span class="op">*</span> z[:, <span class="dv">2</span>]</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    x[:, <span class="dv">1</span>] <span class="op">=</span> np.sin(z[:, <span class="dv">1</span>]) <span class="op">+</span> z[:, <span class="dv">0</span>]</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    x[:, <span class="dv">2</span>] <span class="op">=</span> z[:, <span class="dv">2</span>] <span class="op">**</span> <span class="dv">2</span> <span class="op">+</span> rng.normal(scale<span class="op">=</span><span class="fl">0.1</span>, size<span class="op">=</span>n_samples)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x, z, T, Y</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>x_ate, z_ate, T_ate, Y_ate <span class="op">=</span> generate_data_with_treatment()</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>x_ate <span class="op">=</span> (x_ate <span class="op">-</span> x_ate.mean(<span class="dv">0</span>)) <span class="op">/</span> (x_ate.std(<span class="dv">0</span>) <span class="op">+</span> <span class="fl">1e-8</span>)</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>true_ate <span class="op">=</span> <span class="fl">0.5</span> <span class="op">*</span> z_ate[:, <span class="dv">1</span>].mean()</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"True ATE (population): </span><span class="sc">{</span>true_ate<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Joint model: CausalVAE representation + linear outcome head on latents</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>cvae_ate <span class="op">=</span> CausalVAE(latent_dim<span class="op">=</span><span class="dv">3</span>, hidden<span class="op">=</span><span class="dv">64</span>, epochs<span class="op">=</span><span class="dv">60</span>, batch_size<span class="op">=</span><span class="dv">256</span>, verbose<span class="op">=</span><span class="va">False</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>cvae_ate.fit(x_ate)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>z_hat <span class="op">=</span> cvae_ate.transform(x_ate)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>outcome_model <span class="op">=</span> LinearRegression().fit(np.column_stack([z_hat, T_ate]), Y_ate)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">0</span>)</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>z_samples <span class="op">=</span> rng.normal(size<span class="op">=</span>(<span class="dv">500</span>, cvae_ate.latent_dim))</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>y1 <span class="op">=</span> outcome_model.predict(np.column_stack([z_samples, np.ones(<span class="dv">500</span>)]))</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>y0 <span class="op">=</span> outcome_model.predict(np.column_stack([z_samples, np.zeros(<span class="dv">500</span>)]))</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>pred_ate <span class="op">=</span> y1.mean() <span class="op">-</span> y0.mean()</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Predicted ATE: </span><span class="sc">{</span>pred_ate<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Absolute error: </span><span class="sc">{</span><span class="bu">abs</span>(pred_ate <span class="op">-</span> true_ate)<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+</section>
+<section id="summary-and-conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="summary-and-conclusions">Summary and Conclusions</h2>
+<p>CausalVAE combines the expressive power of variational autoencoders with the structural guarantees of causal graphical models. By embedding a learnable DAG directly in the latent space, it enables a form of representation learning that goes beyond statistical disentanglement to <em>causal</em> disentanglement: each latent dimension corresponds to a distinct node in a causal graph, and the learned edges describe how those nodes influence one another.</p>
+<p>The practical consequences are significant. Interventions on the latent space are well-defined (via do-calculus on the learned DAG), counterfactuals can be computed by fixing <span class="math inline">\(\varepsilon\)</span> and modifying <span class="math inline">\(z\)</span>, and ATE estimation reduces to a simple evaluation of the outcome head under two interventional distributions. These capabilities are unavailable in CEVAE, iVAE, or standard VAEs.</p>
+<p>The main practical challenges are identifiability (which typically requires weak supervision from partial graph knowledge or interventional data), training stability (the DAG penalty requires careful scheduling to avoid disrupting reconstruction early in training), and scalability (the matrix exponential penalty is <span class="math inline">\(O(d^3)\)</span> in the latent dimension <span class="math inline">\(d\)</span>, so very large latent spaces are expensive to regularize).</p>
+<p>For production applications: use weak supervision whenever any partial graph knowledge is available; monitor the DAG penalty and reconstruction loss separately to diagnose convergence issues; and validate the learned graph against any available domain knowledge before trusting the inferred causal structure for downstream decisions.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li>Yang, M., Liu, F., Chen, Z., Shen, X., Hao, J., &amp; Wang, J. (2021). <a href="https://arxiv.org/abs/2004.08697">CausalVAE: Disentangled Representation Learning via Neural Structural Causal Models</a>. <em>Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</em>.</li>
+<li>Zheng, X., Aragam, B., Ravikumar, P., &amp; Xing, E. P. (2018). <a href="https://arxiv.org/abs/1803.01422">DAGs with NO TEARS: Continuous Optimization for Structure Learning</a>. <em>NeurIPS</em>. (Source of the <span class="math inline">\(h(A)\)</span> acyclicity penalty.)</li>
+<li>Khemakhem, I., et al.&nbsp;(2020). <a href="https://arxiv.org/abs/1907.04809">Variational Autoencoders and Nonlinear ICA: A Unifying Framework</a>. <em>AISTATS</em>. (iVAE, predecessor in the identifiable VAE family.)</li>
+<li>Louizos, C., et al.&nbsp;(2017). <a href="https://arxiv.org/abs/1705.08821">Causal Effect Inference with Deep Latent Variable Models</a>. <em>NeurIPS</em>. (CEVAE, complementary approach for proxy confounding.)</li>
+<li><a href="https://github.com/zia207/pydeepcausalml">pydeepcausalml: R package for Machine Learning-based Causal Inference</a></li>
+<li>Yang et al.&nbsp;<a href="https://github.com/huawei-noah/trustworthyAI/tree/master/research/CausalVAE">Official CausalVAE implementation</a>. Huawei Noah’s Ark Lab.</li>
+</ul>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/zia207\.github\.io\/PyDeepCausalML\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../Tutorial/02_08_05_05_02_00_DeepCausalML_GLVCM_introduction.html" class="pagination-link" aria-label="Introduction to GLVCMs">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Introduction to GLVCMs</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../Tutorial/02_08_05_05_02_02_DeepCausalML_iVAE.html" class="pagination-link" aria-label="iVAE: Identifiable Variational Autoencoders">
+        <span class="nav-page-text">iVAE: Identifiable Variational Autoencoders</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© CC-By Zia Ahmed, Upatta Analytics, 2026</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This page is built with <a href="https://quarto.org/">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

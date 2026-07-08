@@ -123,8 +123,9 @@ class DynoTEARS(BaseDeepEstimator):
             if epoch > 0 and epoch % self.rho_update_every == 0:
                 rho = min(rho * 2.0, 1e4)
 
-            self._record(mse=mse_total / len(loader), h=abs(h_epoch))
-            self._log_epoch(epoch, mse=mse_total / len(loader), h=abs(h_epoch))
+            epoch_mse = mse_total / len(loader)
+            self._record(loss=epoch_mse, mse=epoch_mse, h=abs(h_epoch))
+            self._log_epoch(epoch, mse=epoch_mse, h=abs(h_epoch))
 
         with torch.no_grad():
             self.weights_ = to_numpy(self.module_.aggregate())

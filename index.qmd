@@ -1,0 +1,183 @@
+---
+title: "PyDeepCausalML"
+subtitle: "Deep Learning for Causal Inference in Python"
+page-layout: full
+toc: false
+---
+
+::: {.pkg-hero}
+
+
+
+# pydeepcausalml {.pkg-name}
+
+**Latest release:** 0.2.0 · **Requires:** Python ≥ 3.9 · **License:** [MIT](https://github.com/zia207/PyDeepCausalML/blob/main/LICENSE)
+
+Deep learning models for causal inference in Python with Pytorch: treatment-effect estimation, causal structure learning, temporal causal discovery, and counterfactual forecasting — behind one consistent, sklearn-style API.
+
+```{.bash copy="true"}
+pip install pydeepcausalml
+```
+
+| | |
+|---|---|
+| **Package** | [PyPI](https://pypi.org/project/pydeepcausalml/) · [GitHub](https://github.com/zia207/PyDeepCausalML) |
+| **Docs** | [Tutorial](Tutorial/02_08_05_05_00_DeepCausalML_introduction.ipynb) · [Glossary](Tutorial/00-scientific-terminology-glossary.qmd) |
+| **Author** | Zia U. Ahmed · Upatta Analytics |
+
+:::
+
+::: {.grid}
+
+::: {.g-col-8}
+
+## What is it? {#what-is-it}
+
+**PyDeepCausalML** consolidates deep causal models from the *Deep Causal ML* tutorial series into a tested, installable Python package. 
+
+Use it when you need to:
+
+- Estimate **average or individual treatment effects** from observational data
+- Discover **causal graphs** from static or time-series data
+- Run **counterfactual** and **interventional** queries with neural structural models
+- Train on **CPU, CUDA, or Apple MPS** with the same sklearn-style API
+
+## Installation {#installation}
+
+```bash
+pip install pydeepcausalml            # core
+pip install "pydeepcausalml[plot]"    # + matplotlib/seaborn plotting helpers
+pip install "pydeepcausalml[dev]"     # + test and lint tooling
+```
+
+From source:
+
+```bash
+git clone https://github.com/zia207/PyDeepCausalML && cd PyDeepCausalML
+pip install -e ".[dev]"
+pytest
+```
+
+## Main features {#main-features}
+
+- **Treatment effects:** `TARNet`, `CFRNet`, `DragonNet`, `NeuralDML`, `GANITE`, `CEVAE`
+- **Generative causal models:** `CausalVAE`, `IVAE`, `CausalDiscrepancyVAE`, `CausalGAN`, `DSCM`, `CausalEGM`
+- **Structure learning:** `NOTEARS`, `DAGGNN`, `DagmaLinear`, `GranDag`, `CASTLE`, `DynoTEARS`
+- **Time series:** neural Granger (`cMLP`, `cLSTM`), `TCDF`, `CausalTransformer`, `GVAR`, `CausalGNN`
+- **Counterfactuals:** `DeepSynth`, `CRN`, `GNet`, `CausalLSTMForecaster`, `DeepSCM`, `DECI`
+- **Utilities:** synthetic datasets with ground truth, PEHE/SHD metrics, causal graph plotting
+
+## Quickstart {#quickstart}
+
+```python
+from pydeepcausalml import DragonNet, NeuralDML
+from pydeepcausalml.datasets import make_confounded_data
+from pydeepcausalml.metrics import pehe
+
+df = make_confounded_data(n=5000, random_state=0)
+X = df[["age", "education", "prior_income"]].values
+t, y = df["treatment"].values, df["outcome"].values
+
+est = DragonNet(epochs=200, random_state=0).fit(X, t, y)
+print("ATE:", est.predict_ate(X))
+print("PEHE:", pehe(df["true_cate"], est.predict_cate(X)))
+
+dml = NeuralDML(n_splits=2, random_state=0).fit(X, t, y)
+print("DML ATE:", dml.predict_ate(), "95% CI:", dml.confidence_interval())
+```
+
+## Documentation {#documentation}
+
+The sidebar links to the full **Deep Causal ML** tutorial series — 27 notebooks covering treatment effects, generative latent-variable models, structure learning, and temporal causal ML.
+
+Start here:
+
+- [Introduction to Deep Causal Learning](Tutorial/02_08_05_05_00_DeepCausalML_introduction.ipynb)
+- [Treatment Effect Estimators](Tutorial/02_08_05_05_01_00_DeepCausalML_treatment_effect_estimators_introduction.ipynb)
+- [Causal Structural Learning](Tutorial/02_08_05_05_03_00_DeepCausalML_structural_learning_introduction.ipynb)
+- [Temporal Deep Causal ML](Tutorial/02_08_05_05_04_00_DeepCausalML_timeseries_introduction.ipynb)
+- [Scientific Terminology Glossary](Tutorial/00-scientific-terminology-glossary.qmd)
+
+## License {#license}
+
+MIT — see [LICENSE](https://github.com/zia207/PyDeepCausalML/blob/main/LICENSE).
+
+:::
+
+::: {.g-col-4 .pkg-sidebar}
+
+### Navigation
+
+- [Project description](#what-is-it)
+- [Installation](#installation)
+- [Main features](#main-features)
+- [Quickstart](#quickstart)
+- [Documentation](#documentation)
+- [License](#license)
+
+### Project links
+
+- [Homepage](https://zia207.github.io/PyDeepCausalML/)
+- [Repository](https://github.com/zia207/PyDeepCausalML)
+- [Issues](https://github.com/zia207/PyDeepCausalML/issues)
+- [PyPI](https://pypi.org/project/pydeepcausalml/)
+
+### Verified details
+
+| | |
+|---|---|
+| **License** | MIT |
+| **Author** | Zia U. Ahmed |
+| **Requires** | Python ≥ 3.9 |
+| **Framework** | PyTorch ≥ 2.0 |
+
+### Optional extras
+
+`plot`, `dev`
+
+### Classifiers
+
+- Development Status :: Beta
+- Intended Audience :: Science/Research
+- Topic :: Scientific/Engineering :: AI
+
+:::
+
+:::
+
+<style>
+.pkg-hero {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+}
+.pkg-hero .pkg-name {
+  margin-top: 0;
+  font-size: 2rem;
+}
+.pkg-hero pre {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  max-width: 28rem;
+}
+.pkg-sidebar {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  font-size: 0.95rem;
+}
+.pkg-sidebar h3 {
+  font-size: 1rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #495057;
+}
+.pkg-sidebar h3:first-child {
+  margin-top: 0;
+}
+</style>

@@ -54,7 +54,8 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/zia207/PyDeepCausalML"
+Homepage = "https://zia207.github.io/PyDeepCausalML/"
+Documentation = "https://zia207.github.io/PyDeepCausalML/"
 Repository = "https://github.com/zia207/PyDeepCausalML"
 Issues = "https://github.com/zia207/PyDeepCausalML/issues"
 

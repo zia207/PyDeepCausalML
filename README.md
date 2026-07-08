@@ -119,11 +119,6 @@ Factory (mirrors R `neural_granger_ml()`): `neural_granger_model("cmlp" | "clstm
 | `CausalGNN` | GNN-based temporal causal discovery | `causal_matrix` |
 | `CUTS` | Causal discovery from unstructured time series | `causal_matrix` |
 
-Factories (mirror R equivalents):
-
-- `attn_causal_model("tcdf" | "causal_transformer" | "tft", ...)`
-- `rnn_causal_model("causal_lstm" | "retain" | "intervention_rnn" | "causal_lstm_forecaster", ...)`
-- `gnn_causal_model("gvar" | "causal_gnn" | "cuts", ...)`
 
 ### Time series — counterfactual / SCM
 

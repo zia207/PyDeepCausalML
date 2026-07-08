@@ -1,0 +1,188 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - index.qmd
+    - Tutorial/00-scientific-terminology-glossary.qmd
+    - Tutorial/02_08_05_05_00_DeepCausalML_introduction.ipynb
+    - Tutorial/02_08_05_05_01_00_DeepCausalML_treatment_effect_estimators_introduction.ipynb
+    - Tutorial/02_08_05_05_01_01_DeepCausalML_TARNET.ipynb
+    - Tutorial/02_08_05_05_01_02_DeepCausalML_CFRNet.ipynb
+    - Tutorial/02_08_05_05_01_03_DeepCausalML_DragonNet.ipynb
+    - Tutorial/02_08_05_05_01_04_DeepCausalML_GANITE.ipynb
+    - Tutorial/02_08_05_05_01_05_DeepCausalML_NeuralDML.ipynb
+    - Tutorial/02_08_05_05_02_00_DeepCausalML_GLVCM_introduction.ipynb
+    - Tutorial/02_08_05_05_02_01_DeepCausalML_CausalVAE.ipynb
+    - Tutorial/02_08_05_05_02_02_DeepCausalML_iVAE.ipynb
+    - Tutorial/02_08_05_05_02_03_DeepCausalML_CausalDiscrepancyVAE.ipynb
+    - Tutorial/02_08_05_05_02_04_DeepCausalML_CausalGAN.ipynb
+    - Tutorial/02_08_05_05_02_05_DeepCausalML_DSCM.ipynb
+    - Tutorial/02_08_05_05_02_06_DeepCausalML_CausalEGM.ipynb
+    - Tutorial/02_08_05_05_03_00_DeepCausalML_structural_learning_introduction.ipynb
+    - Tutorial/02_08_05_05_03_01_DeepCausalML_NOTEARS.ipynb
+    - Tutorial/02_08_05_05_03_02_DeepCausalML_DagGNN.ipynb
+    - Tutorial/02_08_05_05_03_03_DeepCausalML_GranDag.ipynb
+    - Tutorial/02_08_05_05_03_04_DeepCausalML_DAGMA_NoCurl.ipynb
+    - Tutorial/02_08_05_05_03_05_DeepCausalML_CASTLE.ipynb
+    - Tutorial/02_08_05_05_04_00_DeepCausalML_timeseries_introduction.ipynb
+    - Tutorial/02_08_05_05_04_01_DeepCausalML_timeseries_neural_granger_causality.ipynb
+    - Tutorial/02_08_05_05_04_02_DeepCausalML_timeseries_structural_causal_model_SMC.ipynb
+    - Tutorial/02_08_05_05_04_03_DeepCausalML_attention_transformer.ipynb
+    - Tutorial/02_08_05_05_04_04_DeepCausalML_timeseries_RNN_LSTM_causalML.ipynb
+    - Tutorial/02_08_05_05_04_05_DeepCausalML_timeseries_graphNN.ipynb
+    - Tutorial/02_08_05_05_04_06_DeepCausalML_timeseries_counterfactual_potential.ipynb
+
+website:
+  title: "PyDeepCausalML"
+  description: "A Python library for deep learning based causal machine learning"
+  site-url: https://zia207.github.io/PyDeepCausalML/
+  repo-url: https://github.com/zia207/PyDeepCausalML
+  repo-branch: main
+  page-navigation: true
+  back-to-top-navigation: true
+  search:
+    location: sidebar
+    type: textbox
+  page-footer:
+    right: "This page is built with [Quarto](https://quarto.org/)."
+    left: "&copy; CC-By Zia Ahmed, Upatta Analytics, 2026"
+  navbar:
+    background: primary
+    left:
+      - text: Home
+        href: index.qmd
+      - text: Tutorial
+        href: Tutorial/02_08_05_05_00_DeepCausalML_introduction.ipynb
+      - text: Glossary
+        href: Tutorial/00-scientific-terminology-glossary.qmd
+      - icon: house
+        href: https://sites.google.com/view/r-data-sci-env/home
+        aria-label: Upatta Analytics
+    right:
+      - icon: box
+        href: https://pypi.org/project/pydeepcausalml/
+        aria-label: PyPI
+      - icon: github
+        href: https://github.com/zia207/PyDeepCausalML/
+        aria-label: GitHub
+      - icon: linkedin
+        href: https://www.linkedin.com/in/zia-ahmed207
+        aria-label: LinkedIn
+      - icon: envelope
+        href: mailto:zia207@gmail.com
+        aria-label: Email
+
+  sidebar:
+    logo: "logo_DeepCausalML.png"
+    pinned: true
+    border: true
+    align: center
+    search: true
+    style: "docked"
+    collapse-level: 1
+    contents:
+      - text: "Package Overview"
+        href: index.qmd
+      - section: "**Deep Causal Learning**"
+        contents:
+          - href: Tutorial/02_08_05_05_00_DeepCausalML_introduction.ipynb
+            text: "Introduction to Deep Causal Learning"
+          - section: "**Treatment Effect Estimators**"
+            contents:
+              - href: Tutorial/02_08_05_05_01_00_DeepCausalML_treatment_effect_estimators_introduction.ipynb
+                text: "Introduction to Treatment Effect Estimators"
+              - href: Tutorial/02_08_05_05_01_01_DeepCausalML_TARNET.ipynb
+                text: "TARNet: Treatment-Agnostic Representation Network"
+              - href: Tutorial/02_08_05_05_01_02_DeepCausalML_CFRNet.ipynb
+                text: "CFRNet: Counterfactual Regression Network"
+              - href: Tutorial/02_08_05_05_01_03_DeepCausalML_DragonNet.ipynb
+                text: "DragonNet: Propensity-Adjusted Networks for Causal Inference"
+              - href: Tutorial/02_08_05_05_01_04_DeepCausalML_GANITE.ipynb
+                text: "GANITE: Generative Adversarial Network for Inference of Treatment Effects"
+              - href: Tutorial/02_08_05_05_01_05_DeepCausalML_NeuralDML.ipynb
+                text: "NeuralDML: Neural Double Machine Learning for the ATE"
+          - section: "**Generative Latent-Variable Causal Models (GLVCMs)**"
+            contents:
+              - href: Tutorial/02_08_05_05_02_00_DeepCausalML_GLVCM_introduction.ipynb
+                text: "Introduction to GLVCMs"
+              - href: Tutorial/02_08_05_05_02_01_DeepCausalML_CausalVAE.ipynb
+                text: "CausalVAE: Causal Variational Autoencoder"
+              - href: Tutorial/02_08_05_05_02_02_DeepCausalML_iVAE.ipynb
+                text: "iVAE: Identifiable Variational Autoencoders"
+              - href: Tutorial/02_08_05_05_02_03_DeepCausalML_CausalDiscrepancyVAE.ipynb
+                text: "CausalDiscrepancyVAE: Discrepancy-Regularized Causal Representation Learning"
+              - href: Tutorial/02_08_05_05_02_04_DeepCausalML_CausalGAN.ipynb
+                text: "CausalGAN: Causal Generative Network"
+              - href: Tutorial/02_08_05_05_02_05_DeepCausalML_DSCM.ipynb
+                text: "Deep Structural Causal Models (DSCMs)"
+              - href: Tutorial/02_08_05_05_02_06_DeepCausalML_CausalEGM.ipynb
+                text: "CausalEGM: Causal Encoding Generative Modeling"
+          - section: "**Causal Structural Learning**"
+            contents:
+              - href: Tutorial/02_08_05_05_03_00_DeepCausalML_structural_learning_introduction.ipynb
+                text: "Introduction to Causal Structural Learning"
+              - href: Tutorial/02_08_05_05_03_01_DeepCausalML_NOTEARS.ipynb
+                text: "NOTEARS: Continuous Optimization Models"
+              - href: Tutorial/02_08_05_05_03_02_DeepCausalML_DagGNN.ipynb
+                text: "DAG-GNN: DAG Structure Learning with Graph Neural Networks"
+              - href: Tutorial/02_08_05_05_03_03_DeepCausalML_GranDag.ipynb
+                text: "GraN-DAG: Gradient-Based Neural DAG Learning"
+              - href: Tutorial/02_08_05_05_03_04_DeepCausalML_DAGMA_NoCurl.ipynb
+                text: "DAGMA and DAG-NoCurl for Causal Discovery"
+              - href: Tutorial/02_08_05_05_03_05_DeepCausalML_CASTLE.ipynb
+                text: "CASTLE: CAusal STructure LEarning Regularization"
+          - section: "**Temporal Deep Causal ML**"
+            contents:
+              - href: Tutorial/02_08_05_05_04_00_DeepCausalML_timeseries_introduction.ipynb
+                text: "Introduction to Temporal Deep Causal ML"
+              - href: Tutorial/02_08_05_05_04_01_DeepCausalML_timeseries_neural_granger_causality.ipynb
+                text: "Neural Granger Causality Models"
+              - href: Tutorial/02_08_05_05_04_02_DeepCausalML_timeseries_structural_causal_model_SMC.ipynb
+                text: "Structural Causal Models (SCMs) with Deep Components"
+              - href: Tutorial/02_08_05_05_04_03_DeepCausalML_attention_transformer.ipynb
+                text: "Attention-Based / Transformer Causal Models"
+              - href: Tutorial/02_08_05_05_04_04_DeepCausalML_timeseries_RNN_LSTM_causalML.ipynb
+                text: "RNN/LSTM-Based Causal Models"
+              - href: Tutorial/02_08_05_05_04_05_DeepCausalML_timeseries_graphNN.ipynb
+                text: "Graph Neural Network (GNN) Causal Models"
+              - href: Tutorial/02_08_05_05_04_06_DeepCausalML_timeseries_counterfactual_potential.ipynb
+                text: "Counterfactual / Potential Outcomes Models"
+      - section: "**Terminology**"
+        contents:
+          - href: Tutorial/00-scientific-terminology-glossary.qmd
+            text: "A complete A–Z reference for causal inference and machine learning terminology"
+
+tbl-cap-location: top
+title-block-banner: true
+
+execute:
+  enabled: false
+  echo: true
+  warning: false
+  message: false
+  freeze: auto
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    highlight-style: github
+    fontsize: 1.1em
+    linestretch: 1.6
+    code-fold: show
+    code-tools: false
+    code-copy: true
+    code-link: true
+    smooth-scroll: true
+    toc: true
+    toc-depth: 4
+    toc-title: "On This Page"
+    number-sections: false
+    fig-align: center
+    df-print: paged
+    grid:
+      sidebar-width: 350px
+      body-width: 1200px
+      margin-width: 250px
+      gutter-width: 1.5rem
