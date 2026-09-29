@@ -1,5 +1,9 @@
 # PyDeepCausalML
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/zia207/PyDeepCausalML/main/Image/logo_DeepCausalML.png" alt="PyDeepCausalML" width="280">
+</p>
+
 Deep learning models for causal inference in PyTorch: treatment-effect estimation, causal structure learning, temporal causal discovery, and counterfactual forecasting — behind one consistent, sklearn-style API.
 
 PyDeepCausalML consolidates the model implementations developed across the *Deep Causal ML* tutorial series (neural Granger causality, TCDF, DYNOTEARS, CASTLE, TARNet/CFRNet/DragonNet, neural DML, CausalEGM, causal LSTM forecasting, and more) into a tested, installable package. It is the Python counterpart to the `causalDeepNet.R` / RCausalML model library.
@@ -25,6 +29,16 @@ Or install the pre-built wheel:
 ```bash
 pip install pydeepcausalml-0.2.0-py3-none-any.whl
 ```
+
+## Testing
+
+```bash
+pytest
+```
+
+The suite has 92 tests and covers every public estimator plus `datasets`, `metrics`, `plotting`, device selection, and the factory functions (`causal_structure_ml`, `neural_granger_model`, `attn_causal_model`, `rnn_causal_model`, `gnn_causal_model`, `counterfactual_model`).
+
+Recovery checks on simulated data with known ground truth cover `TARNet`, `CFRNet`, `DragonNet`, `NeuralDML`, `NOTEARSLinear`, `DynoTEARS`, `CASTLE`, `NeuralGrangerCMLP`, `TCDF`, `CausalLSTMForecaster`, and `CausalEGM`. Every other public estimator has a short fit-and-predict smoke test that checks output shape and finite values.
 
 ## Device support (CPU / GPU / MPS)
 
@@ -63,7 +77,7 @@ Auto-selection prefers CUDA, then Apple MPS, then CPU. Acyclicity terms (`matrix
 | `CausalEGM` | Encoding generative model for ITE/ATE | `predict_ite`, `predict_ate`, `predict_propensity` |
 | `CausalGAN` | GAN with structural causal equations | `predict_cate`, `predict_ate` |
 | `CausalDiscrepancyVAE` | Discrepancy VAE for causal representation | `predict_cate`, `predict_ate` |
-| `IVAE` | Identifiable VAE (auxiliary-conditioned prior) | `transform`, `reconstruct` |
+| `IVAE` | Identifiable VAE (auxiliary-conditioned prior) | `transform` |
 | `CausalVAE` | Causal VAE with learned DAG over latents | `adjacency_matrix`, `transform` |
 | `DSCM` | Deep structural causal model (X → T → Y) | `predict_cate`, `predict_potential_outcomes` |
 
@@ -72,8 +86,8 @@ Auto-selection prefers CUDA, then Apple MPS, then CPU. Acyclicity terms (`matrix
 | Estimator | Purpose | Key methods |
 |---|---|---|
 | `NOTEARSLinear` | Linear DAG via smooth acyclicity constraint | `get_adjacency` |
-| `NOTEARSNonlinearMLP` | Nonlinear NOTEARS with per-node MLPs | `get_adjacency` |
-| `NOTEARSNonlinearSobolev` | Sobolev-basis nonlinear NOTEARS | `get_adjacency` |
+| `NOTEARSNonlinearMLP` | Nonlinear NOTEARS with per-node MLPs | `adjacency_matrix` |
+| `NOTEARSNonlinearSobolev` | Sobolev-basis nonlinear NOTEARS | `adjacency_matrix` |
 | `DAGGNN` | VAE-style DAG-GNN | `adjacency_matrix` |
 | `DagmaLinear` | DAGMA linear structure learning | `adjacency_matrix` |
 | `DagmaNonlinearMLP` | Nonlinear DAGMA with per-node MLPs | `adjacency_matrix` |
@@ -97,8 +111,8 @@ Methods: `notears_linear`, `notears_nonlinear_mlp`, `notears_nonlinear_sobolev`,
 | Estimator | Purpose | Key methods |
 |---|---|---|
 | `NeuralGrangerCMLP` | Component-wise MLPs + group LASSO | `get_adjacency`, `get_scores` |
-| `NeuralGrangerCLSTM` | LSTM-based neural Granger | `get_adjacency`, `get_scores` |
-| `NeuralGrangerEconomySRU` | Economy-SRU neural Granger | `get_adjacency`, `get_scores` |
+| `NeuralGrangerCLSTM` | LSTM-based neural Granger | `adjacency_matrix` |
+| `NeuralGrangerEconomySRU` | Economy-SRU neural Granger | `adjacency_matrix` |
 | `NeuralRelationalInference` | Relational inference for Granger graphs | `adjacency_matrix` |
 | `GrangerLSTM` | Full-vs-reduced LSTM ablation Granger test | `get_adjacency`, `get_scores` |
 
@@ -109,12 +123,12 @@ Factory (mirrors R `neural_granger_ml()`): `neural_granger_model("cmlp" | "clstm
 | Estimator | Purpose | Key methods |
 |---|---|---|
 | `TCDF` | Attention-based temporal causal discovery **with delays** | `discovered_edges`, `summary`, `get_adjacency` |
-| `CausalTransformer` | Transformer for temporal causal discovery | `get_adjacency` |
-| `TFTNet` | Temporal Fusion Transformer causal model | `predict` |
-| `CausalLSTM` | Causal LSTM for time-series modeling | `predict` |
+| `CausalTransformer` | Transformer for temporal causal discovery | `predict`, `causal_matrix` |
+| `TFTNet` | Temporal Fusion Transformer causal model | `predict`, `causal_matrix` |
+| `CausalLSTM` | Causal LSTM for time-series modeling | `predict`, `causal_matrix` |
 | `CausalLSTMForecaster` | Counterfactual multi-step forecasting | `forecast`, `forecast_counterfactual`, `estimate_effect` |
-| `RETAIN` | RETAIN attention for interpretable forecasting | `predict` |
-| `InterventionAwareRNN` | RNN with explicit intervention encoding | `predict` |
+| `RETAIN` | RETAIN attention for interpretable forecasting | `predict`, `causal_matrix` |
+| `InterventionAwareRNN` | RNN with explicit intervention encoding | `predict`, `causal_matrix` |
 | `GVAR` | Graph VAR for multivariate time series | `causal_matrix` |
 | `CausalGNN` | GNN-based temporal causal discovery | `causal_matrix` |
 | `CUTS` | Causal discovery from unstructured time series | `causal_matrix` |
@@ -128,7 +142,7 @@ Factory (mirrors R `neural_granger_ml()`): `neural_granger_model("cmlp" | "clstm
 | `CRN` | Counterfactual recurrent network | `predict_ite` |
 | `GNet` | G-Net counterfactual estimator | `predict_ite` |
 | `DeepSCM` | Deep structural causal model for time series | `intervene` |
-| `DECI` | Deep end-to-end causal inference | `adjacency_matrix` |
+| `DECI` | Deep end-to-end causal inference | `adjacency_matrix`, `predict_ate` |
 
 Factory (mirrors R `counterfactual_model()`): `counterfactual_model("deepsynth" | "crn" | "gnet", ...)`.
 

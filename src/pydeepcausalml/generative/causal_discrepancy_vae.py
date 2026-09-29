@@ -25,6 +25,7 @@ class _CDVAEModule(nn.Module):
     def encode(self, x: torch.Tensor, t: torch.Tensor):
         h = self.encoder(torch.cat([x, t.unsqueeze(-1)], dim=-1))
         mu, logvar = h.chunk(2, dim=-1)
+        logvar = logvar.clamp(-8.0, 8.0)
         eps = torch.randn_like(mu)
         z = mu + eps * (0.5 * logvar).exp()
         return z, mu, logvar
@@ -57,6 +58,11 @@ class CausalDiscrepancyVAE(BaseDeepEstimator):
         y = to_numpy(outcome).astype(np.float64).ravel()
         if not (len(x) == len(t) == len(y)):
             raise ValueError("X, treatment, and outcome must have the same length.")
+
+        self.x_mean_, self.x_std_ = x.mean(axis=0), x.std(axis=0) + 1e-8
+        x = (x - self.x_mean_) / self.x_std_
+        self.y_mean_, self.y_std_ = y.mean(), y.std() + 1e-8
+        y = (y - self.y_mean_) / self.y_std_
 
         self.module_ = module_to_device(_CDVAEModule(x.shape[1], self.latent_dim, self.hidden), device)
         optimizer = self._make_optimizer(self.module_)
@@ -93,13 +99,13 @@ class CausalDiscrepancyVAE(BaseDeepEstimator):
     def predict_cate(self, X) -> np.ndarray:
         self._check_fitted()
         device = self._device
-        x = check_array(X, "X")
+        x = (check_array(X, "X") - self.x_mean_) / self.x_std_
         t = torch.zeros(len(x), device=device)
         self.module_.eval()
         with torch.no_grad():
             z, _, _ = self.module_.encode(to_tensor(x, device=device), t)
             y0, y1 = self.module_.potential_outcomes(z)
-        return to_numpy(y1 - y0)
+        return to_numpy(y1 - y0) * self.y_std_
 
     def predict_ate(self, X) -> float:
         return float(self.predict_cate(X).mean())

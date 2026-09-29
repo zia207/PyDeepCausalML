@@ -2,59 +2,59 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_04_06_DeepCausalML_timeseries_counterfactual_potential.html</loc>
-    <lastmod>2026-07-07T22:59:14.220Z</lastmod>
+    <lastmod>2026-09-29T00:01:34.626Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_04_04_DeepCausalML_timeseries_RNN_LSTM_causalML.html</loc>
-    <lastmod>2026-07-07T22:58:21.750Z</lastmod>
+    <lastmod>2026-09-29T00:00:45.016Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_04_02_DeepCausalML_timeseries_structural_causal_model_SMC.html</loc>
-    <lastmod>2026-07-07T22:56:57.151Z</lastmod>
+    <lastmod>2026-09-29T00:00:04.334Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_04_00_DeepCausalML_timeseries_introduction.html</loc>
-    <lastmod>2026-07-07T19:36:08.593Z</lastmod>
+    <lastmod>2026-09-28T23:59:06.947Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_03_04_DeepCausalML_DAGMA_NoCurl.html</loc>
-    <lastmod>2026-07-07T22:01:16.000Z</lastmod>
+    <lastmod>2026-09-28T23:58:20.274Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_03_02_DeepCausalML_DagGNN.html</loc>
-    <lastmod>2026-07-07T22:01:16.000Z</lastmod>
+    <lastmod>2026-09-28T23:57:25.770Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_03_00_DeepCausalML_structural_learning_introduction.html</loc>
-    <lastmod>2026-07-07T02:34:09.215Z</lastmod>
+    <lastmod>2026-09-28T23:56:55.564Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_02_05_DeepCausalML_DSCM.html</loc>
-    <lastmod>2026-07-07T01:43:09.862Z</lastmod>
+    <lastmod>2026-09-28T23:56:18.448Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_02_03_DeepCausalML_CausalDiscrepancyVAE.html</loc>
-    <lastmod>2026-07-07T01:37:37.124Z</lastmod>
+    <lastmod>2026-09-28T23:55:37.793Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_02_01_DeepCausalML_CausalVAE.html</loc>
-    <lastmod>2026-07-07T01:34:27.987Z</lastmod>
+    <lastmod>2026-09-28T23:55:08.914Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_01_05_DeepCausalML_NeuralDML.html</loc>
-    <lastmod>2026-07-06T23:17:07.254Z</lastmod>
+    <lastmod>2026-09-28T23:54:44.488Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_01_03_DeepCausalML_DragonNet.html</loc>
-    <lastmod>2026-07-06T22:43:51.895Z</lastmod>
+    <lastmod>2026-09-28T23:52:28.533Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_01_01_DeepCausalML_TARNET.html</loc>
-    <lastmod>2026-07-06T17:00:29.686Z</lastmod>
+    <lastmod>2026-09-28T23:52:05.000Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_00_DeepCausalML_introduction.html</loc>
-    <lastmod>2026-07-08T01:34:06.266Z</lastmod>
+    <lastmod>2026-09-28T23:51:40.127Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/index.html</loc>
@@ -62,58 +62,58 @@
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/00-scientific-terminology-glossary.html</loc>
-    <lastmod>2026-07-08T01:23:02.538Z</lastmod>
+    <lastmod>2026-07-08T02:41:02.154Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_01_00_DeepCausalML_treatment_effect_estimators_introduction.html</loc>
-    <lastmod>2026-07-06T18:17:19.654Z</lastmod>
+    <lastmod>2026-09-28T23:51:46.009Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_01_02_DeepCausalML_CFRNet.html</loc>
-    <lastmod>2026-07-07T12:24:30.124Z</lastmod>
+    <lastmod>2026-09-28T23:52:18.206Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_01_04_DeepCausalML_GANITE.html</loc>
-    <lastmod>2026-07-06T18:49:31.520Z</lastmod>
+    <lastmod>2026-09-28T23:54:08.557Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_02_00_DeepCausalML_GLVCM_introduction.html</loc>
-    <lastmod>2026-07-06T22:44:15.039Z</lastmod>
+    <lastmod>2026-09-28T23:54:50.848Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_02_02_DeepCausalML_iVAE.html</loc>
-    <lastmod>2026-07-07T01:37:26.708Z</lastmod>
+    <lastmod>2026-09-28T23:55:19.578Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_02_04_DeepCausalML_CausalGAN.html</loc>
-    <lastmod>2026-07-07T01:39:43.397Z</lastmod>
+    <lastmod>2026-09-28T23:56:00.080Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_02_06_DeepCausalML_CausalEGM.html</loc>
-    <lastmod>2026-07-07T05:22:14.000Z</lastmod>
+    <lastmod>2026-09-28T23:56:47.686Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_03_01_DeepCausalML_NOTEARS.html</loc>
-    <lastmod>2026-07-07T22:01:16.000Z</lastmod>
+    <lastmod>2026-09-28T23:57:14.666Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_03_03_DeepCausalML_GranDag.html</loc>
-    <lastmod>2026-07-07T22:01:16.000Z</lastmod>
+    <lastmod>2026-09-28T23:57:46.680Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_03_05_DeepCausalML_CASTLE.html</loc>
-    <lastmod>2026-07-07T22:01:16.000Z</lastmod>
+    <lastmod>2026-09-28T23:59:00.660Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_04_01_DeepCausalML_timeseries_neural_granger_causality.html</loc>
-    <lastmod>2026-07-07T22:56:38.420Z</lastmod>
+    <lastmod>2026-09-28T23:59:47.313Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_04_03_DeepCausalML_attention_transformer.html</loc>
-    <lastmod>2026-07-07T23:02:57.037Z</lastmod>
+    <lastmod>2026-09-29T00:00:22.343Z</lastmod>
   </url>
   <url>
     <loc>https://zia207.github.io/PyDeepCausalML/Tutorial/02_08_05_05_04_05_DeepCausalML_timeseries_graphNN.html</loc>
-    <lastmod>2026-07-07T23:03:02.629Z</lastmod>
+    <lastmod>2026-09-29T00:01:00.861Z</lastmod>
   </url>
 </urlset>

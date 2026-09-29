@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,14 +73,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-bf6de5ccb156a65fc439966d4053cafd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-c3ddef8e9936373b1ee063945a43a984.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-bf6de5ccb156a65fc439966d4053cafd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-00ad4eb260160d2848a4c52e78834c93.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-461cef08a4079ad9ad279fc6f65c4991.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-00ad4eb260160d2848a4c52e78834c93.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -876,8 +876,8 @@ h(W) = \operatorname{tr}\left(e^{W \odot W}\right) - d = 0
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"cuda:"</span>, torch.cuda.is_available())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>torch: 2.12.1+cu130
-cuda: False</code></pre>
+<pre><code>torch: 2.14.0+cu132
+cuda: True</code></pre>
 </div>
 </div>
 <div id="9d991ffc" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:06:41.065485Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:06:41.065308Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:06:41.069966Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:06:41.069076Z&quot;}}" data-execution_count="3">
@@ -1041,19 +1041,19 @@ Causal matrix shapes -&gt; Train: (5000, 27) | Test: (1345, 27)</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Training finished. Last epoch:
-         loss      mse          acyc     recon
-299  0.920661  0.90969  5.451639e-14  0.009321</code></pre>
+         loss       mse          acyc    recon
+299  0.920705  0.909727  5.092815e-14  0.00937</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_08_05_05_03_05_DeepCausalML_CASTLE_files/figure-html/cell-7-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="02_08_05_05_03_05_DeepCausalML_CASTLE_files/figure-html/cell-7-output-2.png" width="760" height="374" class="figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>|A| (off-diag): max=0.00083, mean=0.000166
-Adaptive edge threshold tau=0.00017 -&gt; 282 directed entries</code></pre>
+<pre><code>|A| (off-diag): max=0.00077, mean=0.000161
+Adaptive edge threshold tau=0.00015 -&gt; 310 directed entries</code></pre>
 </div>
 </div>
 </section>
@@ -1125,31 +1125,31 @@ Adaptive edge threshold tau=0.00017 -&gt; 282 directed entries</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>   variable     score   A_inout   W1_norm
-5        x6  0.946440  0.014445  1.178276
-0        x1  0.845814  0.012947  1.130707
-25        T  0.738352  0.009699  1.319635
-24      x25  0.735613  0.012491  0.906150
-14      x15  0.734897  0.012129  0.956937
-16      x17  0.721731  0.010642  1.138478
-4        x5  0.687019  0.009440  1.221843
-1        x2  0.634813  0.008863  1.167949
-20      x21  0.626063  0.009505  1.051447
-13      x14  0.625155  0.009073  1.111946</code></pre>
+0        x1  0.919893  0.014420  1.119969
+5        x6  0.810768  0.012184  1.177176
+25        T  0.775261  0.010572  1.333635
+13      x14  0.645527  0.009721  1.120203
+20      x21  0.622203  0.009919  1.027034
+4        x5  0.607680  0.008201  1.255909
+11      x12  0.607024  0.009536  1.046286
+6        x7  0.590544  0.009073  1.074488
+1        x2  0.589627  0.008519  1.158245
+16      x17  0.555530  0.007855  1.170761</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_08_05_05_03_05_DeepCausalML_CASTLE_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="02_08_05_05_03_05_DeepCausalML_CASTLE_files/figure-html/cell-8-output-2.png" width="759" height="566" class="figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Graph from adaptive threshold tau=0.0001661</code></pre>
+<pre><code>Graph from adaptive threshold tau=0.0001532</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_08_05_05_03_05_DeepCausalML_CASTLE_files/figure-html/cell-8-output-4.png" class="img-fluid figure-img"></p>
+<p><img src="02_08_05_05_03_05_DeepCausalML_CASTLE_files/figure-html/cell-8-output-4.png" width="979" height="807" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1255,22 +1255,22 @@ Adaptive edge threshold tau=0.00017 -&gt; 282 directed entries</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Graph statistics (CASTLE)
-{'nodes': 27, 'edges': 282, 'density': 0.4017, 'isDAG': False}
+{'nodes': 27, 'edges': 310, 'density': 0.4416, 'isDAG': False}
 SEM reconstruction (linear Z @ W, exploratory)
         mean_MSE  global_R2     mse_T  mse_Y
 model                                       
-CASTLE    5.6228    -0.2062  137.7984    0.0
-CASTLE T parents=['x2', 'x6', 'x8', 'x11', 'x12', 'x14', 'x15', 'x17', 'x20', 'x25'] children=['x1', 'x2', 'x6', 'x7', 'x10', 'x13', 'x14', 'x15', 'x16', 'x18', 'x22', 'x25']
-CASTLE Y parents=['x1', 'x3', 'x4', 'x6'] children=['x6', 'x8', 'x9', 'x11', 'x13', 'x15']
+CASTLE    5.6225    -0.2062  137.8022    0.0
+CASTLE T parents=['x1', 'x3', 'x5', 'x9', 'x11', 'x12', 'x14', 'x16', 'x18', 'x19', 'x21', 'x24', 'x25', 'Y'] children=['x2', 'x4', 'x5', 'x6', 'x8', 'x10', 'x13', 'x14', 'x15', 'x20', 'x21', 'x22', 'x24']
+CASTLE Y parents=['x3', 'x4', 'x6', 'x10', 'x12', 'x16', 'x17', 'x25'] children=['x1', 'x4', 'x13', 'x14', 'x16', 'x19', 'x21', 'x22', 'x23', 'T']
 ATE (linear adjustment on parents of Y in learned graph, IHDP-style)
         n_adj_vars  ATE_estimated  ATE_oracle  ATE_error  sqrt_PEHE
 model                                                              
-CASTLE           4         4.7803      4.5293     0.2511     4.1547</code></pre>
+CASTLE           8         4.9078      4.5293     0.3785     4.2876</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_08_05_05_03_05_DeepCausalML_CASTLE_files/figure-html/cell-10-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="02_08_05_05_03_05_DeepCausalML_CASTLE_files/figure-html/cell-10-output-2.png" width="760" height="374" class="figure-img"></p>
 </figure>
 </div>
 </div>

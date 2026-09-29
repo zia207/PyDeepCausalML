@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,14 +73,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-bf6de5ccb156a65fc439966d4053cafd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-c3ddef8e9936373b1ee063945a43a984.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-bf6de5ccb156a65fc439966d4053cafd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-00ad4eb260160d2848a4c52e78834c93.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-461cef08a4079ad9ad279fc6f65c4991.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-00ad4eb260160d2848a4c52e78834c93.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -698,7 +698,7 @@ window.Quarto = {
 <section id="setup-and-imports" class="level2">
 <h2 class="anchored" data-anchor-id="setup-and-imports">Setup and Imports</h2>
 <p>This cell imports the required libraries, sets random seeds for reproducibility, and selects the compute device (<code>CPU</code> or <code>CUDA</code>).</p>
-<div id="2af4912e" class="cell">
+<div id="2af4912e" class="cell" data-execution_count="1">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
@@ -751,78 +751,87 @@ window.Quarto = {
 <span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydeepcausalml <span class="im">import</span> DeepSCM, DECI, DynoTEARS</span>
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydeepcausalml.metrics <span class="im">import</span> graph_recovery_metrics</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>pydeepcausalml 0.2.0 ready.
+torch: 2.14.0+cu132
+cuda: True</code></pre>
+</div>
 </div>
 </section>
 <section id="data-loading-and-preprocessing" class="level2">
 <h2 class="anchored" data-anchor-id="data-loading-and-preprocessing">Data Loading and Preprocessing</h2>
 <p>This cell downloads sector ETF prices, converts them to standardized log-returns, builds lagged input/output pairs, and creates training/validation data loaders.</p>
 <p><em>Note: If online market data is unavailable, this notebook automatically uses synthetic demo data so all downstream cells remain runnable.</em></p>
-<div id="46828f2c" class="cell">
+<div id="46828f2c" class="cell" data-execution_count="2">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>TICKERS <span class="op">=</span> {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLF"</span>: <span class="st">"Financials"</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLE"</span>: <span class="st">"Energy"</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLK"</span>: <span class="st">"Technology"</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLV"</span>: <span class="st">"Healthcare"</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLI"</span>: <span class="st">"Industrials"</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLY"</span>: <span class="st">"ConsumerDisc"</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLP"</span>: <span class="st">"ConsumerStap"</span>,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLU"</span>: <span class="st">"Utilities"</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fetch_close_prices(tickers, start<span class="op">=</span><span class="st">"2018-01-01"</span>, end<span class="op">=</span><span class="st">"2024-01-01"</span>):</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    raw <span class="op">=</span> yf.download(</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        tickers, start<span class="op">=</span>start, end<span class="op">=</span>end, auto_adjust<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        progress<span class="op">=</span><span class="va">False</span>, group_by<span class="op">=</span><span class="st">"ticker"</span>, threads<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    close <span class="op">=</span> <span class="va">None</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(raw.columns, pd.MultiIndex):</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">"Close"</span> <span class="kw">in</span> raw.columns.get_level_values(<span class="op">-</span><span class="dv">1</span>):</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            close <span class="op">=</span> raw.xs(<span class="st">"Close"</span>, axis<span class="op">=</span><span class="dv">1</span>, level<span class="op">=-</span><span class="dv">1</span>)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="st">"Close"</span> <span class="kw">in</span> raw.columns:</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        close <span class="op">=</span> raw[[<span class="st">"Close"</span>]]</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        close.columns <span class="op">=</span> tickers[:<span class="dv">1</span>]</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> close <span class="kw">is</span> <span class="va">None</span> <span class="kw">or</span> close.dropna(how<span class="op">=</span><span class="st">"all"</span>).empty:</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        cols <span class="op">=</span> []</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> t <span class="kw">in</span> tickers:</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>            one <span class="op">=</span> yf.download(t, start<span class="op">=</span>start, end<span class="op">=</span>end, auto_adjust<span class="op">=</span><span class="va">True</span>, progress<span class="op">=</span><span class="va">False</span>, threads<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="st">"Close"</span> <span class="kw">in</span> one.columns <span class="kw">and</span> <span class="kw">not</span> one[<span class="st">"Close"</span>].dropna().empty:</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>                cols.append(one[<span class="st">"Close"</span>].rename(t))</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>        close <span class="op">=</span> pd.concat(cols, axis<span class="op">=</span><span class="dv">1</span>) <span class="cf">if</span> cols <span class="cf">else</span> pd.DataFrame()</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> close.sort_index().dropna(how<span class="op">=</span><span class="st">"all"</span>)</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>close <span class="op">=</span> fetch_close_prices(<span class="bu">list</span>(TICKERS.keys()))</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> close.empty <span class="kw">or</span> close.shape[<span class="dv">0</span>] <span class="op">&lt;</span> <span class="dv">50</span>:</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"yfinance unavailable; using synthetic demo data."</span>)</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(<span class="dv">42</span>)</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    T, d <span class="op">=</span> <span class="dv">1500</span>, <span class="bu">len</span>(TICKERS)</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    VAR_NAMES <span class="op">=</span> <span class="bu">list</span>(TICKERS.values())</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    market <span class="op">=</span> rng.normal(<span class="fl">0.0</span>, <span class="fl">0.8</span>, size<span class="op">=</span>(T, <span class="dv">1</span>)).astype(np.float64)</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    idio <span class="op">=</span> rng.normal(<span class="fl">0.0</span>, <span class="fl">0.6</span>, size<span class="op">=</span>(T, d)).astype(np.float64)</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    loading <span class="op">=</span> np.linspace(<span class="fl">0.5</span>, <span class="fl">1.1</span>, d, dtype<span class="op">=</span>np.float64)[<span class="va">None</span>, :]</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    data_np <span class="op">=</span> (market <span class="op">@</span> loading <span class="op">+</span> idio).astype(np.float64)</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    returns <span class="op">=</span> np.log(close <span class="op">/</span> close.shift(<span class="dv">1</span>)).dropna()</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    returns.columns <span class="op">=</span> [TICKERS[t] <span class="cf">for</span> t <span class="kw">in</span> returns.columns <span class="cf">if</span> t <span class="kw">in</span> TICKERS]</span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    data_np <span class="op">=</span> returns.values.astype(np.float64)</span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>    T, d <span class="op">=</span> data_np.shape</span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>    VAR_NAMES <span class="op">=</span> returns.columns.tolist()</span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shape: </span><span class="sc">{</span>data_np<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Variables (</span><span class="sc">{</span>d<span class="sc">}</span><span class="ss">): </span><span class="sc">{</span>VAR_NAMES<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>LAG <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>EPOCHS_SCM <span class="op">=</span> <span class="dv">25</span> <span class="cf">if</span> run_fast <span class="cf">else</span> <span class="dv">50</span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>EPOCHS_DECI <span class="op">=</span> <span class="dv">40</span> <span class="cf">if</span> run_fast <span class="cf">else</span> <span class="dv">80</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>EPOCHS_DYNO <span class="op">=</span> <span class="dv">80</span> <span class="cf">if</span> run_fast <span class="cf">else</span> <span class="dv">200</span></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>DEVICE <span class="op">=</span> <span class="st">"cpu"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>TICKERS <span class="op">=</span> {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLF"</span>: <span class="st">"Financials"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLE"</span>: <span class="st">"Energy"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLK"</span>: <span class="st">"Technology"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLV"</span>: <span class="st">"Healthcare"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLI"</span>: <span class="st">"Industrials"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLY"</span>: <span class="st">"ConsumerDisc"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLP"</span>: <span class="st">"ConsumerStap"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLU"</span>: <span class="st">"Utilities"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fetch_close_prices(tickers, start<span class="op">=</span><span class="st">"2018-01-01"</span>, end<span class="op">=</span><span class="st">"2024-01-01"</span>):</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    raw <span class="op">=</span> yf.download(</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        tickers, start<span class="op">=</span>start, end<span class="op">=</span>end, auto_adjust<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        progress<span class="op">=</span><span class="va">False</span>, group_by<span class="op">=</span><span class="st">"ticker"</span>, threads<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    close <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">isinstance</span>(raw.columns, pd.MultiIndex):</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="st">"Close"</span> <span class="kw">in</span> raw.columns.get_level_values(<span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>            close <span class="op">=</span> raw.xs(<span class="st">"Close"</span>, axis<span class="op">=</span><span class="dv">1</span>, level<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="st">"Close"</span> <span class="kw">in</span> raw.columns:</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>        close <span class="op">=</span> raw[[<span class="st">"Close"</span>]]</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        close.columns <span class="op">=</span> tickers[:<span class="dv">1</span>]</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> close <span class="kw">is</span> <span class="va">None</span> <span class="kw">or</span> close.dropna(how<span class="op">=</span><span class="st">"all"</span>).empty:</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        cols <span class="op">=</span> []</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> t <span class="kw">in</span> tickers:</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>            one <span class="op">=</span> yf.download(t, start<span class="op">=</span>start, end<span class="op">=</span>end, auto_adjust<span class="op">=</span><span class="va">True</span>, progress<span class="op">=</span><span class="va">False</span>, threads<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="st">"Close"</span> <span class="kw">in</span> one.columns <span class="kw">and</span> <span class="kw">not</span> one[<span class="st">"Close"</span>].dropna().empty:</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>                cols.append(one[<span class="st">"Close"</span>].rename(t))</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        close <span class="op">=</span> pd.concat(cols, axis<span class="op">=</span><span class="dv">1</span>) <span class="cf">if</span> cols <span class="cf">else</span> pd.DataFrame()</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> close.sort_index().dropna(how<span class="op">=</span><span class="st">"all"</span>)</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>close <span class="op">=</span> fetch_close_prices(<span class="bu">list</span>(TICKERS.keys()))</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> close.empty <span class="kw">or</span> close.shape[<span class="dv">0</span>] <span class="op">&lt;</span> <span class="dv">50</span>:</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"yfinance unavailable; using synthetic demo data."</span>)</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(<span class="dv">42</span>)</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    T, d <span class="op">=</span> <span class="dv">1500</span>, <span class="bu">len</span>(TICKERS)</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    VAR_NAMES <span class="op">=</span> <span class="bu">list</span>(TICKERS.values())</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    market <span class="op">=</span> rng.normal(<span class="fl">0.0</span>, <span class="fl">0.8</span>, size<span class="op">=</span>(T, <span class="dv">1</span>)).astype(np.float64)</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    idio <span class="op">=</span> rng.normal(<span class="fl">0.0</span>, <span class="fl">0.6</span>, size<span class="op">=</span>(T, d)).astype(np.float64)</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>    loading <span class="op">=</span> np.linspace(<span class="fl">0.5</span>, <span class="fl">1.1</span>, d, dtype<span class="op">=</span>np.float64)[<span class="va">None</span>, :]</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>    data_np <span class="op">=</span> (market <span class="op">@</span> loading <span class="op">+</span> idio).astype(np.float64)</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    returns <span class="op">=</span> np.log(close <span class="op">/</span> close.shift(<span class="dv">1</span>)).dropna()</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    returns.columns <span class="op">=</span> [TICKERS[t] <span class="cf">for</span> t <span class="kw">in</span> returns.columns <span class="cf">if</span> t <span class="kw">in</span> TICKERS]</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    data_np <span class="op">=</span> returns.values.astype(np.float64)</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>    T, d <span class="op">=</span> data_np.shape</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>    VAR_NAMES <span class="op">=</span> returns.columns.tolist()</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shape: </span><span class="sc">{</span>data_np<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Variables (</span><span class="sc">{</span>d<span class="sc">}</span><span class="ss">): </span><span class="sc">{</span>VAR_NAMES<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>LAG <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>EPOCHS_SCM <span class="op">=</span> <span class="dv">25</span> <span class="cf">if</span> run_fast <span class="cf">else</span> <span class="dv">50</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>EPOCHS_DECI <span class="op">=</span> <span class="dv">40</span> <span class="cf">if</span> run_fast <span class="cf">else</span> <span class="dv">80</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>EPOCHS_DYNO <span class="op">=</span> <span class="dv">80</span> <span class="cf">if</span> run_fast <span class="cf">else</span> <span class="dv">200</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>DEVICE <span class="op">=</span> <span class="st">"cpu"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Shape: (1508, 8)
+Variables (8): ['Energy', 'ConsumerDisc', 'Healthcare', 'Technology', 'ConsumerStap', 'Utilities', 'Financials', 'Industrials']</code></pre>
+</div>
 </div>
 </section>
 <section id="utilities-and-model-definitions-deepscm-deci" class="level2">
@@ -867,105 +876,141 @@ X_t = W^{(0)}X_t + \sum_{k=1}^{p} W^{(k)}X_{t-k} + \epsilon_t,
 \]</span></p>
 <p>Why useful: - Explicitly separates lagged directional effects. - Produces interpretable causal graphs for multivariate time series.</p>
 <p>Limitation: - Sensitive to regularization/threshold settings and may be expensive at larger scale.</p>
-<div id="b720a815" class="cell">
+<div id="b720a815" class="cell" data-execution_count="3">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_dag(adj, names, title, threshold<span class="op">=</span><span class="fl">0.0</span>):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Plot a weighted adjacency matrix as a network."""</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.DiGraph()</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    G.add_nodes_from(names)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, tgt <span class="kw">in</span> <span class="bu">enumerate</span>(names):</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j, src <span class="kw">in</span> <span class="bu">enumerate</span>(names):</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            w <span class="op">=</span> adj[i, j]</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> w <span class="op">&gt;</span> threshold:</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                G.add_edge(src, tgt, weight<span class="op">=</span><span class="bu">float</span>(w))</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    pos <span class="op">=</span> nx.spring_layout(G, seed<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    nx.draw_networkx(G, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">900</span>, font_size<span class="op">=</span><span class="dv">8</span>, arrows<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    plt.title(title)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    plt.axis(<span class="st">"off"</span>)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> threshold_adjacency(w, threshold<span class="op">=</span><span class="fl">0.35</span>):</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> (w <span class="op">&gt;=</span> threshold).astype(<span class="bu">float</span>)</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    np.fill_diagonal(a, <span class="dv">0</span>)</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Plotting utilities ready."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_dag(adj, names, title, threshold<span class="op">=</span><span class="fl">0.0</span>):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Plot a weighted adjacency matrix as a network."""</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.DiGraph()</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    G.add_nodes_from(names)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, tgt <span class="kw">in</span> <span class="bu">enumerate</span>(names):</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j, src <span class="kw">in</span> <span class="bu">enumerate</span>(names):</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            w <span class="op">=</span> adj[i, j]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> w <span class="op">&gt;</span> threshold:</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>                G.add_edge(src, tgt, weight<span class="op">=</span><span class="bu">float</span>(w))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    pos <span class="op">=</span> nx.spring_layout(G, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">6</span>))</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    nx.draw_networkx(G, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">900</span>, font_size<span class="op">=</span><span class="dv">8</span>, arrows<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    plt.title(title)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    plt.axis(<span class="st">"off"</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> threshold_adjacency(w, threshold<span class="op">=</span><span class="fl">0.35</span>):</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> (w <span class="op">&gt;=</span> threshold).astype(<span class="bu">float</span>)</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    np.fill_diagonal(a, <span class="dv">0</span>)</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> a</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Plotting utilities ready."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Plotting utilities ready.</code></pre>
+</div>
 </div>
 </section>
 </section>
 <section id="train-deepscm-fixed-graph" class="level2">
 <h2 class="anchored" data-anchor-id="train-deepscm-fixed-graph">Train DeepSCM (Fixed Graph)</h2>
 <p>This cell trains the <strong>DeepSCM</strong> model using a fixed adjacency matrix derived from correlation, then reports training progress.</p>
-<div id="da83c949" class="cell">
+<div id="da83c949" class="cell" data-execution_count="4">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train DeepSCM (contemporaneous structural equations)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>deep_scm <span class="op">=</span> DeepSCM(</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    lag<span class="op">=</span>LAG, hidden<span class="op">=</span><span class="dv">64</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span>EPOCHS_SCM, batch_size<span class="op">=</span><span class="dv">64</span>, lr<span class="op">=</span><span class="fl">1e-3</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    device<span class="op">=</span>DEVICE, random_state<span class="op">=</span><span class="dv">42</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>deep_scm.fit(data_np)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"[DeepSCM] final loss=</span><span class="sc">{</span>deep_scm<span class="sc">.</span>history_[<span class="st">'loss'</span>][<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>corr <span class="op">=</span> np.<span class="bu">abs</span>(np.corrcoef(data_np.T))</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>np.fill_diagonal(corr, <span class="fl">0.0</span>)</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>A_fixed <span class="op">=</span> (corr <span class="op">&gt;</span> <span class="fl">0.25</span>).astype(<span class="bu">float</span>)</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>plot_dag(A_fixed, VAR_NAMES, <span class="st">"Correlation heuristic (reference graph)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train DeepSCM (contemporaneous structural equations)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>deep_scm <span class="op">=</span> DeepSCM(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    lag<span class="op">=</span>LAG, hidden<span class="op">=</span><span class="dv">64</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span>EPOCHS_SCM, batch_size<span class="op">=</span><span class="dv">64</span>, lr<span class="op">=</span><span class="fl">1e-3</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    device<span class="op">=</span>DEVICE, random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>deep_scm.fit(data_np)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"[DeepSCM] final loss=</span><span class="sc">{</span>deep_scm<span class="sc">.</span>history_[<span class="st">'loss'</span>][<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>corr <span class="op">=</span> np.<span class="bu">abs</span>(np.corrcoef(data_np.T))</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>np.fill_diagonal(corr, <span class="fl">0.0</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>A_fixed <span class="op">=</span> (corr <span class="op">&gt;</span> <span class="fl">0.25</span>).astype(<span class="bu">float</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>plot_dag(A_fixed, VAR_NAMES, <span class="st">"Correlation heuristic (reference graph)"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[DeepSCM] final loss=0.9492</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_04_02_DeepCausalML_timeseries_structural_causal_model_SMC_files/figure-html/cell-5-output-2.png" width="758" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="train-deci-and-inspect-learned-graph" class="level2">
 <h2 class="anchored" data-anchor-id="train-deci-and-inspect-learned-graph">Train DECI and Inspect Learned Graph</h2>
 <p>This cell trains the <strong>DECI</strong> model, learns a soft causal adjacency matrix, thresholds it for interpretability, and visualizes the learned graph.</p>
-<div id="837f7696" class="cell">
+<div id="837f7696" class="cell" data-execution_count="5">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train DECI (joint graph + structural equations)</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>deci <span class="op">=</span> DECI(</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    lag<span class="op">=</span>LAG, hidden<span class="op">=</span><span class="dv">64</span>, lambda_dag<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span>EPOCHS_DECI, batch_size<span class="op">=</span><span class="dv">64</span>, lr<span class="op">=</span><span class="fl">1e-3</span>,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    device<span class="op">=</span>DEVICE, random_state<span class="op">=</span><span class="dv">42</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>deci.fit(data_np)</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"[DECI] final loss=</span><span class="sc">{</span>deci<span class="sc">.</span>history_[<span class="st">'loss'</span>][<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>A_soft <span class="op">=</span> deci.adjacency_matrix()</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>A_bin <span class="op">=</span> threshold_adjacency(A_soft, threshold<span class="op">=</span><span class="fl">0.35</span>)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>plot_dag(A_soft, VAR_NAMES, <span class="st">"DECI Soft Adjacency"</span>)</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plot_dag(A_bin, VAR_NAMES, <span class="st">"DECI Thresholded Adjacency"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Train DECI (joint graph + structural equations)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>deci <span class="op">=</span> DECI(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    lag<span class="op">=</span>LAG, hidden<span class="op">=</span><span class="dv">64</span>, lambda_dag<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span>EPOCHS_DECI, batch_size<span class="op">=</span><span class="dv">64</span>, lr<span class="op">=</span><span class="fl">1e-3</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    device<span class="op">=</span>DEVICE, random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>deci.fit(data_np)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"[DECI] final loss=</span><span class="sc">{</span>deci<span class="sc">.</span>history_[<span class="st">'loss'</span>][<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>A_soft <span class="op">=</span> deci.adjacency_matrix()</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>A_bin <span class="op">=</span> threshold_adjacency(A_soft, threshold<span class="op">=</span><span class="fl">0.35</span>)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>plot_dag(A_soft, VAR_NAMES, <span class="st">"DECI Soft Adjacency"</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>plot_dag(A_bin, VAR_NAMES, <span class="st">"DECI Thresholded Adjacency"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[DECI] final loss=2.9419</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_04_02_DeepCausalML_timeseries_structural_causal_model_SMC_files/figure-html/cell-6-output-2.png" width="758" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_04_02_DeepCausalML_timeseries_structural_causal_model_SMC_files/figure-html/cell-6-output-3.png" width="758" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="intervention-analysis-and-ate-estimation" class="level2">
 <h2 class="anchored" data-anchor-id="intervention-analysis-and-ate-estimation">Intervention Analysis and ATE Estimation</h2>
 <p><code>Intervention analysis</code> is a method used in causal inference to assess the effects of actively changing (intervening on) one or more variables within a system. It typically involves simulating or implementing a “do” operation (e.g., do(X = x)), which forces a variable to take on a specific value, and then evaluating how this change propagates through the system and affects other variables. This approach allows us to understand causal relationships and estimate quantities like the Average Treatment Effect (ATE), which measures the expected difference in an outcome variable due to the intervention.</p>
-<div id="7391b40b" class="cell">
+<div id="7391b40b" class="cell" data-execution_count="6">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Intervention + ATE example</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>source_name, target_name <span class="op">=</span> <span class="st">"Energy"</span>, <span class="st">"Industrials"</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>source_idx <span class="op">=</span> VAR_NAMES.index(source_name)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>target_idx <span class="op">=</span> VAR_NAMES.index(target_name)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>x_contemp <span class="op">=</span> data_np[:, :]  <span class="co"># contemporaneous slice for intervention demo</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>ate <span class="op">=</span> deci.predict_ate(x_contemp, intervention_var<span class="op">=</span>source_idx, n_samples<span class="op">=</span><span class="dv">200</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estimated ATE of do(</span><span class="sc">{</span>source_name<span class="sc">}</span><span class="ss">) on </span><span class="sc">{</span>target_name<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>ate<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>pred_lo <span class="op">=</span> deep_scm.intervene(x_contemp[:<span class="dv">128</span>], var_idx<span class="op">=</span>source_idx, value<span class="op">=-</span><span class="fl">1.0</span>)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>pred_hi <span class="op">=</span> deep_scm.intervene(x_contemp[:<span class="dv">128</span>], var_idx<span class="op">=</span>source_idx, value<span class="op">=</span><span class="fl">1.0</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>delta <span class="op">=</span> (pred_hi[:, target_idx] <span class="op">-</span> pred_lo[:, target_idx]).mean()</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"Explanation:</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"Estimated ATE of do(</span><span class="sc">{</span>source_name<span class="sc">}</span><span class="ss">) on </span><span class="sc">{</span>target_name<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>ate<span class="sc">:.4f}</span><span class="ch">\n</span><span class="ss">"</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"DeepSCM intervention delta on </span><span class="sc">{</span>target_name<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>delta<span class="sc">:.4f}</span><span class="ss">"</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Intervention + ATE example</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>source_name, target_name <span class="op">=</span> <span class="st">"Energy"</span>, <span class="st">"Industrials"</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>source_idx <span class="op">=</span> VAR_NAMES.index(source_name)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>target_idx <span class="op">=</span> VAR_NAMES.index(target_name)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>x_contemp <span class="op">=</span> data_np[:, :]  <span class="co"># contemporaneous slice for intervention demo</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>ate <span class="op">=</span> deci.predict_ate(x_contemp, intervention_var<span class="op">=</span>source_idx, n_samples<span class="op">=</span><span class="dv">200</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estimated ATE of do(</span><span class="sc">{</span>source_name<span class="sc">}</span><span class="ss">) on </span><span class="sc">{</span>target_name<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>ate<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>pred_lo <span class="op">=</span> deep_scm.intervene(x_contemp[:<span class="dv">128</span>], var_idx<span class="op">=</span>source_idx, value<span class="op">=-</span><span class="fl">1.0</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>pred_hi <span class="op">=</span> deep_scm.intervene(x_contemp[:<span class="dv">128</span>], var_idx<span class="op">=</span>source_idx, value<span class="op">=</span><span class="fl">1.0</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>delta <span class="op">=</span> (pred_hi[:, target_idx] <span class="op">-</span> pred_lo[:, target_idx]).mean()</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"Explanation:</span><span class="ch">\n</span><span class="ss">"</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"Estimated ATE of do(</span><span class="sc">{</span>source_name<span class="sc">}</span><span class="ss">) on </span><span class="sc">{</span>target_name<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>ate<span class="sc">:.4f}</span><span class="ch">\n</span><span class="ss">"</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"DeepSCM intervention delta on </span><span class="sc">{</span>target_name<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>delta<span class="sc">:.4f}</span><span class="ss">"</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Estimated ATE of do(Energy) on Industrials: 0.0565
+Explanation:
+Estimated ATE of do(Energy) on Industrials: 0.0565
+DeepSCM intervention delta on Industrials: -0.0252</code></pre>
+</div>
 </div>
 </section>
 <section id="dynotears---dag-constrained-structure-learning" class="level2">
@@ -982,59 +1027,90 @@ X_t = W^{(0)}X_t + \sum_{k=1}^{p} W^{(k)}X_{t-k} + \epsilon_t,
 \]</span></p>
 <p>Why it is useful in practice: - Produces <strong>interpretable directed graphs</strong> with explicit lag structure. - Provides DAG-regularized structure learning in a differentiable framework. - Useful when structure-learning rigor is needed beyond purely predictive models.</p>
 <p>Limitations: - Sensitive to regularization and optimization hyperparameters. - Can be expensive for high-dimensional or long-lag settings.</p>
-<div id="1548bf9d" class="cell">
+<div id="1548bf9d" class="cell" data-execution_count="7">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DynoTEARS — lag-resolved DAG discovery (pydeepcausalml.discovery)</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>dyno <span class="op">=</span> DynoTEARS(</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    lag<span class="op">=</span><span class="dv">5</span>, lambda_l1<span class="op">=</span><span class="fl">0.02</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span>EPOCHS_DYNO, batch_size<span class="op">=</span><span class="dv">256</span>, lr<span class="op">=</span><span class="fl">3e-3</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    device<span class="op">=</span>DEVICE, random_state<span class="op">=</span><span class="dv">42</span>,</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>dyno.fit(data_np)</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"[DynoTEARS] final loss=</span><span class="sc">{</span>dyno<span class="sc">.</span>history_[<span class="st">'loss'</span>][<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>A_dyno <span class="op">=</span> dyno.get_adjacency(threshold<span class="op">=</span><span class="fl">0.05</span>)</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>W_agg <span class="op">=</span> dyno.get_scores()</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>plot_dag(W_agg, VAR_NAMES, <span class="st">"DynoTEARS aggregated lag weights"</span>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>plot_dag(A_dyno, VAR_NAMES, <span class="st">"DynoTEARS thresholded adjacency"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># DynoTEARS — lag-resolved DAG discovery (pydeepcausalml.discovery)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>dyno <span class="op">=</span> DynoTEARS(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    lag<span class="op">=</span><span class="dv">5</span>, lambda_l1<span class="op">=</span><span class="fl">0.02</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span>EPOCHS_DYNO, batch_size<span class="op">=</span><span class="dv">256</span>, lr<span class="op">=</span><span class="fl">3e-3</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    device<span class="op">=</span>DEVICE, random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>dyno.fit(data_np)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"[DynoTEARS] final loss=</span><span class="sc">{</span>dyno<span class="sc">.</span>history_[<span class="st">'loss'</span>][<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>A_dyno <span class="op">=</span> dyno.get_adjacency(threshold<span class="op">=</span><span class="fl">0.05</span>)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>W_agg <span class="op">=</span> dyno.get_scores()</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>plot_dag(W_agg, VAR_NAMES, <span class="st">"DynoTEARS aggregated lag weights"</span>)</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>plot_dag(A_dyno, VAR_NAMES, <span class="st">"DynoTEARS thresholded adjacency"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[DynoTEARS] final loss=0.9884</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_04_02_DeepCausalML_timeseries_structural_causal_model_SMC_files/figure-html/cell-8-output-2.png" width="758" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_04_02_DeepCausalML_timeseries_structural_causal_model_SMC_files/figure-html/cell-8-output-3.png" width="758" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="graph-recovery-evaluation-and-visual-comparison" class="level2">
 <h2 class="anchored" data-anchor-id="graph-recovery-evaluation-and-visual-comparison">Graph Recovery Evaluation and Visual Comparison</h2>
 <p>This section ports the comparison/evaluation utilities from <code>Causal_Discovery_Time_Series.ipynb</code> and adapts them to variables available in this notebook. If a true graph is not available, metric computation is skipped while visual comparisons are still generated.</p>
-<div id="77a18285" class="cell">
+<div id="77a18285" class="cell" data-execution_count="8">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Graph comparison across methods available in this notebook</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>methods <span class="op">=</span> {</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DECI"</span>: deci.adjacency_matrix(),</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DynoTEARS"</span>: dyno.get_adjacency(threshold<span class="op">=</span><span class="fl">0.05</span>),</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="bu">len</span>(methods), figsize<span class="op">=</span>(<span class="dv">5</span> <span class="op">*</span> <span class="bu">len</span>(methods), <span class="dv">4</span>))</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(methods) <span class="op">==</span> <span class="dv">1</span>:</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    axes <span class="op">=</span> [axes]</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (name, mat) <span class="kw">in</span> <span class="bu">zip</span>(axes, methods.items()):</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    sns.heatmap(mat, ax<span class="op">=</span>ax, cmap<span class="op">=</span><span class="st">"Blues"</span>, xticklabels<span class="op">=</span>VAR_NAMES, yticklabels<span class="op">=</span>VAR_NAMES)</span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    ax.set_title(name)</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Training dynamics</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">3</span>))</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (label, hist) <span class="kw">in</span> <span class="bu">zip</span>(</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    axes,</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"DeepSCM"</span>, deep_scm.history_), (<span class="st">"DECI"</span>, deci.history_), (<span class="st">"DynoTEARS"</span>, dyno.history_)],</span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>):</span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    ax.plot(hist[<span class="st">"loss"</span>])</span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    ax.set_title(label)</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"Epoch"</span>)</span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"Loss"</span>)</span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Graph comparison across methods available in this notebook</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>methods <span class="op">=</span> {</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DECI"</span>: deci.adjacency_matrix(),</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DynoTEARS"</span>: dyno.get_adjacency(threshold<span class="op">=</span><span class="fl">0.05</span>),</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="bu">len</span>(methods), figsize<span class="op">=</span>(<span class="dv">5</span> <span class="op">*</span> <span class="bu">len</span>(methods), <span class="dv">4</span>))</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">len</span>(methods) <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    axes <span class="op">=</span> [axes]</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (name, mat) <span class="kw">in</span> <span class="bu">zip</span>(axes, methods.items()):</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    sns.heatmap(mat, ax<span class="op">=</span>ax, cmap<span class="op">=</span><span class="st">"Blues"</span>, xticklabels<span class="op">=</span>VAR_NAMES, yticklabels<span class="op">=</span>VAR_NAMES)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    ax.set_title(name)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Training dynamics</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">3</span>))</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (label, hist) <span class="kw">in</span> <span class="bu">zip</span>(</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    axes,</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    [(<span class="st">"DeepSCM"</span>, deep_scm.history_), (<span class="st">"DECI"</span>, deci.history_), (<span class="st">"DynoTEARS"</span>, dyno.history_)],</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    ax.plot(hist[<span class="st">"loss"</span>])</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    ax.set_title(label)</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"Epoch"</span>)</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"Loss"</span>)</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_04_02_DeepCausalML_timeseries_structural_causal_model_SMC_files/figure-html/cell-9-output-1.png" width="945" height="379" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_04_02_DeepCausalML_timeseries_structural_causal_model_SMC_files/figure-html/cell-9-output-2.png" width="1336" height="278" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="notes" class="level2">

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,14 +73,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-bf6de5ccb156a65fc439966d4053cafd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-c3ddef8e9936373b1ee063945a43a984.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-bf6de5ccb156a65fc439966d4053cafd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-00ad4eb260160d2848a4c52e78834c93.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-461cef08a4079ad9ad279fc6f65c4991.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-00ad4eb260160d2848a4c52e78834c93.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -771,7 +771,7 @@ h(\mathbf{A})=\mathrm{tr}(e^{\mathbf{A}\odot\mathbf{A}})-d=0
 </section>
 <section id="setup-and-imports" class="level3">
 <h3 class="anchored" data-anchor-id="setup-and-imports">Setup and Imports</h3>
-<div id="d07541e3" class="cell">
+<div id="d07541e3" class="cell" data-execution_count="1">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
@@ -821,6 +821,11 @@ h(\mathbf{A})=\mathrm{tr}(e^{\mathbf{A}\odot\mathbf{A}})-d=0
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> networkx <span class="im">as</span> nx</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>pydeepcausalml 0.2.0 ready.
+torch: 2.14.0+cu132
+cuda: True</code></pre>
+</div>
 </div>
 <p><strong>What this code does</strong></p>
 <ul>
@@ -831,56 +836,61 @@ h(\mathbf{A})=\mathrm{tr}(e^{\mathbf{A}\odot\mathbf{A}})-d=0
 </section>
 <section id="data-pipeline-and-dataset-construction" class="level3">
 <h3 class="anchored" data-anchor-id="data-pipeline-and-dataset-construction">Data Pipeline and Dataset Construction</h3>
-<div id="9af8d4aa" class="cell">
+<div id="9af8d4aa" class="cell" data-execution_count="2">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>TICKERS <span class="op">=</span> {</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLF"</span>: <span class="st">"Financials"</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLE"</span>: <span class="st">"Energy"</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLK"</span>: <span class="st">"Technology"</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLV"</span>: <span class="st">"Healthcare"</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLI"</span>: <span class="st">"Industrials"</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLY"</span>: <span class="st">"ConsumerDisc"</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLP"</span>: <span class="st">"ConsumerStap"</span>,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLU"</span>: <span class="st">"Utilities"</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> yf.download(</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(TICKERS.keys()),</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    start<span class="op">=</span><span class="st">"2018-01-01"</span>,</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    end<span class="op">=</span><span class="st">"2024-01-01"</span>,</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    auto_adjust<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    progress<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>)[<span class="st">"Close"</span>]</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>returns <span class="op">=</span> np.log(raw <span class="op">/</span> raw.shift(<span class="dv">1</span>)).dropna()</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>returns.columns <span class="op">=</span> [TICKERS[t] <span class="cf">for</span> t <span class="kw">in</span> returns.columns]</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> returns.shape[<span class="dv">0</span>] <span class="op">&lt;</span> <span class="dv">50</span>:</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"yfinance unavailable; using synthetic demo data."</span>)</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(<span class="dv">42</span>)</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    T, d <span class="op">=</span> <span class="dv">1500</span>, <span class="bu">len</span>(TICKERS)</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    VAR_NAMES <span class="op">=</span> <span class="bu">list</span>(TICKERS.values())</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    market <span class="op">=</span> rng.normal(<span class="fl">0.0</span>, <span class="fl">0.8</span>, size<span class="op">=</span>(T, <span class="dv">1</span>)).astype(np.float64)</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    idio <span class="op">=</span> rng.normal(<span class="fl">0.0</span>, <span class="fl">0.6</span>, size<span class="op">=</span>(T, d)).astype(np.float64)</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    loading <span class="op">=</span> np.linspace(<span class="fl">0.5</span>, <span class="fl">1.1</span>, d, dtype<span class="op">=</span>np.float64)[<span class="va">None</span>, :]</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    data_np <span class="op">=</span> (market <span class="op">@</span> loading <span class="op">+</span> idio).astype(np.float64)</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    data_np <span class="op">=</span> returns.values.astype(np.float64)</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    T, d <span class="op">=</span> data_np.shape</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    VAR_NAMES <span class="op">=</span> returns.columns.tolist()</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shape: </span><span class="sc">{</span>data_np<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Variables (</span><span class="sc">{</span>d<span class="sc">}</span><span class="ss">): </span><span class="sc">{</span>VAR_NAMES<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Time steps: </span><span class="sc">{</span>T<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>LAG <span class="op">=</span> <span class="dv">5</span></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>EPOCHS <span class="op">=</span> <span class="dv">50</span> <span class="cf">if</span> run_fast <span class="cf">else</span> <span class="dv">100</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>HIDDEN <span class="op">=</span> <span class="dv">32</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>DEVICE <span class="op">=</span> <span class="st">"cpu"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>TICKERS <span class="op">=</span> {</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLF"</span>: <span class="st">"Financials"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLE"</span>: <span class="st">"Energy"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLK"</span>: <span class="st">"Technology"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLV"</span>: <span class="st">"Healthcare"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLI"</span>: <span class="st">"Industrials"</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLY"</span>: <span class="st">"ConsumerDisc"</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLP"</span>: <span class="st">"ConsumerStap"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"XLU"</span>: <span class="st">"Utilities"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> yfinance <span class="im">as</span> yf</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>raw <span class="op">=</span> yf.download(</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">list</span>(TICKERS.keys()),</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    start<span class="op">=</span><span class="st">"2018-01-01"</span>,</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    end<span class="op">=</span><span class="st">"2024-01-01"</span>,</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    auto_adjust<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    progress<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>)[<span class="st">"Close"</span>]</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>returns <span class="op">=</span> np.log(raw <span class="op">/</span> raw.shift(<span class="dv">1</span>)).dropna()</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>returns.columns <span class="op">=</span> [TICKERS[t] <span class="cf">for</span> t <span class="kw">in</span> returns.columns]</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> returns.shape[<span class="dv">0</span>] <span class="op">&lt;</span> <span class="dv">50</span>:</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"yfinance unavailable; using synthetic demo data."</span>)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(<span class="dv">42</span>)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    T, d <span class="op">=</span> <span class="dv">1500</span>, <span class="bu">len</span>(TICKERS)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    VAR_NAMES <span class="op">=</span> <span class="bu">list</span>(TICKERS.values())</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    market <span class="op">=</span> rng.normal(<span class="fl">0.0</span>, <span class="fl">0.8</span>, size<span class="op">=</span>(T, <span class="dv">1</span>)).astype(np.float64)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    idio <span class="op">=</span> rng.normal(<span class="fl">0.0</span>, <span class="fl">0.6</span>, size<span class="op">=</span>(T, d)).astype(np.float64)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    loading <span class="op">=</span> np.linspace(<span class="fl">0.5</span>, <span class="fl">1.1</span>, d, dtype<span class="op">=</span>np.float64)[<span class="va">None</span>, :]</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    data_np <span class="op">=</span> (market <span class="op">@</span> loading <span class="op">+</span> idio).astype(np.float64)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    data_np <span class="op">=</span> returns.values.astype(np.float64)</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    T, d <span class="op">=</span> data_np.shape</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    VAR_NAMES <span class="op">=</span> returns.columns.tolist()</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Shape: </span><span class="sc">{</span>data_np<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Variables (</span><span class="sc">{</span>d<span class="sc">}</span><span class="ss">): </span><span class="sc">{</span>VAR_NAMES<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Time steps: </span><span class="sc">{</span>T<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>LAG <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>EPOCHS <span class="op">=</span> <span class="dv">50</span> <span class="cf">if</span> run_fast <span class="cf">else</span> <span class="dv">100</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>HIDDEN <span class="op">=</span> <span class="dv">32</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>DEVICE <span class="op">=</span> <span class="st">"cpu"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Shape: (1508, 8)
+Variables (8): ['Energy', 'Financials', 'Industrials', 'Technology', 'ConsumerStap', 'Utilities', 'Healthcare', 'ConsumerDisc']
+Time steps: 1508</code></pre>
+</div>
 </div>
 <p><strong>What this code does</strong></p>
 <ul>
@@ -893,24 +903,24 @@ h(\mathbf{A})=\mathrm{tr}(e^{\mathbf{A}\odot\mathbf{A}})-d=0
 </section>
 <section id="shared-gnn-utilities" class="level3">
 <h3 class="anchored" data-anchor-id="shared-gnn-utilities">Shared GNN Utilities</h3>
-<div id="43e888e7" class="cell">
+<div id="43e888e7" class="cell" data-execution_count="3">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydeepcausalml <span class="im">import</span> GVAR, CausalGNN, CUTS, gnn_causal_model</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_graph(adj, names, title):</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.DiGraph()</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, tgt <span class="kw">in</span> <span class="bu">enumerate</span>(names):</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j, src <span class="kw">in</span> <span class="bu">enumerate</span>(names):</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> adj[i, j] <span class="op">&gt;</span> <span class="fl">0.05</span>:</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                G.add_edge(src, tgt, weight<span class="op">=</span><span class="bu">float</span>(adj[i, j]))</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    pos <span class="op">=</span> nx.spring_layout(G, seed<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">6</span>))</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    nx.draw_networkx(G, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">800</span>, font_size<span class="op">=</span><span class="dv">8</span>, arrows<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    plt.title(title)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    plt.axis(<span class="st">"off"</span>)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydeepcausalml <span class="im">import</span> GVAR, CausalGNN, CUTS, gnn_causal_model</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_graph(adj, names, title):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> nx.DiGraph()</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, tgt <span class="kw">in</span> <span class="bu">enumerate</span>(names):</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j, src <span class="kw">in</span> <span class="bu">enumerate</span>(names):</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> adj[i, j] <span class="op">&gt;</span> <span class="fl">0.05</span>:</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                G.add_edge(src, tgt, weight<span class="op">=</span><span class="bu">float</span>(adj[i, j]))</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    pos <span class="op">=</span> nx.spring_layout(G, seed<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">6</span>))</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    nx.draw_networkx(G, pos, with_labels<span class="op">=</span><span class="va">True</span>, node_size<span class="op">=</span><span class="dv">800</span>, font_size<span class="op">=</span><span class="dv">8</span>, arrows<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    plt.title(title)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    plt.axis(<span class="st">"off"</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p><strong>What this code does</strong></p>
@@ -928,12 +938,15 @@ h(\mathbf{A})=\mathrm{tr}(e^{\mathbf{A}\odot\mathbf{A}})-d=0
 <p>This model learns lag-specific adjacency matrices jointly with nonlinear temporal dynamics.</p>
 <section id="gvar-model-definition" class="level3">
 <h3 class="anchored" data-anchor-id="gvar-model-definition">GVAR Model Definition</h3>
-<div id="db0be628" class="cell">
+<div id="db0be628" class="cell" data-execution_count="4">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># GVAR — Graph Vector Autoregression with lag-specific soft adjacency</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"GVAR: pydeepcausalml.timeseries.gnn_models.GVAR"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># GVAR — Graph Vector Autoregression with lag-specific soft adjacency</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"GVAR: pydeepcausalml.timeseries.gnn_models.GVAR"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>GVAR: pydeepcausalml.timeseries.gnn_models.GVAR</code></pre>
+</div>
 </div>
 <p><strong>What this code does</strong></p>
 <ul>
@@ -949,12 +962,15 @@ h(\mathbf{A})=\mathrm{tr}(e^{\mathbf{A}\odot\mathbf{A}})-d=0
 <p>This model learns a soft DAG and uses edge-conditioned message passing for forecasting.</p>
 <section id="causalgnn-cd-gnn-definition" class="level3">
 <h3 class="anchored" data-anchor-id="causalgnn-cd-gnn-definition">CausalGNN / CD-GNN Definition</h3>
-<div id="b622871b" class="cell">
+<div id="b622871b" class="cell" data-execution_count="5">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CausalGNN — bilinear graph learner with GRU encoder</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CausalGNN: pydeepcausalml.timeseries.gnn_models.CausalGNN"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CausalGNN — bilinear graph learner with GRU encoder</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CausalGNN: pydeepcausalml.timeseries.gnn_models.CausalGNN"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>CausalGNN: pydeepcausalml.timeseries.gnn_models.CausalGNN</code></pre>
+</div>
 </div>
 <p><strong>What this code does</strong></p>
 <ul>
@@ -970,12 +986,15 @@ h(\mathbf{A})=\mathrm{tr}(e^{\mathbf{A}\odot\mathbf{A}})-d=0
 <p>A practical approximation of CUTS+ ideas: learn probabilistic graph edges and jointly impute missing values before forecasting.</p>
 <section id="cuts-inspired-model-definition" class="level3">
 <h3 class="anchored" data-anchor-id="cuts-inspired-model-definition">CUTS+ Inspired Model Definition</h3>
-<div id="072b345d" class="cell">
+<div id="072b345d" class="cell" data-execution_count="6">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CUTS+ — variational Bernoulli graph posterior for irregular series</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CUTS: pydeepcausalml.timeseries.gnn_models.CUTS"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CUTS+ — variational Bernoulli graph posterior for irregular series</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"CUTS: pydeepcausalml.timeseries.gnn_models.CUTS"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>CUTS: pydeepcausalml.timeseries.gnn_models.CUTS</code></pre>
+</div>
 </div>
 <p><strong>What this code does</strong></p>
 <ul>
@@ -996,27 +1015,35 @@ h(\mathbf{A})=\mathrm{tr}(e^{\mathbf{A}\odot\mathbf{A}})-d=0
 </ul>
 <section id="initialize-and-train-models" class="level3">
 <h3 class="anchored" data-anchor-id="initialize-and-train-models">Initialize and Train Models</h3>
-<div id="0d6fbc51" class="cell">
+<div id="0d6fbc51" class="cell" data-execution_count="7">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>model_gvar <span class="op">=</span> gnn_causal_model(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"gvar"</span>, lag<span class="op">=</span>LAG, hidden<span class="op">=</span>HIDDEN, lambda_dag<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span>EPOCHS, batch_size<span class="op">=</span><span class="dv">64</span>, lr<span class="op">=</span><span class="fl">1e-3</span>, device<span class="op">=</span>DEVICE, random_state<span class="op">=</span><span class="dv">42</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>model_cgnn <span class="op">=</span> gnn_causal_model(</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"causal_gnn"</span>, lag<span class="op">=</span>LAG, hidden<span class="op">=</span>HIDDEN,</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span>EPOCHS, batch_size<span class="op">=</span><span class="dv">64</span>, lr<span class="op">=</span><span class="fl">1e-3</span>, device<span class="op">=</span>DEVICE, random_state<span class="op">=</span><span class="dv">42</span>,</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>model_cuts <span class="op">=</span> gnn_causal_model(</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cuts"</span>, lag<span class="op">=</span>LAG, hidden<span class="op">=</span>HIDDEN,</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span>EPOCHS, batch_size<span class="op">=</span><span class="dv">64</span>, lr<span class="op">=</span><span class="fl">1e-3</span>, device<span class="op">=</span>DEVICE, random_state<span class="op">=</span><span class="dv">42</span>,</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> label, est <span class="kw">in</span> [(<span class="st">"GVAR"</span>, model_gvar), (<span class="st">"CausalGNN"</span>, model_cgnn), (<span class="st">"CUTS"</span>, model_cuts)]:</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Training </span><span class="sc">{</span>label<span class="sc">}</span><span class="ss"> ..."</span>)</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    est.fit(data_np)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  done — loss=</span><span class="sc">{</span>est<span class="sc">.</span>history_[<span class="st">'loss'</span>][<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>model_gvar <span class="op">=</span> gnn_causal_model(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"gvar"</span>, lag<span class="op">=</span>LAG, hidden<span class="op">=</span>HIDDEN, lambda_dag<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span>EPOCHS, batch_size<span class="op">=</span><span class="dv">64</span>, lr<span class="op">=</span><span class="fl">1e-3</span>, device<span class="op">=</span>DEVICE, random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>model_cgnn <span class="op">=</span> gnn_causal_model(</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"causal_gnn"</span>, lag<span class="op">=</span>LAG, hidden<span class="op">=</span>HIDDEN,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span>EPOCHS, batch_size<span class="op">=</span><span class="dv">64</span>, lr<span class="op">=</span><span class="fl">1e-3</span>, device<span class="op">=</span>DEVICE, random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>model_cuts <span class="op">=</span> gnn_causal_model(</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"cuts"</span>, lag<span class="op">=</span>LAG, hidden<span class="op">=</span>HIDDEN,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span>EPOCHS, batch_size<span class="op">=</span><span class="dv">64</span>, lr<span class="op">=</span><span class="fl">1e-3</span>, device<span class="op">=</span>DEVICE, random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> label, est <span class="kw">in</span> [(<span class="st">"GVAR"</span>, model_gvar), (<span class="st">"CausalGNN"</span>, model_cgnn), (<span class="st">"CUTS"</span>, model_cuts)]:</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Training </span><span class="sc">{</span>label<span class="sc">}</span><span class="ss"> ..."</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    est.fit(data_np)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"  done — loss=</span><span class="sc">{</span>est<span class="sc">.</span>history_[<span class="st">'loss'</span>][<span class="op">-</span><span class="dv">1</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Training GVAR ...
+  done — loss=1.0504
+Training CausalGNN ...
+  done — loss=0.6969
+Training CUTS ...
+  done — loss=1.1333</code></pre>
+</div>
 </div>
 <p><strong>What this code does</strong></p>
 <ul>
@@ -1030,24 +1057,52 @@ h(\mathbf{A})=\mathrm{tr}(e^{\mathbf{A}\odot\mathbf{A}})-d=0
 <h2 class="anchored" data-anchor-id="part-7-visualize-learned-causal-graphs">Part 7: Visualize Learned Causal Graphs</h2>
 <section id="plot-learned-causal-graphs" class="level3">
 <h3 class="anchored" data-anchor-id="plot-learned-causal-graphs">Plot Learned Causal Graphs</h3>
-<div id="113f83ee" class="cell">
+<div id="113f83ee" class="cell" data-execution_count="8">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>C_gvar <span class="op">=</span> model_gvar.causal_matrix()</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>C_cgnn <span class="op">=</span> model_cgnn.causal_matrix()</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>C_cuts <span class="op">=</span> model_cuts.causal_matrix()</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">4</span>))</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (name, mat) <span class="kw">in</span> <span class="bu">zip</span>(axes, [(<span class="st">"GVAR"</span>, C_gvar), (<span class="st">"CausalGNN"</span>, C_cgnn), (<span class="st">"CUTS"</span>, C_cuts)]):</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    sns.heatmap(mat, ax<span class="op">=</span>ax, cmap<span class="op">=</span><span class="st">"magma"</span>, xticklabels<span class="op">=</span>VAR_NAMES, yticklabels<span class="op">=</span>VAR_NAMES)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> causal matrix"</span>)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>plot_graph(C_gvar, VAR_NAMES, <span class="st">"GVAR learned graph"</span>)</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>plot_graph(C_cgnn, VAR_NAMES, <span class="st">"CausalGNN learned graph"</span>)</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>plot_graph(C_cuts, VAR_NAMES, <span class="st">"CUTS learned graph"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>C_gvar <span class="op">=</span> model_gvar.causal_matrix()</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>C_cgnn <span class="op">=</span> model_cgnn.causal_matrix()</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>C_cuts <span class="op">=</span> model_cuts.causal_matrix()</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">16</span>, <span class="dv">4</span>))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (name, mat) <span class="kw">in</span> <span class="bu">zip</span>(axes, [(<span class="st">"GVAR"</span>, C_gvar), (<span class="st">"CausalGNN"</span>, C_cgnn), (<span class="st">"CUTS"</span>, C_cuts)]):</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    sns.heatmap(mat, ax<span class="op">=</span>ax, cmap<span class="op">=</span><span class="st">"magma"</span>, xticklabels<span class="op">=</span>VAR_NAMES, yticklabels<span class="op">=</span>VAR_NAMES)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss"> causal matrix"</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>plot_graph(C_gvar, VAR_NAMES, <span class="st">"GVAR learned graph"</span>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>plot_graph(C_cgnn, VAR_NAMES, <span class="st">"CausalGNN learned graph"</span>)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>plot_graph(C_cuts, VAR_NAMES, <span class="st">"CUTS learned graph"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_04_05_DeepCausalML_timeseries_graphNN_files/figure-html/cell-9-output-1.png" width="1517" height="379" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_04_05_DeepCausalML_timeseries_graphNN_files/figure-html/cell-9-output-2.png" width="662" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_04_05_DeepCausalML_timeseries_graphNN_files/figure-html/cell-9-output-3.png" width="662" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_04_05_DeepCausalML_timeseries_graphNN_files/figure-html/cell-9-output-4.png" width="662" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <p><strong>What this code does</strong></p>
 <ul>

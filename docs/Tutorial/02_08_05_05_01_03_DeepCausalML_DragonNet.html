@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,14 +73,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-bf6de5ccb156a65fc439966d4053cafd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-c3ddef8e9936373b1ee063945a43a984.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-bf6de5ccb156a65fc439966d4053cafd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-00ad4eb260160d2848a4c52e78834c93.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-461cef08a4079ad9ad279fc6f65c4991.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-00ad4eb260160d2848a4c52e78834c93.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -803,7 +803,7 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="check-and-install-required-python-packages">Check and Install Required Python Packages</h3>
 <p>The following packages are used in this notebook. Install any missing packages with the cell below:</p>
 <p><code>numpy</code>, <code>pandas</code>, <code>scipy</code>, <code>torch</code>, <code>scikit-learn</code>, <code>matplotlib</code>, <code>seaborn</code>, <code>causaldata</code>, <code>pydeepcausalml</code></p>
-<div id="cell-12" class="cell">
+<div id="b8fb9264" class="cell" data-execution_count="1">
 <details open="" class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> importlib</span>
@@ -831,383 +831,408 @@ window.Quarto = {
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Packages ready."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Packages ready.</code></pre>
+</div>
 </div>
 </section>
 <section id="verify-imports" class="level3">
 <h3 class="anchored" data-anchor-id="verify-imports">Verify imports</h3>
-<div id="cell-14" class="cell">
+<div id="b8487886" class="cell" data-execution_count="2">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydeepcausalml <span class="im">import</span> set_seed</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"torch:"</span>, torch.__version__)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"cuda:"</span>, torch.cuda.is_available())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydeepcausalml <span class="im">import</span> set_seed</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"torch:"</span>, torch.__version__)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"cuda:"</span>, torch.cuda.is_available())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>torch: 2.14.0+cu132
+cuda: True</code></pre>
 </div>
-<div id="cell-15" class="cell">
+</div>
+<div id="3abd89b9" class="cell" data-execution_count="3">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>set_seed(<span class="dv">42</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>set_seed(<span class="dv">42</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
 <section id="load-real-world-data-and-prepare-x-t-y" class="level3">
 <h3 class="anchored" data-anchor-id="load-real-world-data-and-prepare-x-t-y">Load real-world data and prepare (X, t, y)</h3>
-<div id="cell-17" class="cell">
+<div id="d6457897" class="cell" data-execution_count="4">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> ElasticNet, LogisticRegression, LinearRegression</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> KFold</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_nsw_mixtape() <span class="op">-&gt;</span> pd.DataFrame:</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Load NSW (Lalonde) mixtape data (same variables as causaldata::nsw_mixtape)."""</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="im">import</span> causaldata.nsw_mixtape.data <span class="im">as</span> nsw_data</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        dta <span class="op">=</span> Path(nsw_data.<span class="va">__file__</span>).parent <span class="op">/</span> <span class="st">"nsw_mixtape.dta"</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pd.read_stata(dta)</span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span>:</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> (</span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"https://raw.githubusercontent.com/NickCH-K/causaldata/master/"</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"data-raw/nsw_mixtape.dta"</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.read_stata(url)</span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> propensity_elastic_net(X: np.ndarray, treatment: np.ndarray) <span class="op">-&gt;</span> np.ndarray:</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> LogisticRegression(</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        penalty<span class="op">=</span><span class="st">"elasticnet"</span>, solver<span class="op">=</span><span class="st">"saga"</span>, l1_ratio<span class="op">=</span><span class="fl">0.5</span>, max_iter<span class="op">=</span><span class="dv">2000</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    model.fit(X, treatment)</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> model.predict_proba(X)[:, <span class="dv">1</span>]</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SLearner:</span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, learner: <span class="bu">str</span> <span class="op">=</span> <span class="st">"ranger"</span>):</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.learner <span class="op">=</span> learner</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, X, t, y):</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>        Xt <span class="op">=</span> np.column_stack([X, t])</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.learner <span class="op">==</span> <span class="st">"lm"</span>:</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.model_ <span class="op">=</span> LinearRegression().fit(Xt, y)</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.model_ <span class="op">=</span> RandomForestRegressor(</span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>                n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span></span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>            ).fit(Xt, y)</span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span></span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, X):</span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>        y0 <span class="op">=</span> <span class="va">self</span>.model_.predict(np.column_stack([X, np.zeros(<span class="bu">len</span>(X))]))</span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>        y1 <span class="op">=</span> <span class="va">self</span>.model_.predict(np.column_stack([X, np.ones(<span class="bu">len</span>(X))]))</span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> y1 <span class="op">-</span> y0</span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TLearner:</span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, learner: <span class="bu">str</span> <span class="op">=</span> <span class="st">"ranger"</span>):</span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.learner <span class="op">=</span> learner</span>
-<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, X, t, y):</span>
-<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>        t <span class="op">=</span> t.astype(<span class="bu">int</span>)</span>
-<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.learner <span class="op">==</span> <span class="st">"lm"</span>:</span>
-<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.m0_ <span class="op">=</span> LinearRegression().fit(X[t <span class="op">==</span> <span class="dv">0</span>], y[t <span class="op">==</span> <span class="dv">0</span>])</span>
-<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.m1_ <span class="op">=</span> LinearRegression().fit(X[t <span class="op">==</span> <span class="dv">1</span>], y[t <span class="op">==</span> <span class="dv">1</span>])</span>
-<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.m0_ <span class="op">=</span> RandomForestRegressor(</span>
-<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>                n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span></span>
-<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>            ).fit(X[t <span class="op">==</span> <span class="dv">0</span>], y[t <span class="op">==</span> <span class="dv">0</span>])</span>
-<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.m1_ <span class="op">=</span> RandomForestRegressor(</span>
-<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a>                n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span></span>
-<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a>            ).fit(X[t <span class="op">==</span> <span class="dv">1</span>], y[t <span class="op">==</span> <span class="dv">1</span>])</span>
-<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span></span>
-<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, X):</span>
-<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.m1_.predict(X) <span class="op">-</span> <span class="va">self</span>.m0_.predict(X)</span>
-<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> XLearner:</span>
-<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, learner: <span class="bu">str</span> <span class="op">=</span> <span class="st">"ranger"</span>):</span>
-<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.learner <span class="op">=</span> learner</span>
-<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _reg(<span class="va">self</span>):</span>
-<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.learner <span class="op">==</span> <span class="st">"lm"</span>:</span>
-<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> LinearRegression()</span>
-<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>)</span>
-<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, X, t, y, p<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>        t <span class="op">=</span> t.astype(<span class="bu">int</span>)</span>
-<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> propensity_elastic_net(X, t) <span class="cf">if</span> p <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> p</span>
-<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>        m0, m1 <span class="op">=</span> <span class="va">self</span>._reg(), <span class="va">self</span>._reg()</span>
-<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a>        m0.fit(X[t <span class="op">==</span> <span class="dv">0</span>], y[t <span class="op">==</span> <span class="dv">0</span>])</span>
-<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a>        m1.fit(X[t <span class="op">==</span> <span class="dv">1</span>], y[t <span class="op">==</span> <span class="dv">1</span>])</span>
-<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a>        d1 <span class="op">=</span> y[t <span class="op">==</span> <span class="dv">1</span>] <span class="op">-</span> m0.predict(X[t <span class="op">==</span> <span class="dv">1</span>])</span>
-<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a>        d0 <span class="op">=</span> m1.predict(X[t <span class="op">==</span> <span class="dv">0</span>]) <span class="op">-</span> y[t <span class="op">==</span> <span class="dv">0</span>]</span>
-<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a>        tau1 <span class="op">=</span> <span class="va">self</span>._reg().fit(X[t <span class="op">==</span> <span class="dv">1</span>], d1)</span>
-<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>        tau0 <span class="op">=</span> <span class="va">self</span>._reg().fit(X[t <span class="op">==</span> <span class="dv">0</span>], d0)</span>
-<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.p_, <span class="va">self</span>.tau0_, <span class="va">self</span>.tau1_ <span class="op">=</span> p, tau0, tau1</span>
-<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span></span>
-<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, X):</span>
-<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.p_ <span class="op">*</span> <span class="va">self</span>.tau0_.predict(X) <span class="op">+</span> (<span class="dv">1</span> <span class="op">-</span> <span class="va">self</span>.p_) <span class="op">*</span> <span class="va">self</span>.tau1_.predict(X)</span>
-<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> RLearner:</span>
-<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, learner: <span class="bu">str</span> <span class="op">=</span> <span class="st">"ranger"</span>, n_fold: <span class="bu">int</span> <span class="op">=</span> <span class="dv">3</span>):</span>
-<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.learner <span class="op">=</span> learner</span>
-<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.n_fold <span class="op">=</span> n_fold</span>
-<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _reg(<span class="va">self</span>):</span>
-<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.learner <span class="op">==</span> <span class="st">"lm"</span>:</span>
-<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> LinearRegression()</span>
-<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>)</span>
-<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, X, t, y, p<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a>        t <span class="op">=</span> t.astype(<span class="bu">int</span>).astype(<span class="bu">float</span>)</span>
-<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> propensity_elastic_net(X, t) <span class="cf">if</span> p <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> p</span>
-<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>        e <span class="op">=</span> t <span class="op">-</span> p</span>
-<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> <span class="va">self</span>._reg()</span>
-<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>        kf <span class="op">=</span> KFold(n_splits<span class="op">=</span><span class="va">self</span>.n_fold, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
-<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>        y_hat <span class="op">=</span> np.zeros_like(y, dtype<span class="op">=</span><span class="bu">float</span>)</span>
-<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> tr, va <span class="kw">in</span> kf.split(X):</span>
-<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a>            m.fit(X[tr], y[tr])</span>
-<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>            y_hat[va] <span class="op">=</span> m.predict(X[va])</span>
-<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a>        resid <span class="op">=</span> y <span class="op">-</span> y_hat</span>
-<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>        tau <span class="op">=</span> <span class="va">self</span>._reg()</span>
-<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>        tau.fit(X, resid <span class="op">/</span> (e <span class="op">+</span> <span class="fl">1e-6</span>), sample_weight<span class="op">=</span>e<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.tau_ <span class="op">=</span> tau</span>
-<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span></span>
-<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, X):</span>
-<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.tau_.predict(X)</span>
-<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_cumgain(df_preds, outcome_col<span class="op">=</span><span class="st">"y"</span>, treatment_col<span class="op">=</span><span class="st">"w"</span>, treatment_effect_col<span class="op">=</span><span class="st">"tau"</span>, normalize<span class="op">=</span><span class="va">True</span>):</span>
-<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Cumulative gain curve (CausalML-style AUUC helper)."""</span></span>
-<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> df_preds[outcome_col].to_numpy()</span>
-<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> df_preds[treatment_col].to_numpy()</span>
-<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a>    tau <span class="op">=</span> df_preds[treatment_effect_col].to_numpy()</span>
-<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a>    model_cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> df_preds.columns <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> {outcome_col, treatment_col, treatment_effect_col}]</span>
-<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(df_preds)</span>
-<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> {}</span>
-<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col <span class="kw">in</span> model_cols:</span>
-<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a>        scores <span class="op">=</span> df_preds[col].to_numpy()</span>
-<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a>        order <span class="op">=</span> np.argsort(<span class="op">-</span>scores)</span>
-<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a>        cum <span class="op">=</span> []</span>
-<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>        treated_so_far <span class="op">=</span> control_so_far <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, idx <span class="kw">in</span> <span class="bu">enumerate</span>(order, start<span class="op">=</span><span class="dv">1</span>):</span>
-<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> w[idx] <span class="op">==</span> <span class="dv">1</span>:</span>
-<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a>                treated_so_far <span class="op">+=</span> y[idx]</span>
-<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a>                control_so_far <span class="op">+=</span> y[idx]</span>
-<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a>            lift <span class="op">=</span> treated_so_far <span class="op">/</span> <span class="bu">max</span>((w[order[:i]] <span class="op">==</span> <span class="dv">1</span>).<span class="bu">sum</span>(), <span class="dv">1</span>) <span class="op">-</span> control_so_far <span class="op">/</span> <span class="bu">max</span>(</span>
-<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a>                (w[order[:i]] <span class="op">==</span> <span class="dv">0</span>).<span class="bu">sum</span>(), <span class="dv">1</span></span>
-<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a>            )</span>
-<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a>            cum.append(lift)</span>
-<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a>        curve <span class="op">=</span> np.array(cum)</span>
-<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> normalize <span class="kw">and</span> curve[<span class="op">-</span><span class="dv">1</span>] <span class="op">!=</span> <span class="dv">0</span>:</span>
-<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a>            curve <span class="op">=</span> curve <span class="op">/</span> np.<span class="bu">abs</span>(curve[<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a>        out[col] <span class="op">=</span> curve</span>
-<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a>    out[treatment_effect_col] <span class="op">=</span> out.get(treatment_effect_col, out[model_cols[<span class="dv">0</span>]])</span>
-<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.DataFrame(out)</span>
-<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_gain(df_preds, outcome_col<span class="op">=</span><span class="st">"y"</span>, treatment_col<span class="op">=</span><span class="st">"w"</span>, treatment_effect_col<span class="op">=</span><span class="st">"tau"</span>, model_cols<span class="op">=</span><span class="va">None</span>, main<span class="op">=</span><span class="st">""</span>, normalize<span class="op">=</span><span class="va">True</span>):</span>
-<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a>    gain <span class="op">=</span> get_cumgain(df_preds, outcome_col, treatment_col, treatment_effect_col, normalize)</span>
-<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a>    model_cols <span class="op">=</span> model_cols <span class="kw">or</span> [c <span class="cf">for</span> c <span class="kw">in</span> gain.columns]</span>
-<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
-<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col <span class="kw">in</span> model_cols:</span>
-<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> col <span class="kw">in</span> gain.columns:</span>
-<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a>            plt.plot(gain[col].values, label<span class="op">=</span>col)</span>
-<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Population fraction targeted"</span>)</span>
-<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Cumulative gain"</span> <span class="op">+</span> (<span class="st">" (normalized)"</span> <span class="cf">if</span> normalize <span class="cf">else</span> <span class="st">""</span>))</span>
-<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a>    plt.title(main)</span>
-<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
-<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
-<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
-<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-178"><a href="#cb4-178" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_ihdp(replications: <span class="bu">int</span> <span class="op">=</span> <span class="dv">2</span>, random_state: <span class="bu">int</span> <span class="op">=</span> <span class="dv">1</span>):</span>
-<span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a>    base_url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/uber/causalml/master/docs/examples/data"</span></span>
-<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a>    cols <span class="op">=</span> [<span class="st">"treatment"</span>, <span class="st">"y_factual"</span>, <span class="st">"y_cfactual"</span>, <span class="st">"mu0"</span>, <span class="st">"mu1"</span>] <span class="op">+</span> [<span class="ss">f"X</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">25</span>)]</span>
-<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a>    parts <span class="op">=</span> []</span>
-<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>):</span>
-<span id="cb4-183"><a href="#cb4-183" aria-hidden="true" tabindex="-1"></a>        url <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>base_url<span class="sc">}</span><span class="ss">/ihdp_npci_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.csv"</span></span>
-<span id="cb4-184"><a href="#cb4-184" aria-hidden="true" tabindex="-1"></a>        tmp <span class="op">=</span> pd.read_csv(url, header<span class="op">=</span><span class="va">None</span>)</span>
-<span id="cb4-185"><a href="#cb4-185" aria-hidden="true" tabindex="-1"></a>        tmp.columns <span class="op">=</span> cols[: tmp.shape[<span class="dv">1</span>]]</span>
-<span id="cb4-186"><a href="#cb4-186" aria-hidden="true" tabindex="-1"></a>        parts.append(tmp)</span>
-<span id="cb4-187"><a href="#cb4-187" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.concat(parts, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb4-188"><a href="#cb4-188" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> replications <span class="op">&gt;</span> <span class="dv">1</span>:</span>
-<span id="cb4-189"><a href="#cb4-189" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> pd.concat([df] <span class="op">*</span> replications, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb4-190"><a href="#cb4-190" aria-hidden="true" tabindex="-1"></a>    binfeats <span class="op">=</span> [<span class="ss">f"X</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>, <span class="dv">25</span>)]</span>
-<span id="cb4-191"><a href="#cb4-191" aria-hidden="true" tabindex="-1"></a>    contfeats <span class="op">=</span> [<span class="ss">f"X</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>)]</span>
-<span id="cb4-192"><a href="#cb4-192" aria-hidden="true" tabindex="-1"></a>    xcols <span class="op">=</span> binfeats <span class="op">+</span> contfeats</span>
-<span id="cb4-193"><a href="#cb4-193" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> df[xcols].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>)</span>
-<span id="cb4-194"><a href="#cb4-194" aria-hidden="true" tabindex="-1"></a>    treatment <span class="op">=</span> df[<span class="st">"treatment"</span>].to_numpy(dtype<span class="op">=</span><span class="bu">int</span>)</span>
-<span id="cb4-195"><a href="#cb4-195" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> df[<span class="st">"y_factual"</span>].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>)</span>
-<span id="cb4-196"><a href="#cb4-196" aria-hidden="true" tabindex="-1"></a>    tau <span class="op">=</span> np.where(</span>
-<span id="cb4-197"><a href="#cb4-197" aria-hidden="true" tabindex="-1"></a>        treatment <span class="op">==</span> <span class="dv">1</span>,</span>
-<span id="cb4-198"><a href="#cb4-198" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">"y_factual"</span>] <span class="op">-</span> df[<span class="st">"y_cfactual"</span>],</span>
-<span id="cb4-199"><a href="#cb4-199" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">"y_cfactual"</span>] <span class="op">-</span> df[<span class="st">"y_factual"</span>],</span>
-<span id="cb4-200"><a href="#cb4-200" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb4-201"><a href="#cb4-201" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(X)</span>
-<span id="cb4-202"><a href="#cb4-202" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(random_state)</span>
-<span id="cb4-203"><a href="#cb4-203" aria-hidden="true" tabindex="-1"></a>    val_idx <span class="op">=</span> rng.choice(n, size<span class="op">=</span><span class="bu">int</span>(<span class="fl">0.2</span> <span class="op">*</span> n), replace<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb4-204"><a href="#cb4-204" aria-hidden="true" tabindex="-1"></a>    train_idx <span class="op">=</span> np.setdiff1d(np.arange(n), val_idx)</span>
-<span id="cb4-205"><a href="#cb4-205" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df, X, treatment, y, tau, train_idx, val_idx</span>
-<span id="cb4-206"><a href="#cb4-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-207"><a href="#cb4-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-208"><a href="#cb4-208" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_hidden_confounder(n<span class="op">=</span><span class="dv">2000</span>, p<span class="op">=</span><span class="dv">5</span>, sigma<span class="op">=</span><span class="fl">1.0</span>, adj<span class="op">=</span><span class="dv">0</span>, random_state<span class="op">=</span><span class="dv">42</span>):</span>
-<span id="cb4-209"><a href="#cb4-209" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Synthetic DGP with latent confounder (CausalML-style benchmark)."""</span></span>
-<span id="cb4-210"><a href="#cb4-210" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(random_state)</span>
-<span id="cb4-211"><a href="#cb4-211" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> rng.normal(size<span class="op">=</span>n)</span>
-<span id="cb4-212"><a href="#cb4-212" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> np.column_stack([z <span class="op">+</span> rng.normal(scale<span class="op">=</span>sigma, size<span class="op">=</span>n) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(p)])</span>
-<span id="cb4-213"><a href="#cb4-213" aria-hidden="true" tabindex="-1"></a>    e <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> np.exp(<span class="op">-</span>(adj <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> z)))</span>
-<span id="cb4-214"><a href="#cb4-214" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> rng.binomial(<span class="dv">1</span>, e)</span>
-<span id="cb4-215"><a href="#cb4-215" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> z <span class="op">+</span> rng.normal(scale<span class="op">=</span>sigma, size<span class="op">=</span>n)</span>
-<span id="cb4-216"><a href="#cb4-216" aria-hidden="true" tabindex="-1"></a>    tau <span class="op">=</span> <span class="fl">0.5</span> <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> z</span>
-<span id="cb4-217"><a href="#cb4-217" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> b <span class="op">+</span> w <span class="op">*</span> tau <span class="op">+</span> rng.normal(scale<span class="op">=</span>sigma, size<span class="op">=</span>n)</span>
-<span id="cb4-218"><a href="#cb4-218" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="st">"X"</span>: X, <span class="st">"y"</span>: y, <span class="st">"w"</span>: w, <span class="st">"tau"</span>: tau, <span class="st">"b"</span>: b, <span class="st">"e"</span>: e}</span>
-<span id="cb4-219"><a href="#cb4-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-220"><a href="#cb4-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-221"><a href="#cb4-221" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> result_table(df_preds, tau_true):</span>
-<span id="cb4-222"><a href="#cb4-222" aria-hidden="true" tabindex="-1"></a>    model_cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> [<span class="st">"S"</span>, <span class="st">"T"</span>, <span class="st">"X"</span>, <span class="st">"R"</span>, <span class="st">"GANITE"</span>, <span class="st">"CEVAE"</span>] <span class="cf">if</span> c <span class="kw">in</span> df_preds.columns]</span>
-<span id="cb4-223"><a href="#cb4-223" aria-hidden="true" tabindex="-1"></a>    methods <span class="op">=</span> model_cols <span class="op">+</span> [<span class="st">"actual"</span>]</span>
-<span id="cb4-224"><a href="#cb4-224" aria-hidden="true" tabindex="-1"></a>    ate <span class="op">=</span> [df_preds[m].mean() <span class="cf">for</span> m <span class="kw">in</span> model_cols] <span class="op">+</span> [<span class="bu">float</span>(tau_true.mean())]</span>
-<span id="cb4-225"><a href="#cb4-225" aria-hidden="true" tabindex="-1"></a>    mae <span class="op">=</span> [<span class="bu">float</span>(np.mean(np.<span class="bu">abs</span>(df_preds[m] <span class="op">-</span> tau_true))) <span class="cf">for</span> m <span class="kw">in</span> model_cols] <span class="op">+</span> [np.nan]</span>
-<span id="cb4-226"><a href="#cb4-226" aria-hidden="true" tabindex="-1"></a>    gain <span class="op">=</span> get_cumgain(df_preds)</span>
-<span id="cb4-227"><a href="#cb4-227" aria-hidden="true" tabindex="-1"></a>    auuc <span class="op">=</span> [<span class="bu">float</span>(gain[m].mean()) <span class="cf">if</span> m <span class="kw">in</span> gain.columns <span class="cf">else</span> np.nan <span class="cf">for</span> m <span class="kw">in</span> model_cols]</span>
-<span id="cb4-228"><a href="#cb4-228" aria-hidden="true" tabindex="-1"></a>    auuc.append(<span class="bu">float</span>(gain[<span class="st">"tau"</span>].mean()) <span class="cf">if</span> <span class="st">"tau"</span> <span class="kw">in</span> gain.columns <span class="cf">else</span> np.nan)</span>
-<span id="cb4-229"><a href="#cb4-229" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.DataFrame({<span class="st">"Method"</span>: methods, <span class="st">"ATE"</span>: ate, <span class="st">"MAE"</span>: mae, <span class="st">"AUUC"</span>: auuc})</span>
-<span id="cb4-230"><a href="#cb4-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-231"><a href="#cb4-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-232"><a href="#cb4-232" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> synthetic_summary(preds, tau_ref, actual_ate):</span>
-<span id="cb4-233"><a href="#cb4-233" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> []</span>
-<span id="cb4-234"><a href="#cb4-234" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name, p <span class="kw">in</span> preds.items():</span>
-<span id="cb4-235"><a href="#cb4-235" aria-hidden="true" tabindex="-1"></a>        rows.append({</span>
-<span id="cb4-236"><a href="#cb4-236" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Method"</span>: name,</span>
-<span id="cb4-237"><a href="#cb4-237" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ATE"</span>: p.mean(),</span>
-<span id="cb4-238"><a href="#cb4-238" aria-hidden="true" tabindex="-1"></a>            <span class="st">"MSE"</span>: np.mean((p <span class="op">-</span> tau_ref) <span class="op">**</span> <span class="dv">2</span>),</span>
-<span id="cb4-239"><a href="#cb4-239" aria-hidden="true" tabindex="-1"></a>            <span class="st">"AbsPctErrorATE"</span>: <span class="bu">abs</span>(p.mean() <span class="op">/</span> actual_ate <span class="op">-</span> <span class="dv">1</span>) <span class="cf">if</span> actual_ate <span class="op">!=</span> <span class="dv">0</span> <span class="cf">else</span> np.nan,</span>
-<span id="cb4-240"><a href="#cb4-240" aria-hidden="true" tabindex="-1"></a>        })</span>
-<span id="cb4-241"><a href="#cb4-241" aria-hidden="true" tabindex="-1"></a>    rows.append({<span class="st">"Method"</span>: <span class="st">"Actuals"</span>, <span class="st">"ATE"</span>: actual_ate, <span class="st">"MSE"</span>: np.nan, <span class="st">"AbsPctErrorATE"</span>: np.nan})</span>
-<span id="cb4-242"><a href="#cb4-242" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.DataFrame(rows)</span>
-<span id="cb4-243"><a href="#cb4-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-244"><a href="#cb4-244" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydeepcausalml.effect <span class="im">import</span> DragonNet</span>
-<span id="cb4-245"><a href="#cb4-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-246"><a href="#cb4-246" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> load_nsw_mixtape()</span>
-<span id="cb4-247"><a href="#cb4-247" aria-hidden="true" tabindex="-1"></a>y_col, t_col <span class="op">=</span> <span class="st">"re78"</span>, <span class="st">"treat"</span></span>
-<span id="cb4-248"><a href="#cb4-248" aria-hidden="true" tabindex="-1"></a>x_cols <span class="op">=</span> [<span class="st">"age"</span>, <span class="st">"educ"</span>, <span class="st">"black"</span>, <span class="st">"hisp"</span>, <span class="st">"marr"</span>, <span class="st">"nodegree"</span>, <span class="st">"re74"</span>, <span class="st">"re75"</span>]</span>
-<span id="cb4-249"><a href="#cb4-249" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna(subset<span class="op">=</span>[y_col, t_col] <span class="op">+</span> x_cols).copy()</span>
-<span id="cb4-250"><a href="#cb4-250" aria-hidden="true" tabindex="-1"></a>df[t_col] <span class="op">=</span> df[t_col].astype(<span class="bu">int</span>)</span>
-<span id="cb4-251"><a href="#cb4-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-252"><a href="#cb4-252" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[x_cols].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>)</span>
-<span id="cb4-253"><a href="#cb4-253" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> (X <span class="op">-</span> X.mean(axis<span class="op">=</span><span class="dv">0</span>)) <span class="op">/</span> (X.std(axis<span class="op">=</span><span class="dv">0</span>) <span class="op">+</span> <span class="fl">1e-8</span>)</span>
-<span id="cb4-254"><a href="#cb4-254" aria-hidden="true" tabindex="-1"></a>t_vec <span class="op">=</span> df[t_col].to_numpy(dtype<span class="op">=</span><span class="bu">int</span>)</span>
-<span id="cb4-255"><a href="#cb4-255" aria-hidden="true" tabindex="-1"></a>y_vec <span class="op">=</span> df[y_col].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>)</span>
-<span id="cb4-256"><a href="#cb4-256" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sample size:"</span>, <span class="bu">len</span>(X), <span class="st">"| Covariates:"</span>, X.shape[<span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> ElasticNet, LogisticRegression, LinearRegression</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> KFold</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_nsw_mixtape() <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Load NSW (Lalonde) mixtape data (same variables as causaldata::nsw_mixtape)."""</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="im">import</span> causaldata.nsw_mixtape.data <span class="im">as</span> nsw_data</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        dta <span class="op">=</span> Path(nsw_data.<span class="va">__file__</span>).parent <span class="op">/</span> <span class="st">"nsw_mixtape.dta"</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> pd.read_stata(dta)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span>:</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> (</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        <span class="st">"https://raw.githubusercontent.com/NickCH-K/causaldata/master/"</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        <span class="st">"data-raw/nsw_mixtape.dta"</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.read_stata(url)</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> propensity_elastic_net(X: np.ndarray, treatment: np.ndarray) <span class="op">-&gt;</span> np.ndarray:</span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>    model <span class="op">=</span> LogisticRegression(</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>        penalty<span class="op">=</span><span class="st">"elasticnet"</span>, solver<span class="op">=</span><span class="st">"saga"</span>, l1_ratio<span class="op">=</span><span class="fl">0.5</span>, max_iter<span class="op">=</span><span class="dv">2000</span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>    model.fit(X, treatment)</span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> model.predict_proba(X)[:, <span class="dv">1</span>]</span>
+<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SLearner:</span>
+<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, learner: <span class="bu">str</span> <span class="op">=</span> <span class="st">"ranger"</span>):</span>
+<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.learner <span class="op">=</span> learner</span>
+<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, X, t, y):</span>
+<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>        Xt <span class="op">=</span> np.column_stack([X, t])</span>
+<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.learner <span class="op">==</span> <span class="st">"lm"</span>:</span>
+<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.model_ <span class="op">=</span> LinearRegression().fit(Xt, y)</span>
+<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.model_ <span class="op">=</span> RandomForestRegressor(</span>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>                n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span></span>
+<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>            ).fit(Xt, y)</span>
+<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span></span>
+<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, X):</span>
+<span id="cb6-48"><a href="#cb6-48" aria-hidden="true" tabindex="-1"></a>        y0 <span class="op">=</span> <span class="va">self</span>.model_.predict(np.column_stack([X, np.zeros(<span class="bu">len</span>(X))]))</span>
+<span id="cb6-49"><a href="#cb6-49" aria-hidden="true" tabindex="-1"></a>        y1 <span class="op">=</span> <span class="va">self</span>.model_.predict(np.column_stack([X, np.ones(<span class="bu">len</span>(X))]))</span>
+<span id="cb6-50"><a href="#cb6-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> y1 <span class="op">-</span> y0</span>
+<span id="cb6-51"><a href="#cb6-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-52"><a href="#cb6-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-53"><a href="#cb6-53" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TLearner:</span>
+<span id="cb6-54"><a href="#cb6-54" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, learner: <span class="bu">str</span> <span class="op">=</span> <span class="st">"ranger"</span>):</span>
+<span id="cb6-55"><a href="#cb6-55" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.learner <span class="op">=</span> learner</span>
+<span id="cb6-56"><a href="#cb6-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-57"><a href="#cb6-57" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, X, t, y):</span>
+<span id="cb6-58"><a href="#cb6-58" aria-hidden="true" tabindex="-1"></a>        t <span class="op">=</span> t.astype(<span class="bu">int</span>)</span>
+<span id="cb6-59"><a href="#cb6-59" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.learner <span class="op">==</span> <span class="st">"lm"</span>:</span>
+<span id="cb6-60"><a href="#cb6-60" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.m0_ <span class="op">=</span> LinearRegression().fit(X[t <span class="op">==</span> <span class="dv">0</span>], y[t <span class="op">==</span> <span class="dv">0</span>])</span>
+<span id="cb6-61"><a href="#cb6-61" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.m1_ <span class="op">=</span> LinearRegression().fit(X[t <span class="op">==</span> <span class="dv">1</span>], y[t <span class="op">==</span> <span class="dv">1</span>])</span>
+<span id="cb6-62"><a href="#cb6-62" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb6-63"><a href="#cb6-63" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.m0_ <span class="op">=</span> RandomForestRegressor(</span>
+<span id="cb6-64"><a href="#cb6-64" aria-hidden="true" tabindex="-1"></a>                n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span></span>
+<span id="cb6-65"><a href="#cb6-65" aria-hidden="true" tabindex="-1"></a>            ).fit(X[t <span class="op">==</span> <span class="dv">0</span>], y[t <span class="op">==</span> <span class="dv">0</span>])</span>
+<span id="cb6-66"><a href="#cb6-66" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.m1_ <span class="op">=</span> RandomForestRegressor(</span>
+<span id="cb6-67"><a href="#cb6-67" aria-hidden="true" tabindex="-1"></a>                n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span></span>
+<span id="cb6-68"><a href="#cb6-68" aria-hidden="true" tabindex="-1"></a>            ).fit(X[t <span class="op">==</span> <span class="dv">1</span>], y[t <span class="op">==</span> <span class="dv">1</span>])</span>
+<span id="cb6-69"><a href="#cb6-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span></span>
+<span id="cb6-70"><a href="#cb6-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-71"><a href="#cb6-71" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, X):</span>
+<span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.m1_.predict(X) <span class="op">-</span> <span class="va">self</span>.m0_.predict(X)</span>
+<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> XLearner:</span>
+<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, learner: <span class="bu">str</span> <span class="op">=</span> <span class="st">"ranger"</span>):</span>
+<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.learner <span class="op">=</span> learner</span>
+<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _reg(<span class="va">self</span>):</span>
+<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.learner <span class="op">==</span> <span class="st">"lm"</span>:</span>
+<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> LinearRegression()</span>
+<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, X, t, y, p<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>        t <span class="op">=</span> t.astype(<span class="bu">int</span>)</span>
+<span id="cb6-86"><a href="#cb6-86" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> propensity_elastic_net(X, t) <span class="cf">if</span> p <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> p</span>
+<span id="cb6-87"><a href="#cb6-87" aria-hidden="true" tabindex="-1"></a>        m0, m1 <span class="op">=</span> <span class="va">self</span>._reg(), <span class="va">self</span>._reg()</span>
+<span id="cb6-88"><a href="#cb6-88" aria-hidden="true" tabindex="-1"></a>        m0.fit(X[t <span class="op">==</span> <span class="dv">0</span>], y[t <span class="op">==</span> <span class="dv">0</span>])</span>
+<span id="cb6-89"><a href="#cb6-89" aria-hidden="true" tabindex="-1"></a>        m1.fit(X[t <span class="op">==</span> <span class="dv">1</span>], y[t <span class="op">==</span> <span class="dv">1</span>])</span>
+<span id="cb6-90"><a href="#cb6-90" aria-hidden="true" tabindex="-1"></a>        d1 <span class="op">=</span> y[t <span class="op">==</span> <span class="dv">1</span>] <span class="op">-</span> m0.predict(X[t <span class="op">==</span> <span class="dv">1</span>])</span>
+<span id="cb6-91"><a href="#cb6-91" aria-hidden="true" tabindex="-1"></a>        d0 <span class="op">=</span> m1.predict(X[t <span class="op">==</span> <span class="dv">0</span>]) <span class="op">-</span> y[t <span class="op">==</span> <span class="dv">0</span>]</span>
+<span id="cb6-92"><a href="#cb6-92" aria-hidden="true" tabindex="-1"></a>        tau1 <span class="op">=</span> <span class="va">self</span>._reg().fit(X[t <span class="op">==</span> <span class="dv">1</span>], d1)</span>
+<span id="cb6-93"><a href="#cb6-93" aria-hidden="true" tabindex="-1"></a>        tau0 <span class="op">=</span> <span class="va">self</span>._reg().fit(X[t <span class="op">==</span> <span class="dv">0</span>], d0)</span>
+<span id="cb6-94"><a href="#cb6-94" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.p_, <span class="va">self</span>.tau0_, <span class="va">self</span>.tau1_ <span class="op">=</span> p, tau0, tau1</span>
+<span id="cb6-95"><a href="#cb6-95" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span></span>
+<span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, X):</span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.p_ <span class="op">*</span> <span class="va">self</span>.tau0_.predict(X) <span class="op">+</span> (<span class="dv">1</span> <span class="op">-</span> <span class="va">self</span>.p_) <span class="op">*</span> <span class="va">self</span>.tau1_.predict(X)</span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-100"><a href="#cb6-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-101"><a href="#cb6-101" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> RLearner:</span>
+<span id="cb6-102"><a href="#cb6-102" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, learner: <span class="bu">str</span> <span class="op">=</span> <span class="st">"ranger"</span>, n_fold: <span class="bu">int</span> <span class="op">=</span> <span class="dv">3</span>):</span>
+<span id="cb6-103"><a href="#cb6-103" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.learner <span class="op">=</span> learner</span>
+<span id="cb6-104"><a href="#cb6-104" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.n_fold <span class="op">=</span> n_fold</span>
+<span id="cb6-105"><a href="#cb6-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-106"><a href="#cb6-106" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _reg(<span class="va">self</span>):</span>
+<span id="cb6-107"><a href="#cb6-107" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.learner <span class="op">==</span> <span class="st">"lm"</span>:</span>
+<span id="cb6-108"><a href="#cb6-108" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> LinearRegression()</span>
+<span id="cb6-109"><a href="#cb6-109" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">100</span>, random_state<span class="op">=</span><span class="dv">42</span>, n_jobs<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb6-110"><a href="#cb6-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-111"><a href="#cb6-111" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, X, t, y, p<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb6-112"><a href="#cb6-112" aria-hidden="true" tabindex="-1"></a>        t <span class="op">=</span> t.astype(<span class="bu">int</span>).astype(<span class="bu">float</span>)</span>
+<span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a>        p <span class="op">=</span> propensity_elastic_net(X, t) <span class="cf">if</span> p <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> p</span>
+<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a>        e <span class="op">=</span> t <span class="op">-</span> p</span>
+<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> <span class="va">self</span>._reg()</span>
+<span id="cb6-116"><a href="#cb6-116" aria-hidden="true" tabindex="-1"></a>        kf <span class="op">=</span> KFold(n_splits<span class="op">=</span><span class="va">self</span>.n_fold, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb6-117"><a href="#cb6-117" aria-hidden="true" tabindex="-1"></a>        y_hat <span class="op">=</span> np.zeros_like(y, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb6-118"><a href="#cb6-118" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> tr, va <span class="kw">in</span> kf.split(X):</span>
+<span id="cb6-119"><a href="#cb6-119" aria-hidden="true" tabindex="-1"></a>            m.fit(X[tr], y[tr])</span>
+<span id="cb6-120"><a href="#cb6-120" aria-hidden="true" tabindex="-1"></a>            y_hat[va] <span class="op">=</span> m.predict(X[va])</span>
+<span id="cb6-121"><a href="#cb6-121" aria-hidden="true" tabindex="-1"></a>        resid <span class="op">=</span> y <span class="op">-</span> y_hat</span>
+<span id="cb6-122"><a href="#cb6-122" aria-hidden="true" tabindex="-1"></a>        tau <span class="op">=</span> <span class="va">self</span>._reg()</span>
+<span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a>        tau.fit(X, resid <span class="op">/</span> (e <span class="op">+</span> <span class="fl">1e-6</span>), sample_weight<span class="op">=</span>e<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb6-124"><a href="#cb6-124" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.tau_ <span class="op">=</span> tau</span>
+<span id="cb6-125"><a href="#cb6-125" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span></span>
+<span id="cb6-126"><a href="#cb6-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-127"><a href="#cb6-127" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, X):</span>
+<span id="cb6-128"><a href="#cb6-128" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.tau_.predict(X)</span>
+<span id="cb6-129"><a href="#cb6-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-130"><a href="#cb6-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-131"><a href="#cb6-131" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_cumgain(df_preds, outcome_col<span class="op">=</span><span class="st">"y"</span>, treatment_col<span class="op">=</span><span class="st">"w"</span>, treatment_effect_col<span class="op">=</span><span class="st">"tau"</span>, normalize<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb6-132"><a href="#cb6-132" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Cumulative gain curve (CausalML-style AUUC helper)."""</span></span>
+<span id="cb6-133"><a href="#cb6-133" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> df_preds[outcome_col].to_numpy()</span>
+<span id="cb6-134"><a href="#cb6-134" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> df_preds[treatment_col].to_numpy()</span>
+<span id="cb6-135"><a href="#cb6-135" aria-hidden="true" tabindex="-1"></a>    tau <span class="op">=</span> df_preds[treatment_effect_col].to_numpy()</span>
+<span id="cb6-136"><a href="#cb6-136" aria-hidden="true" tabindex="-1"></a>    model_cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> df_preds.columns <span class="cf">if</span> c <span class="kw">not</span> <span class="kw">in</span> {outcome_col, treatment_col, treatment_effect_col}]</span>
+<span id="cb6-137"><a href="#cb6-137" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(df_preds)</span>
+<span id="cb6-138"><a href="#cb6-138" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> {}</span>
+<span id="cb6-139"><a href="#cb6-139" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col <span class="kw">in</span> model_cols:</span>
+<span id="cb6-140"><a href="#cb6-140" aria-hidden="true" tabindex="-1"></a>        scores <span class="op">=</span> df_preds[col].to_numpy()</span>
+<span id="cb6-141"><a href="#cb6-141" aria-hidden="true" tabindex="-1"></a>        order <span class="op">=</span> np.argsort(<span class="op">-</span>scores)</span>
+<span id="cb6-142"><a href="#cb6-142" aria-hidden="true" tabindex="-1"></a>        cum <span class="op">=</span> []</span>
+<span id="cb6-143"><a href="#cb6-143" aria-hidden="true" tabindex="-1"></a>        treated_so_far <span class="op">=</span> control_so_far <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb6-144"><a href="#cb6-144" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, idx <span class="kw">in</span> <span class="bu">enumerate</span>(order, start<span class="op">=</span><span class="dv">1</span>):</span>
+<span id="cb6-145"><a href="#cb6-145" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> w[idx] <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb6-146"><a href="#cb6-146" aria-hidden="true" tabindex="-1"></a>                treated_so_far <span class="op">+=</span> y[idx]</span>
+<span id="cb6-147"><a href="#cb6-147" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb6-148"><a href="#cb6-148" aria-hidden="true" tabindex="-1"></a>                control_so_far <span class="op">+=</span> y[idx]</span>
+<span id="cb6-149"><a href="#cb6-149" aria-hidden="true" tabindex="-1"></a>            lift <span class="op">=</span> treated_so_far <span class="op">/</span> <span class="bu">max</span>((w[order[:i]] <span class="op">==</span> <span class="dv">1</span>).<span class="bu">sum</span>(), <span class="dv">1</span>) <span class="op">-</span> control_so_far <span class="op">/</span> <span class="bu">max</span>(</span>
+<span id="cb6-150"><a href="#cb6-150" aria-hidden="true" tabindex="-1"></a>                (w[order[:i]] <span class="op">==</span> <span class="dv">0</span>).<span class="bu">sum</span>(), <span class="dv">1</span></span>
+<span id="cb6-151"><a href="#cb6-151" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb6-152"><a href="#cb6-152" aria-hidden="true" tabindex="-1"></a>            cum.append(lift)</span>
+<span id="cb6-153"><a href="#cb6-153" aria-hidden="true" tabindex="-1"></a>        curve <span class="op">=</span> np.array(cum)</span>
+<span id="cb6-154"><a href="#cb6-154" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> normalize <span class="kw">and</span> curve[<span class="op">-</span><span class="dv">1</span>] <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a>            curve <span class="op">=</span> curve <span class="op">/</span> np.<span class="bu">abs</span>(curve[<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a>        out[col] <span class="op">=</span> curve</span>
+<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a>    out[treatment_effect_col] <span class="op">=</span> out.get(treatment_effect_col, out[model_cols[<span class="dv">0</span>]])</span>
+<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.DataFrame(out)</span>
+<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_gain(df_preds, outcome_col<span class="op">=</span><span class="st">"y"</span>, treatment_col<span class="op">=</span><span class="st">"w"</span>, treatment_effect_col<span class="op">=</span><span class="st">"tau"</span>, model_cols<span class="op">=</span><span class="va">None</span>, main<span class="op">=</span><span class="st">""</span>, normalize<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb6-162"><a href="#cb6-162" aria-hidden="true" tabindex="-1"></a>    <span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-163"><a href="#cb6-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-164"><a href="#cb6-164" aria-hidden="true" tabindex="-1"></a>    gain <span class="op">=</span> get_cumgain(df_preds, outcome_col, treatment_col, treatment_effect_col, normalize)</span>
+<span id="cb6-165"><a href="#cb6-165" aria-hidden="true" tabindex="-1"></a>    model_cols <span class="op">=</span> model_cols <span class="kw">or</span> [c <span class="cf">for</span> c <span class="kw">in</span> gain.columns]</span>
+<span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a>    plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
+<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> col <span class="kw">in</span> model_cols:</span>
+<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> col <span class="kw">in</span> gain.columns:</span>
+<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a>            plt.plot(gain[col].values, label<span class="op">=</span>col)</span>
+<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">"Population fraction targeted"</span>)</span>
+<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">"Cumulative gain"</span> <span class="op">+</span> (<span class="st">" (normalized)"</span> <span class="cf">if</span> normalize <span class="cf">else</span> <span class="st">""</span>))</span>
+<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a>    plt.title(main)</span>
+<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb6-174"><a href="#cb6-174" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb6-175"><a href="#cb6-175" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb6-176"><a href="#cb6-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-177"><a href="#cb6-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-178"><a href="#cb6-178" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> load_ihdp(replications: <span class="bu">int</span> <span class="op">=</span> <span class="dv">2</span>, random_state: <span class="bu">int</span> <span class="op">=</span> <span class="dv">1</span>):</span>
+<span id="cb6-179"><a href="#cb6-179" aria-hidden="true" tabindex="-1"></a>    base_url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/uber/causalml/master/docs/examples/data"</span></span>
+<span id="cb6-180"><a href="#cb6-180" aria-hidden="true" tabindex="-1"></a>    cols <span class="op">=</span> [<span class="st">"treatment"</span>, <span class="st">"y_factual"</span>, <span class="st">"y_cfactual"</span>, <span class="st">"mu0"</span>, <span class="st">"mu1"</span>] <span class="op">+</span> [<span class="ss">f"X</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">25</span>)]</span>
+<span id="cb6-181"><a href="#cb6-181" aria-hidden="true" tabindex="-1"></a>    parts <span class="op">=</span> []</span>
+<span id="cb6-182"><a href="#cb6-182" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">10</span>):</span>
+<span id="cb6-183"><a href="#cb6-183" aria-hidden="true" tabindex="-1"></a>        url <span class="op">=</span> <span class="ss">f"</span><span class="sc">{</span>base_url<span class="sc">}</span><span class="ss">/ihdp_npci_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">.csv"</span></span>
+<span id="cb6-184"><a href="#cb6-184" aria-hidden="true" tabindex="-1"></a>        tmp <span class="op">=</span> pd.read_csv(url, header<span class="op">=</span><span class="va">None</span>)</span>
+<span id="cb6-185"><a href="#cb6-185" aria-hidden="true" tabindex="-1"></a>        tmp.columns <span class="op">=</span> cols[: tmp.shape[<span class="dv">1</span>]]</span>
+<span id="cb6-186"><a href="#cb6-186" aria-hidden="true" tabindex="-1"></a>        parts.append(tmp)</span>
+<span id="cb6-187"><a href="#cb6-187" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.concat(parts, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-188"><a href="#cb6-188" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> replications <span class="op">&gt;</span> <span class="dv">1</span>:</span>
+<span id="cb6-189"><a href="#cb6-189" aria-hidden="true" tabindex="-1"></a>        df <span class="op">=</span> pd.concat([df] <span class="op">*</span> replications, ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-190"><a href="#cb6-190" aria-hidden="true" tabindex="-1"></a>    binfeats <span class="op">=</span> [<span class="ss">f"X</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>, <span class="dv">25</span>)]</span>
+<span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a>    contfeats <span class="op">=</span> [<span class="ss">f"X</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">6</span>)]</span>
+<span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a>    xcols <span class="op">=</span> binfeats <span class="op">+</span> contfeats</span>
+<span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> df[xcols].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb6-194"><a href="#cb6-194" aria-hidden="true" tabindex="-1"></a>    treatment <span class="op">=</span> df[<span class="st">"treatment"</span>].to_numpy(dtype<span class="op">=</span><span class="bu">int</span>)</span>
+<span id="cb6-195"><a href="#cb6-195" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> df[<span class="st">"y_factual"</span>].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb6-196"><a href="#cb6-196" aria-hidden="true" tabindex="-1"></a>    tau <span class="op">=</span> np.where(</span>
+<span id="cb6-197"><a href="#cb6-197" aria-hidden="true" tabindex="-1"></a>        treatment <span class="op">==</span> <span class="dv">1</span>,</span>
+<span id="cb6-198"><a href="#cb6-198" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">"y_factual"</span>] <span class="op">-</span> df[<span class="st">"y_cfactual"</span>],</span>
+<span id="cb6-199"><a href="#cb6-199" aria-hidden="true" tabindex="-1"></a>        df[<span class="st">"y_cfactual"</span>] <span class="op">-</span> df[<span class="st">"y_factual"</span>],</span>
+<span id="cb6-200"><a href="#cb6-200" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-201"><a href="#cb6-201" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">len</span>(X)</span>
+<span id="cb6-202"><a href="#cb6-202" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(random_state)</span>
+<span id="cb6-203"><a href="#cb6-203" aria-hidden="true" tabindex="-1"></a>    val_idx <span class="op">=</span> rng.choice(n, size<span class="op">=</span><span class="bu">int</span>(<span class="fl">0.2</span> <span class="op">*</span> n), replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb6-204"><a href="#cb6-204" aria-hidden="true" tabindex="-1"></a>    train_idx <span class="op">=</span> np.setdiff1d(np.arange(n), val_idx)</span>
+<span id="cb6-205"><a href="#cb6-205" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df, X, treatment, y, tau, train_idx, val_idx</span>
+<span id="cb6-206"><a href="#cb6-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-207"><a href="#cb6-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-208"><a href="#cb6-208" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_hidden_confounder(n<span class="op">=</span><span class="dv">2000</span>, p<span class="op">=</span><span class="dv">5</span>, sigma<span class="op">=</span><span class="fl">1.0</span>, adj<span class="op">=</span><span class="dv">0</span>, random_state<span class="op">=</span><span class="dv">42</span>):</span>
+<span id="cb6-209"><a href="#cb6-209" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Synthetic DGP with latent confounder (CausalML-style benchmark)."""</span></span>
+<span id="cb6-210"><a href="#cb6-210" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(random_state)</span>
+<span id="cb6-211"><a href="#cb6-211" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> rng.normal(size<span class="op">=</span>n)</span>
+<span id="cb6-212"><a href="#cb6-212" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> np.column_stack([z <span class="op">+</span> rng.normal(scale<span class="op">=</span>sigma, size<span class="op">=</span>n) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(p)])</span>
+<span id="cb6-213"><a href="#cb6-213" aria-hidden="true" tabindex="-1"></a>    e <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> np.exp(<span class="op">-</span>(adj <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> z)))</span>
+<span id="cb6-214"><a href="#cb6-214" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> rng.binomial(<span class="dv">1</span>, e)</span>
+<span id="cb6-215"><a href="#cb6-215" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> z <span class="op">+</span> rng.normal(scale<span class="op">=</span>sigma, size<span class="op">=</span>n)</span>
+<span id="cb6-216"><a href="#cb6-216" aria-hidden="true" tabindex="-1"></a>    tau <span class="op">=</span> <span class="fl">0.5</span> <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> z</span>
+<span id="cb6-217"><a href="#cb6-217" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> b <span class="op">+</span> w <span class="op">*</span> tau <span class="op">+</span> rng.normal(scale<span class="op">=</span>sigma, size<span class="op">=</span>n)</span>
+<span id="cb6-218"><a href="#cb6-218" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {<span class="st">"X"</span>: X, <span class="st">"y"</span>: y, <span class="st">"w"</span>: w, <span class="st">"tau"</span>: tau, <span class="st">"b"</span>: b, <span class="st">"e"</span>: e}</span>
+<span id="cb6-219"><a href="#cb6-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-220"><a href="#cb6-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-221"><a href="#cb6-221" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> result_table(df_preds, tau_true):</span>
+<span id="cb6-222"><a href="#cb6-222" aria-hidden="true" tabindex="-1"></a>    model_cols <span class="op">=</span> [c <span class="cf">for</span> c <span class="kw">in</span> [<span class="st">"S"</span>, <span class="st">"T"</span>, <span class="st">"X"</span>, <span class="st">"R"</span>, <span class="st">"GANITE"</span>, <span class="st">"CEVAE"</span>] <span class="cf">if</span> c <span class="kw">in</span> df_preds.columns]</span>
+<span id="cb6-223"><a href="#cb6-223" aria-hidden="true" tabindex="-1"></a>    methods <span class="op">=</span> model_cols <span class="op">+</span> [<span class="st">"actual"</span>]</span>
+<span id="cb6-224"><a href="#cb6-224" aria-hidden="true" tabindex="-1"></a>    ate <span class="op">=</span> [df_preds[m].mean() <span class="cf">for</span> m <span class="kw">in</span> model_cols] <span class="op">+</span> [<span class="bu">float</span>(tau_true.mean())]</span>
+<span id="cb6-225"><a href="#cb6-225" aria-hidden="true" tabindex="-1"></a>    mae <span class="op">=</span> [<span class="bu">float</span>(np.mean(np.<span class="bu">abs</span>(df_preds[m] <span class="op">-</span> tau_true))) <span class="cf">for</span> m <span class="kw">in</span> model_cols] <span class="op">+</span> [np.nan]</span>
+<span id="cb6-226"><a href="#cb6-226" aria-hidden="true" tabindex="-1"></a>    gain <span class="op">=</span> get_cumgain(df_preds)</span>
+<span id="cb6-227"><a href="#cb6-227" aria-hidden="true" tabindex="-1"></a>    auuc <span class="op">=</span> [<span class="bu">float</span>(gain[m].mean()) <span class="cf">if</span> m <span class="kw">in</span> gain.columns <span class="cf">else</span> np.nan <span class="cf">for</span> m <span class="kw">in</span> model_cols]</span>
+<span id="cb6-228"><a href="#cb6-228" aria-hidden="true" tabindex="-1"></a>    auuc.append(<span class="bu">float</span>(gain[<span class="st">"tau"</span>].mean()) <span class="cf">if</span> <span class="st">"tau"</span> <span class="kw">in</span> gain.columns <span class="cf">else</span> np.nan)</span>
+<span id="cb6-229"><a href="#cb6-229" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.DataFrame({<span class="st">"Method"</span>: methods, <span class="st">"ATE"</span>: ate, <span class="st">"MAE"</span>: mae, <span class="st">"AUUC"</span>: auuc})</span>
+<span id="cb6-230"><a href="#cb6-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-231"><a href="#cb6-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-232"><a href="#cb6-232" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> synthetic_summary(preds, tau_ref, actual_ate):</span>
+<span id="cb6-233"><a href="#cb6-233" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> []</span>
+<span id="cb6-234"><a href="#cb6-234" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> name, p <span class="kw">in</span> preds.items():</span>
+<span id="cb6-235"><a href="#cb6-235" aria-hidden="true" tabindex="-1"></a>        rows.append({</span>
+<span id="cb6-236"><a href="#cb6-236" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Method"</span>: name,</span>
+<span id="cb6-237"><a href="#cb6-237" aria-hidden="true" tabindex="-1"></a>            <span class="st">"ATE"</span>: p.mean(),</span>
+<span id="cb6-238"><a href="#cb6-238" aria-hidden="true" tabindex="-1"></a>            <span class="st">"MSE"</span>: np.mean((p <span class="op">-</span> tau_ref) <span class="op">**</span> <span class="dv">2</span>),</span>
+<span id="cb6-239"><a href="#cb6-239" aria-hidden="true" tabindex="-1"></a>            <span class="st">"AbsPctErrorATE"</span>: <span class="bu">abs</span>(p.mean() <span class="op">/</span> actual_ate <span class="op">-</span> <span class="dv">1</span>) <span class="cf">if</span> actual_ate <span class="op">!=</span> <span class="dv">0</span> <span class="cf">else</span> np.nan,</span>
+<span id="cb6-240"><a href="#cb6-240" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb6-241"><a href="#cb6-241" aria-hidden="true" tabindex="-1"></a>    rows.append({<span class="st">"Method"</span>: <span class="st">"Actuals"</span>, <span class="st">"ATE"</span>: actual_ate, <span class="st">"MSE"</span>: np.nan, <span class="st">"AbsPctErrorATE"</span>: np.nan})</span>
+<span id="cb6-242"><a href="#cb6-242" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.DataFrame(rows)</span>
+<span id="cb6-243"><a href="#cb6-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-244"><a href="#cb6-244" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pydeepcausalml.effect <span class="im">import</span> DragonNet</span>
+<span id="cb6-245"><a href="#cb6-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-246"><a href="#cb6-246" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> load_nsw_mixtape()</span>
+<span id="cb6-247"><a href="#cb6-247" aria-hidden="true" tabindex="-1"></a>y_col, t_col <span class="op">=</span> <span class="st">"re78"</span>, <span class="st">"treat"</span></span>
+<span id="cb6-248"><a href="#cb6-248" aria-hidden="true" tabindex="-1"></a>x_cols <span class="op">=</span> [<span class="st">"age"</span>, <span class="st">"educ"</span>, <span class="st">"black"</span>, <span class="st">"hisp"</span>, <span class="st">"marr"</span>, <span class="st">"nodegree"</span>, <span class="st">"re74"</span>, <span class="st">"re75"</span>]</span>
+<span id="cb6-249"><a href="#cb6-249" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.dropna(subset<span class="op">=</span>[y_col, t_col] <span class="op">+</span> x_cols).copy()</span>
+<span id="cb6-250"><a href="#cb6-250" aria-hidden="true" tabindex="-1"></a>df[t_col] <span class="op">=</span> df[t_col].astype(<span class="bu">int</span>)</span>
+<span id="cb6-251"><a href="#cb6-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-252"><a href="#cb6-252" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> df[x_cols].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb6-253"><a href="#cb6-253" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> (X <span class="op">-</span> X.mean(axis<span class="op">=</span><span class="dv">0</span>)) <span class="op">/</span> (X.std(axis<span class="op">=</span><span class="dv">0</span>) <span class="op">+</span> <span class="fl">1e-8</span>)</span>
+<span id="cb6-254"><a href="#cb6-254" aria-hidden="true" tabindex="-1"></a>t_vec <span class="op">=</span> df[t_col].to_numpy(dtype<span class="op">=</span><span class="bu">int</span>)</span>
+<span id="cb6-255"><a href="#cb6-255" aria-hidden="true" tabindex="-1"></a>y_vec <span class="op">=</span> df[y_col].to_numpy(dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb6-256"><a href="#cb6-256" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Sample size:"</span>, <span class="bu">len</span>(X), <span class="st">"| Covariates:"</span>, X.shape[<span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sample size: 445 | Covariates: 8</code></pre>
+</div>
 </div>
 </section>
 <section id="trainvalidation-split" class="level3">
 <h3 class="anchored" data-anchor-id="trainvalidation-split">Train/validation split</h3>
-<div id="cell-19" class="cell">
+<div id="48399ad2" class="cell" data-execution_count="5">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">4343</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> rng.choice(<span class="bu">len</span>(X), size<span class="op">=</span><span class="bu">int</span>(<span class="fl">0.8</span> <span class="op">*</span> <span class="bu">len</span>(X)), replace<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> np.zeros(<span class="bu">len</span>(X), dtype<span class="op">=</span><span class="bu">bool</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>mask[idx] <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>X_train, X_val <span class="op">=</span> X[mask], X[<span class="op">~</span>mask]</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>t_train, t_val <span class="op">=</span> t_vec[mask], t_vec[<span class="op">~</span>mask]</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>y_train, y_val <span class="op">=</span> y_vec[mask], y_vec[<span class="op">~</span>mask]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">4343</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> rng.choice(<span class="bu">len</span>(X), size<span class="op">=</span><span class="bu">int</span>(<span class="fl">0.8</span> <span class="op">*</span> <span class="bu">len</span>(X)), replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> np.zeros(<span class="bu">len</span>(X), dtype<span class="op">=</span><span class="bu">bool</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>mask[idx] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>X_train, X_val <span class="op">=</span> X[mask], X[<span class="op">~</span>mask]</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>t_train, t_val <span class="op">=</span> t_vec[mask], t_vec[<span class="op">~</span>mask]</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>y_train, y_val <span class="op">=</span> y_vec[mask], y_vec[<span class="op">~</span>mask]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
 <section id="fit-dragonnet" class="level3">
 <h3 class="anchored" data-anchor-id="fit-dragonnet">Fit DragonNet</h3>
-<div id="cell-21" class="cell">
+<div id="a0aeff45" class="cell" data-execution_count="6">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fit_dn <span class="op">=</span> DragonNet(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    repr_dim<span class="op">=</span><span class="dv">128</span>,</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    head_dim<span class="op">=</span><span class="dv">64</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">1.0</span>,</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    beta<span class="op">=</span><span class="fl">0.1</span>,</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span><span class="dv">80</span>,</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">64</span>,</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    lr<span class="op">=</span><span class="fl">5e-4</span>,</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    standardize<span class="op">=</span><span class="va">False</span>,</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    standardize_outcome<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span>,</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    log_every<span class="op">=</span><span class="dv">10</span>,</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>).fit(X_train, t_train, y_train)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fit_dn <span class="op">=</span> DragonNet(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    repr_dim<span class="op">=</span><span class="dv">128</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    head_dim<span class="op">=</span><span class="dv">64</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">1.0</span>,</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    beta<span class="op">=</span><span class="fl">0.1</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    epochs<span class="op">=</span><span class="dv">80</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    batch_size<span class="op">=</span><span class="dv">64</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    lr<span class="op">=</span><span class="fl">5e-4</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    standardize<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    standardize_outcome<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    random_state<span class="op">=</span><span class="dv">42</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    verbose<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    log_every<span class="op">=</span><span class="dv">10</span>,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>).fit(X_train, t_train, y_train)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
 <section id="predict-ite-ate-and-propensity" class="level3">
 <h3 class="anchored" data-anchor-id="predict-ite-ate-and-propensity">Predict ITE, ATE, and propensity</h3>
-<div id="cell-23" class="cell">
+<div id="b72ab269" class="cell" data-execution_count="7">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ite_val <span class="op">=</span> fit_dn.predict_cate(X_val)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>ate_val <span class="op">=</span> ite_val.mean()</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DragonNet ATE (val):"</span>, <span class="bu">round</span>(ate_val, <span class="dv">2</span>))</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Naive diff-in-means (val):"</span>, <span class="bu">round</span>(y_val[t_val <span class="op">==</span> <span class="dv">1</span>].mean() <span class="op">-</span> y_val[t_val <span class="op">==</span> <span class="dv">0</span>].mean(), <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>ite_val <span class="op">=</span> fit_dn.predict_cate(X_val)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>ate_val <span class="op">=</span> ite_val.mean()</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DragonNet ATE (val):"</span>, <span class="bu">round</span>(ate_val, <span class="dv">2</span>))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Naive diff-in-means (val):"</span>, <span class="bu">round</span>(y_val[t_val <span class="op">==</span> <span class="dv">1</span>].mean() <span class="op">-</span> y_val[t_val <span class="op">==</span> <span class="dv">0</span>].mean(), <span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>DragonNet ATE (val): 2041.8
+Naive diff-in-means (val): 2096.04</code></pre>
+</div>
 </div>
 </section>
 <section id="factual-mse-and-propensity-calibration" class="level3">
 <h3 class="anchored" data-anchor-id="factual-mse-and-propensity-calibration">Factual MSE and propensity calibration</h3>
-<div id="cell-25" class="cell">
+<div id="0de557eb" class="cell" data-execution_count="8">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>y0, y1 <span class="op">=</span> fit_dn.predict_potential_outcomes(X_val)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>y_hat <span class="op">=</span> np.where(t_val.astype(<span class="bu">bool</span>), y1, y0)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>mse_dragon <span class="op">=</span> <span class="bu">float</span>(np.mean((y_val <span class="op">-</span> y_hat) <span class="op">**</span> <span class="dv">2</span>))</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>prop <span class="op">=</span> fit_dn.predict_propensity(X_val)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DragonNet factual MSE (val):"</span>, <span class="bu">round</span>(mse_dragon, <span class="dv">2</span>))</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mean predicted propensity | T=0:"</span>, <span class="bu">round</span>(prop[t_val <span class="op">==</span> <span class="dv">0</span>].mean(), <span class="dv">3</span>),</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"| T=1:"</span>, <span class="bu">round</span>(prop[t_val <span class="op">==</span> <span class="dv">1</span>].mean(), <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>y0, y1 <span class="op">=</span> fit_dn.predict_potential_outcomes(X_val)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>y_hat <span class="op">=</span> np.where(t_val.astype(<span class="bu">bool</span>), y1, y0)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>mse_dragon <span class="op">=</span> <span class="bu">float</span>(np.mean((y_val <span class="op">-</span> y_hat) <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>prop <span class="op">=</span> fit_dn.predict_propensity(X_val)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"DragonNet factual MSE (val):"</span>, <span class="bu">round</span>(mse_dragon, <span class="dv">2</span>))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Mean predicted propensity | T=0:"</span>, <span class="bu">round</span>(prop[t_val <span class="op">==</span> <span class="dv">0</span>].mean(), <span class="dv">3</span>),</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>      <span class="st">"| T=1:"</span>, <span class="bu">round</span>(prop[t_val <span class="op">==</span> <span class="dv">1</span>].mean(), <span class="dv">3</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>DragonNet factual MSE (val): 81694328.12
+Mean predicted propensity | T=0: 0.467 | T=1: 0.466</code></pre>
+</div>
 </div>
 </section>
 <section id="permutation-based-feature-importance" class="level3">
 <h3 class="anchored" data-anchor-id="permutation-based-feature-importance">Permutation-based feature importance</h3>
-<div id="cell-27" class="cell">
+<div id="7b2ac997" class="cell" data-execution_count="9">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>n_rep <span class="op">=</span> <span class="dv">8</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">4343</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>ite_base <span class="op">=</span> fit_dn.predict_cate(X_val)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>imp <span class="op">=</span> []</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(X_val.shape[<span class="dv">1</span>]):</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    deltas <span class="op">=</span> []</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_rep):</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        Xp <span class="op">=</span> X_val.copy()</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        Xp[:, j] <span class="op">=</span> rng.permutation(Xp[:, j])</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        deltas.append(np.mean(np.<span class="bu">abs</span>(ite_base <span class="op">-</span> fit_dn.predict_cate(Xp))))</span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    imp.append(np.mean(deltas))</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>impdf <span class="op">=</span> pd.DataFrame({<span class="st">"feature"</span>: x_cols, <span class="st">"importance"</span>: imp})</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>sns.barplot(impdf.sort_values(<span class="st">"importance"</span>), y<span class="op">=</span><span class="st">"feature"</span>, x<span class="op">=</span><span class="st">"importance"</span>, color<span class="op">=</span><span class="st">"#1B998B"</span>)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"DragonNet: Permutation Importance for Predicted CATE (Validation)"</span>)</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>n_rep <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">4343</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>ite_base <span class="op">=</span> fit_dn.predict_cate(X_val)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>imp <span class="op">=</span> []</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(X_val.shape[<span class="dv">1</span>]):</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    deltas <span class="op">=</span> []</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_rep):</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        Xp <span class="op">=</span> X_val.copy()</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        Xp[:, j] <span class="op">=</span> rng.permutation(Xp[:, j])</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        deltas.append(np.mean(np.<span class="bu">abs</span>(ite_base <span class="op">-</span> fit_dn.predict_cate(Xp))))</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    imp.append(np.mean(deltas))</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>impdf <span class="op">=</span> pd.DataFrame({<span class="st">"feature"</span>: x_cols, <span class="st">"importance"</span>: imp})</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>sns.barplot(impdf.sort_values(<span class="st">"importance"</span>), y<span class="op">=</span><span class="st">"feature"</span>, x<span class="op">=</span><span class="st">"importance"</span>, color<span class="op">=</span><span class="st">"#1B998B"</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"DragonNet: Permutation Importance for Predicted CATE (Validation)"</span>)</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_08_05_05_01_03_DeepCausalML_DragonNet_files/figure-html/cell-10-output-1.png" width="613" height="375" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 </section>

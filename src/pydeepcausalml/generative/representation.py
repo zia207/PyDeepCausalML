@@ -24,12 +24,14 @@ class _IVAEModule(nn.Module):
     def encode(self, x: torch.Tensor):
         h = self.encoder(x)
         mu, logvar = h.chunk(2, dim=-1)
+        logvar = logvar.clamp(-8.0, 8.0)
         z = mu + torch.randn_like(mu) * (0.5 * logvar).exp()
         return z, mu, logvar
 
     def prior_params(self, u: torch.Tensor):
         h = self.prior_net(u)
-        return h.chunk(2, dim=-1)
+        mu, logvar = h.chunk(2, dim=-1)
+        return mu, logvar.clamp(-8.0, 8.0)
 
 
 class IVAE(BaseDeepEstimator):
@@ -47,6 +49,10 @@ class IVAE(BaseDeepEstimator):
         u = check_array(aux, "aux")
         if len(x) != len(u):
             raise ValueError("X and aux must have the same length.")
+        self.x_mean_, self.x_std_ = x.mean(axis=0), x.std(axis=0) + 1e-8
+        x = (x - self.x_mean_) / self.x_std_
+        self.u_mean_, self.u_std_ = u.mean(axis=0), u.std(axis=0) + 1e-8
+        u = (u - self.u_mean_) / self.u_std_
 
         self.module_ = module_to_device(_IVAEModule(x.shape[1], self.latent_dim, u.shape[1], self.hidden), device)
         optimizer = self._make_optimizer(self.module_)
@@ -81,7 +87,7 @@ class IVAE(BaseDeepEstimator):
     def transform(self, X) -> np.ndarray:
         self._check_fitted()
         device = self._device
-        x = check_array(X, "X")
+        x = (check_array(X, "X") - self.x_mean_) / self.x_std_
         self.module_.eval()
         with torch.no_grad():
             z, _, _ = self.module_.encode(to_tensor(x, device=device))
@@ -99,6 +105,7 @@ class _CausalVAEModule(nn.Module):
     def encode(self, x: torch.Tensor):
         h = self.encoder(x)
         mu, logvar = h.chunk(2, dim=-1)
+        logvar = logvar.clamp(-8.0, 8.0)
         z = mu + torch.randn_like(mu) * (0.5 * logvar).exp()
         return z, mu, logvar
 
@@ -127,6 +134,8 @@ class CausalVAE(BaseDeepEstimator):
     def fit(self, X) -> CausalVAE:
         device = self._setup()
         x = check_array(X, "X")
+        self.x_mean_, self.x_std_ = x.mean(axis=0), x.std(axis=0) + 1e-8
+        x = (x - self.x_mean_) / self.x_std_
         self.module_ = module_to_device(_CausalVAEModule(x.shape[1], self.latent_dim, self.hidden), device)
         optimizer = self._make_optimizer(self.module_)
         loader = DataLoader(
@@ -164,7 +173,7 @@ class CausalVAE(BaseDeepEstimator):
     def transform(self, X) -> np.ndarray:
         self._check_fitted()
         device = self._device
-        x = check_array(X, "X")
+        x = (check_array(X, "X") - self.x_mean_) / self.x_std_
         self.module_.eval()
         with torch.no_grad():
             z, _, _ = self.module_.encode(to_tensor(x, device=device))

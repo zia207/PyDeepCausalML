@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.27">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -73,14 +73,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-7ac2f9da8c2617a4fdd15004b4601015.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-597958c53c93a607afca12fd375c57ed.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-bf6de5ccb156a65fc439966d4053cafd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-c3ddef8e9936373b1ee063945a43a984.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-bf6de5ccb156a65fc439966d4053cafd.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-00ad4eb260160d2848a4c52e78834c93.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-461cef08a4079ad9ad279fc6f65c4991.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-00ad4eb260160d2848a4c52e78834c93.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -854,8 +854,8 @@ window.Quarto = {
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"cuda:"</span>, torch.cuda.is_available())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>torch: 2.12.1+cu130
-cuda: False</code></pre>
+<pre><code>torch: 2.14.0+cu132
+cuda: True</code></pre>
 </div>
 </div>
 <div id="9f3d251b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-07-07T17:56:35.545744Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-07-07T17:56:35.545163Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-07-07T17:56:35.549770Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-07-07T17:56:35.548835Z&quot;}}" data-execution_count="3">
@@ -1040,7 +1040,7 @@ cuda: False</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Acyclic (thresholded, linear SEM): True
-Validation L2 loss (linear model | linear SEM): 25.046984</code></pre>
+Validation L2 loss (linear model | linear SEM): 25.099441</code></pre>
 </div>
 </div>
 <p><strong>Hyperparameter guidance.</strong> The two most impactful choices are: (i) the sparsity penalty <span class="math inline">\(\lambda_1 \in [0.01, 0.5]\)</span> — higher values prune more edges; and (ii) the edge-threshold <span class="math inline">\(w_{\mathrm{threshold}} \in [0.1, 0.5]\)</span> applied after optimization.</p>
@@ -1113,7 +1113,7 @@ Estimated ATE:  -0.0539  (error: 0.0539)</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-10-output-1.png" width="733" height="566" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1135,7 +1135,7 @@ Estimated ATE:  -0.0539  (error: 0.0539)</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-11-output-1.png" width="787" height="615" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1223,7 +1223,7 @@ Validation L2 loss (linear model | nonlinear SEM): 2.599821</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-14-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-14-output-2.png" width="759" height="375" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1256,7 +1256,7 @@ Validation L2 loss (linear model | nonlinear SEM): 2.599821</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-15-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-15-output-2.png" width="759" height="375" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1405,7 +1405,7 @@ ATE  (T=0 -&gt; Y=9)  on Nonlinear SEM
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-18-output-1.png" width="1335" height="373" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1437,7 +1437,7 @@ ATE  (T=0 -&gt; Y=9)  on Nonlinear SEM
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="02_08_05_05_03_01_DeepCausalML_NOTEARS_files/figure-html/cell-19-output-1.png" width="1526" height="470" class="figure-img"></p>
 </figure>
 </div>
 </div>
