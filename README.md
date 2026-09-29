@@ -10,24 +10,24 @@ PyDeepCausalML consolidates the model implementations developed across the *Deep
 
 ## Installation
 
+Requires Python ≥ 3.9 and PyTorch ≥ 2.0. Install release [v0.2.0](https://github.com/zia207/PyDeepCausalML/releases/tag/v0.2.0) from GitHub:
+
 ```bash
-pip install pydeepcausalml            # core
-pip install "pydeepcausalml[plot]"    # + matplotlib/seaborn plotting helpers
-pip install "pydeepcausalml[dev]"     # + test and lint tooling
+pip install https://github.com/zia207/PyDeepCausalML/releases/download/v0.2.0/pydeepcausalml-0.2.0-py3-none-any.whl
 ```
 
-Requires Python ≥ 3.9 and PyTorch ≥ 2.0. From source:
+Plotting helpers (`matplotlib` / `seaborn`):
+
+```bash
+pip install "pydeepcausalml[plot] @ https://github.com/zia207/PyDeepCausalML/releases/download/v0.2.0/pydeepcausalml-0.2.0-py3-none-any.whl"
+```
+
+The same release also includes the source archive `pydeepcausalml-0.2.0.tar.gz`. From a clone:
 
 ```bash
 git clone https://github.com/zia207/PyDeepCausalML && cd PyDeepCausalML
 pip install -e ".[dev]"
 pytest
-```
-
-Or install the pre-built wheel:
-
-```bash
-pip install pydeepcausalml-0.2.0-py3-none-any.whl
 ```
 
 ## Testing

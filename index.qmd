@@ -11,17 +11,17 @@ toc: false
 
 # pydeepcausalml {.pkg-name}
 
-**Latest release:** 0.2.0 · **Requires:** Python ≥ 3.9 · **License:** [MIT](https://github.com/zia207/PyDeepCausalML/blob/main/LICENSE)
+**Latest release:** [0.2.0](https://github.com/zia207/PyDeepCausalML/releases/tag/v0.2.0) · **Requires:** Python ≥ 3.9 · **License:** [MIT](https://github.com/zia207/PyDeepCausalML/blob/main/LICENSE)
 
 Deep learning models for causal inference in Python with Pytorch: treatment-effect estimation, causal structure learning, temporal causal discovery, and counterfactual forecasting — behind one consistent, sklearn-style API.
 
 ```{.bash copy="true"}
-pip install pydeepcausalml
+pip install https://github.com/zia207/PyDeepCausalML/releases/download/v0.2.0/pydeepcausalml-0.2.0-py3-none-any.whl
 ```
 
 | | |
 |---|---|
-| **Package** | [PyPI](https://pypi.org/project/pydeepcausalml/) · [GitHub](https://github.com/zia207/PyDeepCausalML) |
+| **Package** | [Release v0.2.0](https://github.com/zia207/PyDeepCausalML/releases/tag/v0.2.0) · [GitHub](https://github.com/zia207/PyDeepCausalML) |
 | **Docs** | [Tutorial](Tutorial/02_08_05_05_00_DeepCausalML_introduction.ipynb) · [Glossary](Tutorial/00-scientific-terminology-glossary.qmd) |
 | **Author** | Zia U. Ahmed · Upatta Analytics |
 
@@ -44,10 +44,16 @@ Use it when you need to:
 
 ## Installation {#installation}
 
+Install release [v0.2.0](https://github.com/zia207/PyDeepCausalML/releases/tag/v0.2.0) from GitHub. Requires Python ≥ 3.9 and PyTorch ≥ 2.0.
+
 ```bash
-pip install pydeepcausalml            # core
-pip install "pydeepcausalml[plot]"    # + matplotlib/seaborn plotting helpers
-pip install "pydeepcausalml[dev]"     # + test and lint tooling
+pip install https://github.com/zia207/PyDeepCausalML/releases/download/v0.2.0/pydeepcausalml-0.2.0-py3-none-any.whl
+```
+
+Plotting helpers (`matplotlib` / `seaborn`):
+
+```bash
+pip install "pydeepcausalml[plot] @ https://github.com/zia207/PyDeepCausalML/releases/download/v0.2.0/pydeepcausalml-0.2.0-py3-none-any.whl"
 ```
 
 From source:
@@ -120,7 +126,7 @@ MIT — see [LICENSE](https://github.com/zia207/PyDeepCausalML/blob/main/LICENSE
 - [Homepage](https://zia207.github.io/PyDeepCausalML/)
 - [Repository](https://github.com/zia207/PyDeepCausalML)
 - [Issues](https://github.com/zia207/PyDeepCausalML/issues)
-- [PyPI](https://pypi.org/project/pydeepcausalml/)
+- [Release v0.2.0](https://github.com/zia207/PyDeepCausalML/releases/tag/v0.2.0)
 
 ### Verified details
 
@@ -160,7 +166,7 @@ MIT — see [LICENSE](https://github.com/zia207/PyDeepCausalML/blob/main/LICENSE
 .pkg-hero pre {
   margin-top: 1rem;
   margin-bottom: 0.5rem;
-  max-width: 28rem;
+  max-width: 100%;
 }
 .pkg-sidebar {
   background: #f8f9fa;
